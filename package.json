@@ -1,0 +1,33 @@
+{
+    "name": "yuedu",
+    "version": "1.0.0",
+    "description": "My stupendous Nuxt.js project",
+    "author": "yzbgyq",
+    "private": true,
+    "scripts": {
+        "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
+        "build": "nuxt build",
+        "start": "cross-env NODE_ENV=production node server/index.js",
+        "generate": "nuxt generate"
+    },
+    "dependencies": {
+        "@nuxtjs/axios": "^5.3.6",
+        "cross-env": "^5.2.0",
+        "cssnano": "^4.1.10",
+        "cssnano-preset-advanced": "^4.0.7",
+        "koa": "^2.6.2",
+        "koa-bodyparser": "^4.2.1",
+        "koa-session": "^5.12.0",
+        "nuxt": "^2.8.1",
+        "postcss-preset-env": "^6.6.0",
+        "postcss-px-to-viewport": "^1.1.0",
+        "postcss-viewport-units": "^0.1.6",
+        "postcss-write-svg": "^3.0.1",
+        "vant": "^2.0.1"
+    },
+    "devDependencies": {
+        "node-sass": "^4.12.0",
+        "nodemon": "^1.18.9",
+        "sass-loader": "^7.1.0"
+    }
+}
