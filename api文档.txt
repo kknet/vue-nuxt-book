@@ -1,4 +1,6 @@
-·ÂÆğµãÔÄ¶Á github£ºhttps://github.com/moxier/Book-WebApp
-×·ÊéÉñÆ÷½Ó¿Ú https://xiadd.github.io/zhuishushenqi/#/?id=%E8%BF%BD%E4%B9%A6%E7%A5%9E%E5%99%A8%E6%8E%A5%E5%8F%A3
-Êé³ÇÊ×Ò³ http://47.106.64.47/
-ÆğµãÔÄ¶Á https://m.qidian.com/male/
+ä»¿èµ·ç‚¹é˜…è¯» githubï¼šhttps://github.com/moxier/Book-WebApp
+è¿½ä¹¦ç¥å™¨æ¥å£ https://xiadd.github.io/zhuishushenqi/#/?id=%E8%BF%BD%E4%B9%A6%E7%A5%9E%E5%99%A8%E6%8E%A5%E5%8F%A3
+ä¹¦åŸé¦–é¡µ http://47.106.64.47/
+èµ·ç‚¹é˜…è¯» https://m.qidian.com/male/
+
+https://github.com/zimplexing/vue-nReader/blob/master/doc/zhuishushenqi.md

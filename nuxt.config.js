@@ -15,10 +15,13 @@ module.exports = {
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
         ]
     },
+    server: {
+        host: '0.0.0.0', // default: localhost
+    },
     /*
     ** Customize the progress-bar color
     */
-    loading: { color: '#fff' },
+    loading: { color: '#3B8070' },
     /*
     ** Global CSS
     */
@@ -32,6 +35,7 @@ module.exports = {
     plugins: [
         { src: "~/plugins/vant.js", ssr: true },
         { src: "~/assets/css/iconfont.js", ssr: false },
+        { src: "~/plugins/filter.js", ssr: true },
     ],
     /*
     ** Nuxt.js modules
@@ -39,12 +43,24 @@ module.exports = {
     modules: [
         // Doc: https://axios.nuxtjs.org/usage
         '@nuxtjs/axios',
+        '@nuxtjs/proxy'
     ],
     /*
     ** Axios module configuration
     ** See https://axios.nuxtjs.org/options
     */
     axios: {
+        baseURL: process.env.NODE_ENV == "production" ? "http://101.132.188.203:3000" : "http://192.168.146.1:3000",
+        withCredentials: true,
+    },
+    proxy: {
+        "/zhuishu": {
+            target: "http://api.zhuishushenqi.com",
+            changeOrigin: true,
+            pathRewrite: {
+                "^/zhuishu": ""
+            }
+        }
     },
     /*
     ** Build configuration
@@ -78,7 +94,7 @@ module.exports = {
                         "preset": "advanced",
                         "autoprefixer": false,
                         "postcss-zindex": false,
-                        "zindex": false
+                        "zindex": false,
                     }
                 }
             }

@@ -1,7 +1,7 @@
 const Koa = require('koa')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
-
+var cors = require('koa2-cors');
 const app = new Koa()
 let config = require('../nuxt.config.js')
 config.dev = !(app.env === 'production')
@@ -20,6 +20,9 @@ async function start() {
   } else {
     await nuxt.ready()
   }
+  // 路由
+  require('./router')(app)
+  app.use(cors());
 
   app.use(ctx => {
     ctx.status = 200
@@ -27,7 +30,6 @@ async function start() {
     ctx.req.ctx = ctx // This might be useful later on, e.g. in nuxtServerInit or with nuxt-stash
     nuxt.render(ctx.req, ctx.res)
   })
-
   app.listen(port, host)
   consola.ready({
     message: `Server listening on http://${host}:${port}`,

@@ -1,0 +1,12 @@
+@mixin scroll($top, $bottom,$bg) {
+    position: fixed !important;
+    top: $top;
+    left: 0;
+    right: 0;
+    bottom: $bottom;
+    background: $bg;
+    .scroll-warpper-app {
+        height: 100%;
+        overflow: hidden;
+    }
+}

@@ -220,3 +220,41 @@ hr {
     fill: currentColor;
     overflow: hidden;
 }
+
+@font-face {
+    font-family: FZZCYSK;
+    font-style: normal;
+    font-weight: 400;
+    src: url('../font/FZZCYSK2.a0828.woff2') format('woff2')
+}
+
+.FZZCYSK {
+    display: inline-block;
+    font: normal normal normal 14px/1 FZZCYSK;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-stroke-width: .1px
+}
+
+.gray {
+    color: gray;
+}
+
+.book-warp {
+    padding: 0 15px 20px;
+    background: #fff;
+    margin-top: 10px;
+}
+
+
+.page-enter-active,
+.page-leave-active {
+    transition: opacity .2s;
+}
+
+.page-enter,
+.page-leave-active {
+    opacity: 0;
+}
