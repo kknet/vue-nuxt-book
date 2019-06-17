@@ -1,5 +1,7 @@
 import * as types from './mutations-type'
-import {BASE_URL,BASE_URL2} from '@/assets/js/conf'
+const conf = require('@/assets/js/conf')
+const BASE_URL = conf.BASE_URL
+const BASE_URL2 = conf.BASE_URL2
 const actions = {
     async nuxtServerInit({ commit }, { req, $axios }) {
         // 首页 男生

@@ -108,7 +108,6 @@ export default {
             .desc {
                 overflow: hidden;
                 text-overflow: ellipsis;
-                text-overflow: ellipsis;
                 display: -webkit-box;
                 /* autoprefixer: ignore next */
                 -webkit-box-orient: vertical;

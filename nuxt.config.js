@@ -50,8 +50,8 @@ module.exports = {
     ** See https://axios.nuxtjs.org/options
     */
     axios: {
-        baseURL: process.env.NODE_ENV == "production" ? "http://101.132.188.203:3000" : "http://192.168.146.1:3000",
-        withCredentials: true,
+        // baseURL: process.env.NODE_ENV == "production" ? "http://101.132.188.203:3000" : "http://127.0.0.1:3000",
+        // withCredentials: true,
     },
     proxy: {
         "/zhuishu": {
