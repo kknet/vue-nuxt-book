@@ -69,7 +69,7 @@ export default {
         if (store.state.femaleList.hot.length) {
             return
         }
-        const data = await $axios.$get('/api/homeBooks')
+        const data = await $axios.$get('/api/femaleBooks')
         if (data.code == 10000) {
             store.commit(types.FEMALE_LIST, data.femaleList)
         } 

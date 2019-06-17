@@ -8,9 +8,7 @@ const KOA_BASE_URL = conf.KOA_BASE_URL
 const KOA_BASE_URL2 = conf.KOA_BASE_URL2
 
 // 女生书籍
-router.get('/homeBooks', async ctx => {
-console.log(conf);
-
+router.get('/femaleBooks', async ctx => {
     const [hot, potential, good, vip, newBook, endBook, romance, immortal, modern, campus, fantasy, science, suspense, woman] = await Promise.all([
         axios.get(`${KOA_BASE_URL}/54d43437d47d13ff21cad58b`), //热门书籍
         axios.get(`${KOA_BASE_URL}/54d43709fd6ec9ae04184aa5`), //潜力榜
