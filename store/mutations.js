@@ -7,7 +7,9 @@ const matutaions = {
     [types.FEMALE_LIST](state,femaleList) {
         state.femaleList = femaleList
     },
-    
+    [types.BOOK](state,book) {
+        state.book = book
+    },
 }
 
 export default matutaions

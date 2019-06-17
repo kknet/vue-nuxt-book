@@ -1,14 +1,19 @@
 <template>
     <div>
-        <div class="list" v-if="!align" @touchmove.stop>
-            <div class="book-item" v-for="val of list" :key="val._id">
-                <img v-lazy="val.cover" />
-                <div class="book-desc">
-                    <p>{{val.title}}</p>
-                    <span class="gray">{{val.author}}</span>
+        <div class="list" v-if="!align">
+            <!-- <TabItem :nav='rankTab' class="rank-tab" @change='rankChange' /> -->
+            <ScrollX ref="scroll-y">
+                <div class="book-item" @click="book(val._id)" v-for="val of list" :key="val._id">
+                    <img  :src="val.cover | URL"/>
+                    <div class="book-desc">
+                        <p>{{val.title}}</p>
+                        <span class="gray">{{val.author}}</span>
+                    </div>
                 </div>
-            </div>
+            </ScrollX>
+
         </div>
+        
         <div class="align-list" v-else>
             <div class="book-item border-bottom" v-for="val of list" :key="val._id">
                 <img v-lazy="val.cover" />
@@ -36,7 +41,11 @@
 </template>
 
 <script>
+import ScrollX from './ScrollX'
 export default {
+    components: {
+        ScrollX
+    },
     props: {
         list: {
             type: Array,
@@ -48,6 +57,25 @@ export default {
             type: Boolean,
             default: false
         }
+    },
+
+    methods: {
+        rankChange(i) {
+
+        },
+
+        book(id) {
+            console.log(id);
+            this.$router.push({ name: `book-id`, params: { id } })
+        }
+    },
+
+    watch: {
+        list() {
+            // if (!this.align) {
+            //     this.$refs['scroll-y'].scrollTo(0,0,0)
+            // }
+        }
     }
 }
 </script>
@@ -55,15 +83,12 @@ export default {
 <style lang="scss" scoped>
 .list {
     display: flex;
-    overflow-x: auto;
-    overflow-y: hidden;
 
     .book-item {
-        display: flex;
-        flex-direction: column;
+        display: inline-block;
         width: 70px;
         margin-right: 15px;
-        
+
         .book-desc {
             flex: 1;
             display: flex;
@@ -74,6 +99,15 @@ export default {
                 margin: 8px 0 5px 0;
                 font-size: 14px;
                 line-height: 1.3;
+                white-space: pre-wrap;
+                word-wrap: break-word;
+                word-break: break-all;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                /* autoprefixer: ignore next */
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
             }
 
             span {
@@ -86,23 +120,25 @@ export default {
 .align-list {
     .book-item {
         display: flex;
-        padding-bottom:15px;
+        padding-bottom: 15px;
         margin-top: 15px;
+
         img {
             margin-right: 10px;
         }
 
         .book-desc {
             flex: 1;
-            display:flex;
-            flex-direction:column;
+            display: flex;
+            flex-direction: column;
             justify-content: space-between;
             padding: 5px 0;
             box-sizing: border-box;
+
             .title {
                 font-size: 16px;
                 font-weight: 700;
-                
+
             }
 
             .desc {
@@ -116,31 +152,37 @@ export default {
                 line-height: 1.3;
             }
         }
-        .book-meta{
-            display:flex;
+
+        .book-meta {
+            display: flex;
             justify-content: space-between;
+
             .book-meta-r {
                 span {
-                    font-size:12px;
-                    color:gray;
+                    font-size: 12px;
+                    color: gray;
                     padding: 1px 2px;
                 }
+
                 span:first-child {
-                    border:1px solid gray;
+                    border: 1px solid gray;
                 }
+
                 span:nth-child(2) {
-                    color:#ed424b;
-                    border:1px solid #ed424b;
+                    color: #ed424b;
+                    border: 1px solid #ed424b;
                 }
+
                 span:nth-child(3) {
-                    color:#4284ed;
-                    border:1px solid #4284ed;
+                    color: #4284ed;
+                    border: 1px solid #4284ed;
                 }
             }
         }
     }
+
     .book-item:first-child {
-        margin-top:0;
+        margin-top: 0;
     }
 }
 

@@ -3,7 +3,8 @@ const mixins = {
     computed: {
         ...mapGetters([
             'homeList',
-            'femaleList'
+            'femaleList',
+            'book'
         ])
     },
 

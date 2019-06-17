@@ -30,5 +30,6 @@ const state = () => ({
         suspense:  [],
         woman: []
     },  // 女生
+    book:{},    //图书详情
 })
 export default state

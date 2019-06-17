@@ -6,14 +6,12 @@ Vue.use(Vant);
 Vue.use(Lazyload, {
     preLoad: 1.3,
     loading: require('@/assets/img/loading-img.gif'),
-    attempt: 5,
+    attempt: 1,
     error: require('@/assets/img/erroe-img.jpg'),
     filter: {
         progressive(imgUrl) {
-            if (imgUrl.src) {
-                if (imgUrl.src.startsWith("/agent/")) {
-                    imgUrl.src = decodeURIComponent((imgUrl.src).replace('/agent/', ''))
-                }
+            if (imgUrl.src && imgUrl.src.startsWith("/agent/")) {
+                imgUrl.src = decodeURIComponent((imgUrl.src).replace('/agent/', ''))
             }
         }
     }

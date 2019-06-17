@@ -3,10 +3,10 @@ const router = new Router({ prefix: '/api' }) // 接口前缀、
 const axios = require('axios')
 const path = require('path')
 // const conf = require('../../assets/js/conf')
-const conf = require(path.resolve(__dirname,'../../../assets/js/conf')) 
+const conf = require(path.resolve(__dirname, '../../../assets/js/conf'))
 const KOA_BASE_URL = conf.KOA_BASE_URL
 const KOA_BASE_URL2 = conf.KOA_BASE_URL2
-
+const KOA_BOOK = conf.KOA_BOOK
 // 女生书籍
 router.get('/femaleBooks', async ctx => {
     const [hot, potential, good, vip, newBook, endBook, romance, immortal, modern, campus, fantasy, science, suspense, woman] = await Promise.all([
@@ -48,5 +48,23 @@ router.get('/femaleBooks', async ctx => {
         }
     }
 
+})
+
+
+// 图书详情
+router.get('/book', async ctx => {
+    const id = ctx.query.id
+    if (!id) {
+        return ctx.body = {
+            code: -1,
+            msg: '请输入书籍id',
+            book: {}
+        }
+    }
+    const { data } = await axios.get(`${KOA_BOOK}/${id}`)
+    ctx.body = {
+        code: 10000,
+        book: data
+    }
 })
 module.exports = router

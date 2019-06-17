@@ -37,6 +37,9 @@ module.exports = {
         { src: "~/assets/css/iconfont.js", ssr: false },
         { src: "~/plugins/filter.js", ssr: true },
     ],
+    router: {
+        middleware: ["redirect"],
+    },
     /*
     ** Nuxt.js modules
     */

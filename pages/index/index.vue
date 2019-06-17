@@ -14,8 +14,14 @@
                     <div class="book-warp">
                         <Title title='排行榜' />
                         <TabItem :nav='rankTab' class="rank-tab" @change='rankChange' />
-                        <BookItem :list='rankList || homeList.hot.slice(20,40)' />
+                        <BookItem :list='rankList || homeList.hot.slice(20,40)'/>
+                        <!-- <van-tabs type="card" @change='rankChange'>
+                            <van-tab :title="val.name" v-for="val of rankTab" :key="val.name">
+                                <BookItem :list='rankList || homeList.hot.slice(20,40)' />
+                            </van-tab>
+                        </van-tabs> -->
                     </div>
+                    
                     <div class="book-warp">
                         <Title title='新书抢先' desc='24小时热销新书' />
                         <BookItem align :list='homeList.newBook.slice(0,3)' />
@@ -32,6 +38,7 @@
                         <BookItem :list='typeList2 || homeList.history' />
                     </div>
                     <NavFooter />
+                
                 </div>
             </Scroll>
         </div>
@@ -49,7 +56,6 @@ import BookItem from "@/components/public/BookItem";
 import TabItem from "@/components/public/TabItem";
 import NavFooter from "@/components/public/NavFooter";
 import Scroll from "@/components/public/Scroll";
-
 export default {
     mixins: [mixin],
     components: {
