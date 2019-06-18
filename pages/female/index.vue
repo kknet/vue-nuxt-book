@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import mixin from "@/assets/js/mixins";
+import {mixin} from "@/assets/js/mixins";
 import NavHeader from "@/components/public/NavHeader";
 import Swiper from "@/components/layouts/Swiper";
 import HomeNav from "@/components/layouts/Nav";

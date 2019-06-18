@@ -11,7 +11,7 @@
                     <div class="updated">{{ val.updated| TIME}}</div>
                 </div>
         </li>
-        <div class="more" v-if="showMore">更多书评</div>
+        <div class="more" v-if="showMore" @click="onShowMore">更多书评</div>
     </ul>
 </template>
 
@@ -32,8 +32,8 @@ export default {
     },
 
     methods: {
-        rate() {
-
+        onShowMore() {
+            this.$emit('onShowMore')
         }
     }
 }
@@ -73,10 +73,8 @@ li {
 
         .author-content {
             font-size: 14px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
             margin: 5px 0;
+            line-height:1.4;
         }
 
         .updated {

@@ -27,12 +27,12 @@ const actions = {
                 vip: vip.ranking.books || [],
                 newBook: newBook.ranking.books || [],
                 endBook: endBook.ranking.books || [],
-                fantasy:fantasy.books || [],
-                knight:knight.books || [],
-                urban:urban.books || [],
-                history:history.books || [],
-                game:game.books || [],
-                science:science.books || [],
+                fantasy: fantasy.books || [],
+                knight: knight.books || [],
+                urban: urban.books || [],
+                history: history.books || [],
+                game: game.books || [],
+                science: science.books || [],
             }
             commit(types.HOME_LIST, data)
         }
@@ -40,12 +40,44 @@ const actions = {
 
     // 缓存图书详情
     setBook({ commit, state }, { id, data }) {
-        let newData = state.book
-        if (!newData[id]) {
-            newData[id] = data
-        }
+        let newData = setData(state,'book',id,data)
         commit(types.BOOK, newData)
-    }
+    },
 
+    // 缓存评论
+    setComments({ commit, state }, { id, list,start }) {
+        // let newData = setData(state,'book',id,list)
+        let newData = state.comments
+        if (!newData[id]) {
+            newData[id] = {
+                list,
+                start
+            }
+        } 
+        // else{
+        //     // if (list.length && start > 0) { 
+        //     //     newData[id].list = list
+        //     //     // newData[id].start = start
+        //     // }
+        //     if (newData[id]) {  // 说明是分页
+        //         let temp = newData[id].list.slice()
+        //         // newData[id].list = temp
+        //         newData[id].start = start
+        //         // newData[id] = {
+
+        //         // }
+        //     } else {        // 说明是另外一个评论数据
+        //     }
+        // }
+        commit(types.COMMENTS, newData)
+    }
+}
+
+function setData(state, type, key, data) {
+    let newData = state[type]
+    if (!newData[key]) {
+        newData[key] = data
+    }
+    return newData
 }
 export default actions

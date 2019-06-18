@@ -63,7 +63,14 @@ module.exports = {
             pathRewrite: {
                 "^/zhuishu": ""
             }
-        }
+        },
+        "/book": {
+            target: "https://novel.juhe.im",
+            changeOrigin: true,
+            pathRewrite: {
+                "^/book": ""
+            }
+        },
     },
     /*
     ** Build configuration

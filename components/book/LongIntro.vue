@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import mixin from "@/assets/js/mixins";
+import {mixin} from "@/assets/js/mixins";
 export default {
     mixins: [mixin],
     props: {

@@ -65,7 +65,6 @@ export default {
         },
 
         book(id) {
-            console.log(id);
             this.$router.push({ name: `book-id`, params: { id } })
         }
     },

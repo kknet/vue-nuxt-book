@@ -1,25 +1,79 @@
 import { mapMutations, mapGetters, mapActions } from 'vuex'
-const mixins = {
+export const mixin = {
     computed: {
         ...mapGetters([
             'homeList',
             'femaleList',
-            'book'
+            'book',
+            'comments'
         ])
     },
 
     methods: {
-        // ...mapMutations({
-        //     setCurrent: 'CURRENT',
-        //     setDetails: 'DETAILSCONTENT'
-        // }),
+        ...mapMutations({
+            setCommentsMap: 'COMMENTS',
+        }),
 
-        ...mapActions(['setBook']),
-        // details(id) {
-        //     this.$router.push({ name: `details-id`, params: { id } })
-        // }
+        ...mapActions(['setBook','setComments']),
+       
     }
 
 }
 
-export default mixins
+export const page = {
+    data() {
+        return {
+            dataArr: [],
+            total: null,
+            loading: false, // 锁
+        }
+    },
+
+    methods: {
+        // newArr, 第二页请求到的数据
+        setNewData(newArr) {
+            this.dataArr = this.dataArr.concat(newArr)
+        },
+
+        // 起始的记录数
+        getCurrentStart() {
+            return this.dataArr.length
+        },
+
+        // 是否还有更多数据加载
+        hasMore() {
+            // 说明没有数据要加载了
+            if (this.dataArr.length >= this.total) {
+                return false
+            }
+            return true
+        },
+
+        // 总条数
+        setTotal(total) {
+            this.total = total
+        },
+
+        // 清空数组
+        clearArr() {
+            this.setData({
+                dataArr: []
+            })
+            this.total = null
+        },
+
+        // 锁的机制
+        isLocked() {
+            return this.loading ? true : false
+        },
+
+        // 加锁
+        locked() {
+            this.loading = true
+        },
+
+        unLocked() {
+            this.loading = false
+        }
+    }
+}

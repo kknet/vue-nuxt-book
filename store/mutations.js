@@ -10,6 +10,10 @@ const matutaions = {
     [types.BOOK](state,book) {
         state.book = book
     },
+    [types.COMMENTS](state,comments) {
+        if (state.comments[comments.id]) {
+            state.comments[comments.id] = comments
+        }
+    },
 }
-
 export default matutaions

@@ -31,5 +31,6 @@ const state = () => ({
         woman: []
     },  // 女生
     book:{},    //图书详情
+    comments:{},    // 评论
 })
 export default state

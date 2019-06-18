@@ -31,7 +31,7 @@
                         <span>共{{books.postCount}}条评价</span>
                     </div>
                     <div class="book-comment">
-                        <Comment :list='books.comment' showMore/>
+                        <Comment :list='books.comment' showMore @onShowMore='onShowMore'/>
                     </div>
                     <div class="author-card">
                         <div class="author-title border-bottom">本书作者</div>
@@ -52,14 +52,14 @@
 </template>
 
 <script>
-import mixin from "@/assets/js/mixins";
+import {mixin} from "@/assets/js/mixins";
 import Detail from '@/components/book/Detail'
 import LongIntro from '@/components/book/LongIntro'
-import Comment from '@/components/book/Comment'
+import Comment from '@/components/public/Comment'
 import Author from '@/components/book/Author'
 import * as types from '@/store/mutations-type'
 import Scroll from "@/components/public/Scroll";
-const BOOK = require('@/assets/js/conf').BOOK
+const {BOOK} = require('@/assets/js/conf')
 import moment from 'moment'
 export default {
     mixins: [mixin],
@@ -121,7 +121,6 @@ export default {
             if (!tag.length) {
                 return [
                     {type:'success',tag:this.books.majorCate},
-                    {type:'danger',tag:this.books.minorCate}
                 ]
             }
             let arr = []
@@ -137,7 +136,13 @@ export default {
 
     methods: {
         onClickLeft() {
-            this.$router.go(-1)
+            // this.$router.go(-1)
+            this.$router.push({name:'index'})
+        },
+
+        // 更多评论
+        onShowMore() {
+            this.$router.push({ name: `moreComments-id`, params: { id:this.$route.params.id } })
         }
     },
 }
@@ -145,27 +150,13 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/assets/css/mixin.scss';
+@import '~@/assets/css/vant.scss';
+
 .book-details-warp {
     @include scroll(45px,0,#f6f7f9);
 }
 .content {
     padding: 15px;
-}
-.van-icon {
-    font-size: 20px;
-    color: #333;
-}
-.van-nav-bar {
-    background: rgba(0,0,0,0)
-}
-.van-hairline--bottom:after{
-    border: 0;
-}
-.van-nav-bar__text {
-    color: #333;
-}
-.van-icon-search {
-    margin-right: 16px;
 }
 
 .btns {
@@ -205,7 +196,7 @@ export default {
     padding: 15px 0 15px 0;
 
     .left-text {
-        flex: 0 0 30%;
+        flex: 0 0 28%;
         font-weight: bold;
     }
 
@@ -218,12 +209,15 @@ export default {
         text-overflow: ellipsis;
         position: relative;
         color: gray;
-
         .icon {
             position: absolute;
             top: 50%;
-            right: 0;
+            right: 0px;
             transform: translateY(-50%);
+            z-index:10;
+        }
+        span {
+            margin-right:5px;
         }
     }
 }
