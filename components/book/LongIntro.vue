@@ -1,24 +1,27 @@
 <template>
     <div v-if="flag" class="text">
-        <div class="close" @click="check" v-text="book.longIntro.trim().replace(/\s/g,'')">
+        <div class="close" @click="check" v-text="content.trim().replace(/\s/g,'')">
         </div>
-        <span>
+        <span @click="check">
             <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-qianjin"></use>
             </svg>
         </span>
-        
     </div>
-
-    <div class="open" v-else v-html="formatText(book.longIntro)" @click="check">
-
-    </div>
+    <div class="open" v-else v-html="formatText(content)" @click="check"></div>
 </template>
 
 <script>
 import mixin from "@/assets/js/mixins";
 export default {
     mixins: [mixin],
+    props: {
+        content: {
+            type:String,
+            default:''
+        }
+    },
+
     data() {
         return {
             flag: true
@@ -45,9 +48,9 @@ export default {
 <style lang="scss" scoped>
 .text,.open {
     color: #333;
-    padding: 15px 15px 0 15px;
     line-height: 1.6;
     position: relative;
+    margin: 0px 0 15px 0;
 }
 
 .close {
@@ -62,8 +65,8 @@ export default {
 .text {
     span {
         position: absolute;
-        right: 15px;
-        bottom: -2px;
+        right: 0;
+        bottom: 0px;
         width:40px;
         height:20px;
         text-align: right;

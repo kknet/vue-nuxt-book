@@ -36,30 +36,16 @@ const actions = {
             }
             commit(types.HOME_LIST, data)
         }
-
-        // const session = req.ctx.session
-        // commit(types.USERNAME, session && session.userName ? session.userName : '')
-        // commit(types.USERID, session && session.user_id ? session.user_id : '')
-        // // 查询相关便签,查询文章列表
-        // const [data, data1] = await Promise.all([$axios.$post('/api/findNote'), $axios.$get('/api/findArticle')])
-        // if (data.code == 0 && data1.code == 0) {
-        //     commit(types.NODEDATA, data.note)   // 标签
-        //     commit(types.CATEGORIES, data.result) // 分类
-        //     commit(types.ARTICLEARR, { 1: data1.articles })    // 默认拿取第一页数据
-        //     commit(types.ARCHIVEARR, data1.articles)
-        //     commit(types.COUNT, data1.count)
-        //     commit(types.PAGESIZE, data1.pageSize)
-        // }
     },
 
-    // // 缓存分页数据
-    // setArticleArr({ commit, state }, { id, list }) {
-    //     let newData = state.articleArr
-    //     if (!newData[id]) {
-    //         newData[id] = list
-    //     }
-    //     commit(types.ARTICLEARR, newData)
-    // }
+    // 缓存图书详情
+    setBook({ commit, state }, { id, data }) {
+        let newData = state.book
+        if (!newData[id]) {
+            newData[id] = data
+        }
+        commit(types.BOOK, newData)
+    }
 
 }
 export default actions

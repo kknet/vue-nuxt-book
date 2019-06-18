@@ -14,7 +14,7 @@ const mixins = {
         //     setDetails: 'DETAILSCONTENT'
         // }),
 
-        // ...mapActions(['setArticleArr']),
+        ...mapActions(['setBook']),
         // details(id) {
         //     this.$router.push({ name: `details-id`, params: { id } })
         // }

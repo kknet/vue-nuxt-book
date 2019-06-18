@@ -7,7 +7,7 @@ const conf = require(path.resolve(__dirname, '../../../assets/js/conf'))
 const KOA_BASE_URL = conf.KOA_BASE_URL
 const KOA_BASE_URL2 = conf.KOA_BASE_URL2
 const KOA_BOOK = conf.KOA_BOOK
-// 女生书籍
+// 女生书籍分类
 router.get('/femaleBooks', async ctx => {
     const [hot, potential, good, vip, newBook, endBook, romance, immortal, modern, campus, fantasy, science, suspense, woman] = await Promise.all([
         axios.get(`${KOA_BASE_URL}/54d43437d47d13ff21cad58b`), //热门书籍
@@ -51,20 +51,27 @@ router.get('/femaleBooks', async ctx => {
 })
 
 
-// 图书详情
+// 图书详情和评论
 router.get('/book', async ctx => {
     const id = ctx.query.id
     if (!id) {
         return ctx.body = {
             code: -1,
             msg: '请输入书籍id',
-            book: {}
+            book: {},
+            comment:[]
         }
     }
-    const { data } = await axios.get(`${KOA_BOOK}/${id}`)
+    // const limit = ctx.query.limit || 5  // 返回几条
+    const [data,comment] = await Promise.all([
+        axios.get(`${KOA_BOOK}/${id}`),
+        axios.get(`${conf.KOA_BOOK_COMMENT}?book=${id}&sortType=newest&limit=5`)
+    ])
+    
     ctx.body = {
         code: 10000,
-        book: data
+        book: data.data,
+        comment:comment.data.docs
     }
 })
 module.exports = router
