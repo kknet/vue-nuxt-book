@@ -3,7 +3,7 @@ const router = new Router({ prefix: '/api' }) // 接口前缀、
 const axios = require('axios')
 const path = require('path')
 // const conf = require('../../assets/js/conf')
-const { KOA_BASE_URL, KOA_BASE_URL2, KOA_BOOK, KOA_BOOK_COMMENT } = require(path.resolve(__dirname, '../../../assets/js/conf'))
+const { KOA_BASE_URL, KOA_BASE_URL2, KOA_BOOK, KOA_BOOK_COMMENT, KOA_BOOK_CATALOG } = require(path.resolve(__dirname, '../../../assets/js/conf'))
 // 女生书籍分类
 router.get('/femaleBooks', async ctx => {
     const [hot, potential, good, vip, newBook, endBook, romance, immortal, modern, campus, fantasy, science, suspense, woman] = await Promise.all([
@@ -83,10 +83,30 @@ router.get('/comment', async ctx => {
         }
     }
     const start = ctx.query.start || 20
-    const { data } = await axios.get(`${KOA_BOOK_COMMENT}?book=${id}&sortType=newest&limit=15&start=${start}`)
+    const { data } = await axios.get(`${KOA_BOOK_COMMENT}?book=${id}&sortType=newest&limit=10&start=${start}`)
     ctx.body = {
         code: 10000,
         comment: data
     }
 })
+
+// 章节目录
+router.get('/chapters', async ctx => {
+    const id = ctx.query.id
+    if (!id) {
+        return ctx.body = {
+            code: -1,
+            msg: '请输入书籍id',
+            comment: []
+        }
+    }
+    const { data } = await axios.get(`${KOA_BOOK_CATALOG}/${id}?view=chapters`)
+    if (data.ok) {
+        ctx.body = {
+            code: 10000,
+            data: data.mixToc.chapters
+        }
+    }
+})
+
 module.exports = router

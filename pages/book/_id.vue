@@ -12,11 +12,11 @@
                         <Detail :bookInfo='books'/>
                         <div class="btns border-bottom">
                             <van-button type="danger" size="small">点击阅读</van-button>
-                            <van-button size="small">危险按钮</van-button>
+                            <van-button size="small">加入书架</van-button>
                             <van-button size="small">VIP订阅</van-button>
                         </div>
                         <LongIntro :content='books.longIntro'/>
-                        <div class="book-directory">
+                        <div class="book-directory" @click="goCatalog">
                             <span class="left-text" >目录</span>
                             <div class="right-text">
                                 <span >{{day}} · {{books.isSerial?"连载":"完本"}}至{{books.lastChapter}}</span>
@@ -76,6 +76,7 @@ export default {
                 books:store.state.book[id]
             }
         }
+        
         const data = await $axios.$get(`/api/book?id=${id}`)
         if (data.code == 10000) {
             data.book.comment = data.comment    // 评论
@@ -143,6 +144,11 @@ export default {
         // 更多评论
         onShowMore() {
             this.$router.push({ name: `moreComments-id`, params: { id:this.$route.params.id } })
+        },
+
+        // 目录
+        goCatalog() {
+            this.$router.push({ name: `catalog-id`, params: { id:this.$route.params.id } })
         }
     },
 }

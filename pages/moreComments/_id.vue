@@ -13,7 +13,7 @@
 
 <script>
 import Comment from '@/components/public/Comment'
-import Scroll from "@/components/public/Scroll";
+import Scroll from "@/components/public/Scroll"
 import { mixin ,page} from '@/assets/js/mixins'
 
 export default {
@@ -68,11 +68,11 @@ export default {
 
         async scrollToEnd() {
             const id = this.$route.params.id
-            if (this.comments[id].list.length >= 15) {
+            if (this.comments[id].list.length >= 10) {
                 try {
                     if (this.isLocked()) return // 必须等待上一次请求完成
                     this.locked()//开始请求之前锁住
-                    this.start = this.comments[id].start + 20
+                    this.start = this.comments[id].start + 11
                     const data = await this.$axios.$get(`/api/comment`,{
                         params: {
                             start: this.start,

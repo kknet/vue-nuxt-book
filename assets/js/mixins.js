@@ -1,4 +1,5 @@
 import { mapMutations, mapGetters, mapActions } from 'vuex'
+import ScrollTop from "@/components/public/ScrollTop"
 export const mixin = {
     computed: {
         ...mapGetters([
@@ -14,10 +15,35 @@ export const mixin = {
             setCommentsMap: 'COMMENTS',
         }),
 
-        ...mapActions(['setBook','setComments']),
-       
+        ...mapActions(['setBook', 'setComments']),
+
     }
 
+}
+export const scrollTop = {
+    data() {
+        return {
+            showFlag: false
+        }
+    },
+
+    components: {
+        ScrollTop,
+    },
+
+    methods: {
+        scroll(e) {
+            Math.abs(e.y) > 1000 ? this.showFlag = true : this.showFlag = false
+        },
+
+        backTop() {
+            this.$refs.scroll.scrollTo(0,0,300)
+            setTimeout(() => {
+                this.showFlag = false
+            }, 300);
+            
+        }
+    }
 }
 
 export const page = {

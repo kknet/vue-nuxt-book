@@ -11,4 +11,5 @@ module.exports = {
     KOA_BASE_URL2: `${BASE_URL}/book/by-categories`, // 
     KOA_BOOK: `${BASE_URL}/book`,    // 图书详情
     KOA_BOOK_COMMENT: `${BOOK_URL}/book/short-reviews`,  // 评论
+    KOA_BOOK_CATALOG:`${BASE_URL}/mix-atoc`,    // 章节目录
 }
