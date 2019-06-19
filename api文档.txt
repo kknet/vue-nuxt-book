@@ -7,3 +7,5 @@ https://github.com/zimplexing/vue-nReader/blob/master/doc/zhuishushenqi.md
 
 
 评论页面加一个点赞
+书籍章节加倒叙
+优化页面重复代码

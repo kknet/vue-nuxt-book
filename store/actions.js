@@ -46,7 +46,6 @@ const actions = {
 
     // 缓存评论
     setComments({ commit, state }, { id, list,start }) {
-        // let newData = setData(state,'book',id,list)
         let newData = state.comments
         if (!newData[id]) {
             newData[id] = {
@@ -54,22 +53,13 @@ const actions = {
                 start
             }
         } 
-        // else{
-        //     // if (list.length && start > 0) { 
-        //     //     newData[id].list = list
-        //     //     // newData[id].start = start
-        //     // }
-        //     if (newData[id]) {  // 说明是分页
-        //         let temp = newData[id].list.slice()
-        //         // newData[id].list = temp
-        //         newData[id].start = start
-        //         // newData[id] = {
-
-        //         // }
-        //     } else {        // 说明是另外一个评论数据
-        //     }
-        // }
         commit(types.COMMENTS, newData)
+    },
+
+    // 缓存图书章节目录
+    setCatalog({ commit, state }, { id, list }) {
+        let newData = setData(state,'catalogList',id,list)
+        commit(types.CATALOG_LIST, newData)
     }
 }
 

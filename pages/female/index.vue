@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <NavHeader active="1" />>
+        <NavHeader active="1" @select='select'/>
         <div class="home-warp">
             <Scroll class="scroll-warpper-app" :data='femaleList.hot'>
                 <div>
@@ -73,7 +73,6 @@ export default {
         if (data.code == 10000) {
             store.commit(types.FEMALE_LIST, data.femaleList)
         } 
-            
     },
     data() {
         return {
@@ -153,7 +152,15 @@ export default {
         rankChange2(i) {
             this.typeList2 = this.femaleList[this.typeTab2[i].ros];
         },
+        select(i) {
+            if (i == 0) {
+                this.$router.push({
+                    name: 'index'
+                })
+            }
+        },
 
+        
     }
 };
 </script>

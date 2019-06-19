@@ -32,5 +32,8 @@ const state = () => ({
     },  // 女生
     book:{},    //图书详情
     comments:{},    // 评论
+    catalogList:{}, //图书章节
+    catBooks:{},    // 图书主分类
+    catBooksLv2:{}, // 图书子分类
 })
 export default state

@@ -199,8 +199,9 @@ export default {
 .book-directory {
     display: flex;
     align-items: center;
-    padding: 15px 0 15px 0;
-
+    padding: 5px 0;
+    height: 30px;
+    line-height: 30px;
     .left-text {
         flex: 0 0 28%;
         font-weight: bold;

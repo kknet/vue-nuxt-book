@@ -35,8 +35,14 @@ export default {
 
     async asyncData({$axios,route,store}) {
         const id = route.params.id
+        if (store.state.catalogList.hasOwnProperty(id)) {  // 如果vuex里面有数据就不去请求接口
+            return {
+                list: store.state.catalogList[id]
+            }
+        }
         const data = await $axios.$get(`/api/chapters?id=${id}`)
         if (data.code == 10000) {
+            store.dispatch('setCatalog', {id,list:data.data})
             return {
                 list: data.data
             }

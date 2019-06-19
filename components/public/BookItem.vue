@@ -11,11 +11,10 @@
                     </div>
                 </div>
             </ScrollX>
-
         </div>
         
         <div class="align-list" v-else>
-            <div class="book-item border-bottom" v-for="val of list" :key="val._id">
+            <div class="book-item border-bottom" v-for="val of list" :key="val._id" @click="book(val._id)">
                 <img v-lazy="val.cover" />
                 <div class="book-desc">
                     <p class="title">{{val.title}}</p>

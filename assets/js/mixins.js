@@ -6,13 +6,15 @@ export const mixin = {
             'homeList',
             'femaleList',
             'book',
-            'comments'
+            'comments',
+            'catalogList'
         ])
     },
 
     methods: {
         ...mapMutations({
             setCommentsMap: 'COMMENTS',
+            setCatBooks: 'CAT_BOOKS'
         }),
 
         ...mapActions(['setBook', 'setComments']),

@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <NavHeader />
+        <NavHeader @select='select'/>
         <div class="home-warp">
             <Scroll class="scroll-warpper-app" :data='homeList.hot'>
                 <div>
@@ -110,6 +110,14 @@ export default {
 
         rankChange2(i) {
             this.typeList2 = this.homeList[this.typeTab2[i].ros]
+        },
+
+        select(i) {
+            if (i == 1) {
+                this.$router.push({
+                    name: 'female'
+                })
+            }
         }
     }
 };

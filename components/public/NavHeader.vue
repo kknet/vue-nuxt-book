@@ -1,21 +1,34 @@
 <template>
     <header>
-        <div class="left">
+        <div class="left" v-if="!classification">
             <img src="@/assets/img/logo.svg" v-if="active==0"/>
             <img src="@/assets/img/logo2.svg" v-else/>
         </div>
-            <div class="center">
-                <slot></slot>
-                <span :class="{'active':active==index}" @click="select(index)" v-for="(val,index) of nav" :key="val">{{val}}</span>
-            </div>
-            <div class="right">
-                <svg class="icon user" aria-hidden="true">
+        <div class="left" v-else>
+            <svg class="icon" aria-hidden="true" @click="left">
+                <use xlink:href="#icon-houtui"></use>
+            </svg>
+            <span class="classification">分类</span>
+        </div>
+        <div class="center">
+            <span :class="{'active':active==index}" @click="select(index)" v-for="(val,index) of nav" :key="val">{{val}}</span>
+        </div>
+        <div class="right" v-if="!isSearch">
+            <svg class="icon user" aria-hidden="true">
                 <use xlink:href="#icon-icon-user"></use>
             </svg>
                 <svg class="icon book" aria-hidden="true">
                 <use xlink:href="#icon-books"></use>
             </svg>
-            </div>
+        </div>
+        <div class="right" v-else>
+            <svg class="icon user search" aria-hidden="true">
+                <use xlink:href="#icon-fenxiang"></use>
+            </svg>
+                <svg class="icon book search" aria-hidden="true">
+                <use xlink:href="#icon-mulu"></use>
+            </svg>
+        </div>
     </header>
 </template>
 
@@ -26,6 +39,14 @@ export default {
             type: [String, Number],
             default: 0
         },
+        classification: {
+            type: Boolean,
+            default: false
+        },
+        isSearch: {
+            type: Boolean,
+            default: false
+        }
     },
 
     data() {
@@ -36,15 +57,11 @@ export default {
 
     methods: {
         select(i) {
-            if (i == 1) {
-                this.$router.push({
-                    name: 'female'
-                })
-            } else {
-                this.$router.push({
-                    name: 'index'
-                })
-            }
+            this.$emit('select',i)
+        },
+
+        left() {
+            this.$emit('left')
         }
     },
 }
@@ -68,6 +85,14 @@ header {
     .left {
         img {
             width: 100%;
+        }
+        .classification {
+            font-size: 14px;
+            margin-left: 5px;
+        }
+        .icon {
+            font-size: 16px;
+            padding: 10px 10px 10px 0;
         }
     }
 
@@ -114,6 +139,9 @@ header {
         .user,
         .book {
             color: #ed424b;
+        }
+        .search {
+            color: #333;
         }
     }
 }

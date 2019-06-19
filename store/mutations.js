@@ -15,5 +15,12 @@ const matutaions = {
             state.comments[comments.id] = comments
         }
     },
+    [types.CATALOG_LIST](state,catalogList) {
+        state.catalogList = catalogList
+    },
+    [types.CAT_BOOKS](state,data) {
+        state.catBooks = data.catBooks
+        state.catBooksLv2 = data.catBooksLv2
+    },
 }
 export default matutaions

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="flag" class="text">
+    <div v-if="flag&&content.length>50" class="text">
         <div class="close" @click="check" v-text="content.trim().replace(/\s/g,'')">
         </div>
         <span @click="check">
@@ -51,6 +51,7 @@ export default {
     line-height: 1.6;
     position: relative;
     margin: 0px 0 15px 0;
+    padding-top: 10px;
 }
 
 .close {
