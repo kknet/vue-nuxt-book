@@ -30,6 +30,9 @@ export default {
 
     methods: {
         check() {
+            if (this.content.length < 50) {
+                return
+            }
             this.flag = !this.flag
         },
         formatText(text) {
