@@ -2,7 +2,7 @@
     <div>
         <NavHeader @select='select' classification class="border-bottom" @left='left' :active='active' isSearch/>
         <div class="classification">
-            <Scroll class="scroll-warpper-app">
+            <Scroll class="scroll-warpper-app" ref="scroll">
                 <div>
                     <div  class="cards" v-for="val of gcatBooks" :key="val.name">
                         <div class="card-title border-bottom">
@@ -83,6 +83,7 @@ export default {
     methods: {
         select(i) {
             this.active = i
+            this.$refs.scroll.scrollTo(0,0,0)
             if (i == 0) {
                 this.$router.replace({
                     path: 'classification',query:{type:'male'}
