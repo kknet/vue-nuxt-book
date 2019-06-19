@@ -16,7 +16,7 @@ export default {
             list: [{
                     title: '分类',
                     icon: '#icon-fenlei1',
-                    path: 'classification'
+                    path: '/category'
                 },
                 {
                     title: '排行榜',
@@ -43,11 +43,11 @@ export default {
             if (index === 0) {
                 if (this.$route.name === 'index') {
                     this.$router.push({
-                        path,query:{type:'male'}
+                        path,query:{gender:'male'}
                     })
                 } else {
                     this.$router.push({
-                        path,query:{type:'female'}
+                        path,query:{gender:'female'}
                     })
                 }
             }

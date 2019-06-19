@@ -31,6 +31,7 @@ export default {
     bottom: 5vw;
     position: fixed;
     z-index: 100;
+    background:#fff;
     .icon {
         position: absolute;
         top: 50%;

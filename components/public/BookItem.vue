@@ -34,6 +34,10 @@
                     </div>
                 </div>
             </div>
+            <div class="nodata gray" v-if="!list.length&&!skeleton">暂无相关数据~~</div>
+            <div v-if="!list.length&&skeleton">
+                <van-skeleton title :row="3" class="skeleton" v-for="val of 4" :key="val"/>
+            </div>
         </div>
     </div>
 
@@ -45,6 +49,22 @@ export default {
     components: {
         ScrollX
     },
+    data () {
+        return {
+            skeleton: true,
+        }
+    },
+
+    created () {
+        if (!this.list.length) {
+            setTimeout(() => {
+                this.skeleton = false
+            }, 1100);
+        }
+    },
+
+    
+
     props: {
         list: {
             type: Array,
@@ -69,7 +89,15 @@ export default {
     },
 
     watch: {
-        list() {
+        list(newV) {
+            console.log(44444);
+            
+            this.skeleton = true
+            if (!newV.length) {
+                setTimeout(() => {
+                    this.skeleton = false
+                }, 1000);
+            }
             // if (!this.align) {
             //     this.$refs['scroll-y'].scrollTo(0,0,0)
             // }
@@ -192,5 +220,14 @@ img {
 
 .list::-webkit-scrollbar {
     display: none !important;
+}
+.van-skeleton {
+    padding: 0;
+    margin-top:10px;
+}
+.nodata {
+    text-align: center;
+    margin-top:20px;
+    font-size:14px;
 }
 </style>

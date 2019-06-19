@@ -39,6 +39,8 @@ export const scrollTop = {
         },
 
         backTop() {
+            console.log(this.$refs.scroll);
+            
             this.$refs.scroll.scrollTo(0,0,300)
             setTimeout(() => {
                 this.showFlag = false
@@ -61,6 +63,8 @@ export const page = {
         // newArr, 第二页请求到的数据
         setNewData(newArr) {
             this.dataArr = this.dataArr.concat(newArr)
+            // console.log(this.dataArr);
+            
         },
 
         // 起始的记录数

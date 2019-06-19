@@ -1,6 +1,6 @@
 <template>
     <header>
-        <div class="left" v-if="!classification">
+        <div class="left" v-if="!category">
             <img src="@/assets/img/logo.svg" v-if="active==0"/>
             <img src="@/assets/img/logo2.svg" v-else/>
         </div>
@@ -8,7 +8,7 @@
             <svg class="icon" aria-hidden="true" @click="left">
                 <use xlink:href="#icon-houtui"></use>
             </svg>
-            <span class="classification">分类</span>
+            <span class="category">分类</span>
         </div>
         <div class="center">
             <span :class="{'active':active==index}" @click="select(index)" v-for="(val,index) of nav" :key="val">{{val}}</span>
@@ -39,7 +39,7 @@ export default {
             type: [String, Number],
             default: 0
         },
-        classification: {
+        category: {
             type: Boolean,
             default: false
         },
@@ -86,7 +86,7 @@ header {
         img {
             width: 100%;
         }
-        .classification {
+        .category {
             font-size: 14px;
             margin-left: 5px;
         }

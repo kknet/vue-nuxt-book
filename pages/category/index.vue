@@ -1,7 +1,7 @@
 <template>
     <div>
-        <NavHeader @select='select' classification class="border-bottom" @left='left' :active='active' isSearch/>
-        <div class="classification">
+        <NavHeader @select='select' category class="border-bottom" @left='left' :active='active' isSearch/>
+        <div class="category">
             <Scroll class="scroll-warpper-app" ref="scroll">
                 <div>
                     <div  class="cards" v-for="val of gcatBooks" :key="val.name">
@@ -13,7 +13,7 @@
                             </svg>
                         </div>
                         <div class="card-btns border-bottom" v-for="(item,idx) of gcatBooksLv2" :key="idx" v-show="item.major === val.name">
-                            <span v-for="i in item.mins" :key="i">{{i}}</span>
+                            <span v-for="i in item.mins" :key="i" @click="tags(val.name,i)">{{i}}</span>
                         </div>
                     </div>
                 </div>
@@ -55,7 +55,7 @@ export default {
         return {
             catBooks:[],
             catBooksLv2:[],
-            active: this.$route.query.type=='male'?0:1,
+            active: this.$route.query.gender=='male'?0:1,
         }
     },
 
@@ -86,18 +86,30 @@ export default {
             this.$refs.scroll.scrollTo(0,0,0)
             if (i == 0) {
                 this.$router.replace({
-                    path: 'classification',query:{type:'male'}
+                    path: 'category',query:{gender:'male'}
                 })
                 
             } else {
                 this.$router.replace({
-                    path: 'classification',query:{type:'female'}
+                    path: 'category',query:{gender:'female'}
                 })
             }
         },
 
         left() {
             this.$router.go(-1)
+        },
+
+        tags(item,i) {
+            console.log(item,i);
+            this.$router.push({
+                name: 'categoryDetails',query:{
+                    gender:this.$route.query.gender,
+                    major:item,
+                    minor:i,
+                    type:'hot'
+                }
+            })
         }
     }
 }
@@ -105,7 +117,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/assets/css/mixin.scss';
-.classification {
+.category {
     @include scroll(45px,0,#fff);
 }
 .cards {
@@ -138,6 +150,9 @@ export default {
             border-radius: 20px;
             margin-bottom: 10px;
             margin-right: 8px;
+        }
+        span:last-child {
+            margin-right:0;
         }
     }
 }
