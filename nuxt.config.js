@@ -14,6 +14,7 @@ module.exports = {
     },
     server: {
         host: '0.0.0.0', 
+        port:3001,
     },
     
     loading: { color: '#3B8070' },
@@ -37,7 +38,7 @@ module.exports = {
         '@nuxtjs/proxy'
     ],
     axios: {
-        baseURL: process.env.NODE_ENV == "production" ? "http://101.132.188.203:3000" : "http://192.168.0.104:3000",
+        // baseURL: process.env.NODE_ENV == "production" ? "http://101.132.188.203:3001" : "http://192.168.0.104:3000",
         // withCredentials: true,
     },
     proxy: {
