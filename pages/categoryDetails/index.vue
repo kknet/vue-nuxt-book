@@ -148,12 +148,10 @@ export default {
                     this.$toast.fail('请求失败');
                 }, 500);
             }
-            
         },
 
         // 分页
         scrollToEnd() {
-            
             if (this.dataArr.length >= 20) {
                 if (this.hasMore()) {
                     this.start += 20

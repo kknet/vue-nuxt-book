@@ -2,11 +2,12 @@
     <div>
         <van-nav-bar :title="dataArr[0].book.title" left-arrow @click-left="onClickLeft" class="border-bottom"></van-nav-bar>
         <div class="comment">
-            <Scroll :data='dataArr' class="scroll-warpper-app" pullup @scrollToEnd='scrollToEnd' :click='false'>
+            <Scroll ref="scroll" :data='dataArr' class="scroll-warpper-app" pullup @scrollToEnd='scrollToEnd' :click='false' @scroll='scroll' listenScroll probeType='3'>
                 <div>
                     <Comment :list='dataArr'/>
                 </div>
             </Scroll>
+            <ScrollTop :showFlag='showFlag' @backTop='backTop' />
         </div>
     </div>
 </template>
@@ -14,10 +15,10 @@
 <script>
 import Comment from '@/components/public/Comment'
 import Scroll from "@/components/public/Scroll"
-import { mixin ,page} from '@/assets/js/mixins'
+import { mixin ,page,scrollTop} from '@/assets/js/mixins'
 
 export default {
-    mixins:[mixin,page],
+    mixins:[mixin,page,scrollTop],
     validate({ params }) {
         if (params.id.length == 24) {
             return true

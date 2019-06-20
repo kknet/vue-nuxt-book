@@ -35,7 +35,7 @@
                     </div>
                     <div class="author-card">
                         <div class="author-title border-bottom">本书作者</div>
-                        <Author class="c-author"/>
+                        <Author class="c-author" :avatar='books.cover' :author='books.author'/>
                     </div>
                     <div class="tags">
                         <div class="tags-title border-bottom">本书标签</div>

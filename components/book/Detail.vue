@@ -5,7 +5,7 @@
             <div class="book-cell">
                 <h2 class="book-title">{{bookInfo.title}}</h2>
                 <div class="book-author">
-                    <span>绝人</span>
+                    <span>{{bookInfo.author}}</span>
                     <i>Lv4</i>
                 </div>
                 <div class="rate">

@@ -1,41 +1,45 @@
 <template>
     <div>
         <NavHeader title='排行榜' @select='select' category class="border-bottom" @left='left' :active='active' isSearch/>
-        <article>
-            <section v-for="(val,index) of rankList" :key="val._id">
-                <div class="img">
-                    <img :src="bgArr[index]" alt="">
-                    <div class="img-top-title">
-                        <h3>{{val.title}}</h3>
-                        <span>
-                            <svg class="icon" aria-hidden="true">
-                                <use xlink:href="#icon-quanquanxiangyoujiantou"></use>
-                            </svg>
-                        </span>
-                    </div>
-                </div>
-                <div class="list-book-title">
-                    <ul v-if="active==0"> 
-                        <li class="border-bottom" @click="bookDetails(item._id)" v-for="(item,idx) of homeList[gender[index]].slice(0,5)" :key="item._id">
-                            <h3 class="index">{{idx+1}}.</h3>
-                            <h4>{{item.title}}</h4>
-                            <svg class="icon" aria-hidden="true">
-                                <use xlink:href="#icon-qianjin"></use>
-                            </svg>
-                        </li>
-                    </ul>
-                    <ul v-else> 
-                        <li class="border-bottom" @click="bookDetails(item._id)" v-for="(item,idx) of femaleList[gender[index]].slice(0,5)" :key="item._id">
-                            <h3 class="index">{{idx+1}}.</h3>
-                            <h4>{{item.title}}</h4>
-                            <svg class="icon" aria-hidden="true">
-                                <use xlink:href="#icon-qianjin"></use>
-                            </svg>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-        </article>
+        <div class="rank">
+            <Scroll class="scroll-warpper-app" ref="scroll">
+                <article>
+                    <section v-for="(val,index) of rankList" :key="val._id">
+                        <div class="img" @click="goRank(val)">
+                            <img :src="bgArr[index]" alt="">
+                            <div class="img-top-title">
+                                <h3>{{val.title}}</h3>
+                                <span>
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-quanquanxiangyoujiantou"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="list-book-title">
+                            <ul v-if="active==0"> 
+                                <li class="border-bottom" @click="bookDetails(item._id)" v-for="(item,idx) of homeList[gender[index]].slice(0,5)" :key="item._id">
+                                    <h3 class="index">{{idx+1}}.</h3>
+                                    <h4>{{item.title}}</h4>
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-qianjin"></use>
+                                    </svg>
+                                </li>
+                            </ul>
+                            <ul v-else> 
+                                <li class="border-bottom" @click="bookDetails(item._id)" v-for="(item,idx) of femaleList[gender[index]].slice(0,5)" :key="item._id">
+                                    <h3 class="index">{{idx+1}}.</h3>
+                                    <h4>{{item.title}}</h4>
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-qianjin"></use>
+                                    </svg>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </article>
+            </Scroll>
+        </div>
     </div>
 </template>
 
@@ -43,6 +47,7 @@
 import NavHeader from "@/components/public/NavHeader";
 import {mixin} from '@/assets/js/mixins'
 import * as types from '@/store/mutations-type'
+import Scroll from "@/components/public/Scroll";
 export default {
     mixins:[mixin],
     data () {
@@ -72,6 +77,7 @@ export default {
 
     components: {
         NavHeader,
+        Scroll
     },
     
     computed: {
@@ -105,17 +111,15 @@ export default {
 
         select(i) {
             this.active = i
-            // this.$refs.scroll.scrollTo(0,0,0)
+            this.$refs.scroll.scrollTo(0,0,0)
             if (i == 0) {
                 this.$router.replace({
                     path: '/rank',query:{gender:'male'}
                 })
-                // this.getAllBooks('male')
             } else {
                 this.$router.replace({
                     path: '/rank',query:{gender:'female'}
                 })
-                // this.getAllBooks('female')
             }
             
         },
@@ -133,6 +137,20 @@ export default {
                  return this.homeList[female[index]]
             }
             
+        },
+
+        goRank(val) {
+            this.$router.push({
+                name:'rankCategory-id',
+                params: {
+                    id:val._id
+                },
+                query: {
+                    gender: this.$route.query.gender,
+                    title: val.title
+                }
+            })
+            
         }
     },
 
@@ -145,6 +163,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@/assets/css/mixin.scss';
+.rank {
+    @include scroll(45px,0,#fff);
+}
 article {
     background: #fff;
     width: 100%;

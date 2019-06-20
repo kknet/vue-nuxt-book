@@ -14,11 +14,17 @@
         </div>
         
         <div class="align-list" v-else>
-            <div class="book-item border-bottom" v-for="val of list" :key="val._id" @click="bookDetails(val._id)">
+            <div class="book-item border-bottom" v-for="(val,index) of list" :key="val._id" @click="bookDetails(val._id)">
+                <span v-if="rank" class="index">{{index+1}} · </span>
                 <img v-lazy="val.cover" />
                 <div class="book-desc">
-                    <p class="title">{{val.title}}</p>
-                    <p class="desc gray" v-html="val.shortIntro"></p>
+                    <p class="title">
+                        <span class="title-s" :style="{flex:rank?'0 0 60%':1}">{{val.title}} </span>
+                        <span class="title-rank" v-if="rank">{{(val.latelyFollower/10000).toFixed(1) + '万人收藏'}}</span>
+                    </p>
+                    <p class="desc gray" v-html="val.shortIntro" v-if="!rank"></p>
+                    <span class="gray book-tags-span" v-if="rank">{{val.majorCate}} · {{val.minorCate}}</span>
+                    <p class="gray book-tags-p" v-if="rank">{{val.shortIntro}}</p>
                     <div class="book-meta">
                         <div>
                             <svg class="icon gray" aria-hidden="true">
@@ -26,7 +32,7 @@
                             </svg>
                             <span class="gray author">{{val.author.split(',')[0]}}</span>
                         </div>
-                        <div class="book-meta-r">
+                        <div class="book-meta-r" v-if="!rank">
                             <span>{{val.majorCate}}</span>
                             <span>{{val.allowMonthly?'已完结':'连载中'}}</span>
                             <span>{{val.retentionRatio}}万字</span>
@@ -75,6 +81,11 @@ export default {
             }
         },
         align: {
+            type: Boolean,
+            default: false
+        },
+
+        rank: { // 是不是排行榜详细
             type: Boolean,
             default: false
         }
@@ -137,6 +148,7 @@ export default {
                 font-size: 12px;
             }
         }
+        
     }
 }
 
@@ -145,7 +157,13 @@ export default {
         display: flex;
         padding-bottom: 15px;
         margin-top: 15px;
-
+        .index {
+            flex:0 0 40px;
+            font-weight:bold;
+            font-size: 16px;
+            display:flex;
+            align-items:center;
+        }
         img {
             margin-right: 10px;
         }
@@ -155,15 +173,35 @@ export default {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 5px 0;
             box-sizing: border-box;
 
             .title {
                 font-size: 16px;
                 font-weight: 700;
-
+                display: flex;
+                justify-content: space-between;
+                .title-s {
+                    line-height:1.3;
+                }
+                .title-rank {
+                    flex:1;
+                    color: #ed424b;
+                    font-size:14px;
+                    font-weight:normal;
+                    text-align:right;
+                }
             }
-
+            
+            .book-tags-span {
+                font-style: italic;
+            }
+            .book-tags-p {
+                width:230px;
+                font-size: 14px;
+                overflow: hidden;
+                text-overflow:ellipsis;
+                white-space: nowrap;
+            }
             .desc {
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -179,7 +217,6 @@ export default {
         .book-meta {
             display: flex;
             justify-content: space-between;
-
             .book-meta-r {
                 span {
                     font-size: 12px;
@@ -206,6 +243,9 @@ export default {
 
     .book-item:first-child {
         margin-top: 0;
+    }
+    .book-item:last-child:before{
+        border:0;
     }
 }
 

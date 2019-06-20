@@ -1,11 +1,11 @@
 <template>
     <div class="author">
         <div class="avatar">
-            <img src="http://img.1391.com/api/v1/bookcenter/cover/1/2014980/2014980_4886fb1ed53f453a9a76005611a3310a.jpg/" alt="">
+            <img :src="avatar | URL" alt="">
             <span >Lv.4</span>
         </div>
         <div class="author-info">
-            <p class="username">烽火戏诸侯</p>
+            <p class="username">{{author}}</p>
             <span class="gray">暂无作者简介</span>
         </div>
         <svg class="icon gray" aria-hidden="true">
@@ -16,7 +16,16 @@
 
 <script>
 export default {
-
+    props: {
+        avatar: {
+            type:String,
+            default:''
+        },
+        author: {
+            type:String,
+            default:''
+        },
+    }
 }
 </script>
 

@@ -39,7 +39,7 @@ module.exports = {
         '@nuxtjs/proxy'
     ],
     axios: {
-        // baseURL: process.env.NODE_ENV == "production" ? "http://101.132.188.203:3001" : "http://192.168.0.104:3000",
+        baseURL: process.env.NODE_ENV == "production" ? "http://101.132.188.203:3001" : "http://192.168.0.104:3001",
         // withCredentials: true,
     },
     proxy: {

@@ -43,8 +43,6 @@ export const scrollTop = {
         },
 
         backTop() {
-            console.log(this.$refs.scroll);
-            
             this.$refs.scroll.scrollTo(0,0,300)
             setTimeout(() => {
                 this.showFlag = false
