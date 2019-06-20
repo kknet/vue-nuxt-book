@@ -26,8 +26,9 @@ module.exports = {
    
     plugins: [
         { src: "~/plugins/vant.js", ssr: true },
-        { src: "~/assets/css/iconfont.js", ssr: false },
         { src: "~/plugins/filter.js", ssr: true },
+        { src: "~/assets/css/iconfont.js", ssr: false },
+
     ],
     router: {
         middleware: ["redirect"],
@@ -38,7 +39,7 @@ module.exports = {
         '@nuxtjs/proxy'
     ],
     axios: {
-        baseURL: process.env.NODE_ENV == "production" ? "http://101.132.188.203:3001" : "http://192.168.0.104:3000",
+        // baseURL: process.env.NODE_ENV == "production" ? "http://101.132.188.203:3001" : "http://192.168.0.104:3000",
         // withCredentials: true,
     },
     proxy: {

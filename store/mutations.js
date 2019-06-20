@@ -22,5 +22,8 @@ const matutaions = {
         state.catBooks = data.catBooks
         state.catBooksLv2 = data.catBooksLv2
     },
+    [types.RANK_CATEGORY](state,rankCategory) {
+        state.rankCategory = rankCategory
+    },
 }
 export default matutaions

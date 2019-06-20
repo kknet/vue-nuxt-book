@@ -137,8 +137,8 @@ export default {
 
     methods: {
         onClickLeft() {
-            // this.$router.go(-1)
-            this.$router.push({name:'index'})
+            this.$router.go(-1)
+            // this.$router.push({name:'index'})
         },
 
         // 更多评论

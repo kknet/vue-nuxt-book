@@ -6,13 +6,14 @@ const path = require('path')
 const { KOA_BASE_URL, KOA_BASE_URL2, KOA_BOOK, KOA_BOOK_COMMENT, KOA_BOOK_CATALOG } = require(path.resolve(__dirname, '../../../assets/js/conf'))
 // 女生书籍分类
 router.get('/femaleBooks', async ctx => {
-    const [hot, potential, good, vip, newBook, endBook, romance, immortal, modern, campus, fantasy, science, suspense, woman] = await Promise.all([
+    const [hot,hotSearch,retain, potential, good, vip, newBook, romance, immortal, modern, campus, fantasy, science, suspense, woman] = await Promise.all([
         axios.get(`${KOA_BASE_URL}/54d43437d47d13ff21cad58b`), //热门书籍
+        axios.get(`${KOA_BASE_URL}/5a684515fc84c2b8efaa9875`), //热搜榜单
+        axios.get(`${KOA_BASE_URL}/5645482405b052fe70aeb1b5`), //留存榜单
         axios.get(`${KOA_BASE_URL}/54d43709fd6ec9ae04184aa5`), //潜力榜
         axios.get(`${KOA_BASE_URL}/5a684551fc84c2b8efaab179`), //好评
         axios.get(`${KOA_BASE_URL}/57eb959df60eb7e21fb3a8b7`), // vip
         axios.get(`${KOA_BASE_URL}/550b841715db45cd4b022107`), //  新书榜单
-        axios.get(`${KOA_BASE_URL}/5645482405b052fe70aeb1b5`), //  潇湘月票榜
         axios.get(`${KOA_BASE_URL2}?gender=female&type=hot&major=${encodeURIComponent('古代言情')}&start=0&limit=4`), //  古代言情
         axios.get(`${KOA_BASE_URL2}?gender=female&type=hot&major=${encodeURIComponent('武侠仙侠')}&start=0&limit=4`), //  武侠仙侠
         axios.get(`${KOA_BASE_URL2}?gender=female&type=hot&major=${encodeURIComponent('现代言情')}&start=0&limit=4`), //  现代言情
@@ -25,11 +26,12 @@ router.get('/femaleBooks', async ctx => {
     if (hot.data.ok == true) {
         const femaleList = {
             hot: hot.data.ranking.books || [],
+            hotSearch:hotSearch.data.ranking.books || [],
+            retain:retain.data.ranking.books || [],
             potential: potential.data.ranking.books || [],
             good: good.data.ranking.books || [],
             vip: vip.data.ranking.books || [],
             newBook: newBook.data.ranking.books || [],
-            endBook: endBook.data.ranking.books || [],
             romance: romance.data.books || [],
             immortal: immortal.data.books || [],
             modern: modern.data.books || [],
@@ -51,6 +53,8 @@ router.get('/femaleBooks', async ctx => {
 // 图书详情和评论
 router.get('/book', async ctx => {
     const id = ctx.query.id
+    console.log(id);
+    
     if (!id) {
         return ctx.body = {
             code: -1,
@@ -83,7 +87,7 @@ router.get('/comment', async ctx => {
         }
     }
     const start = ctx.query.start || 20
-    const { data } = await axios.get(`${KOA_BOOK_COMMENT}?book=${id}&sortType=newest&limit=10&start=${start}`)
+    const { data } = await axios.get(`${KOA_BOOK_COMMENT}?book=${id}&sortType=newest&limit=15&start=${start}`)
     ctx.body = {
         code: 10000,
         comment: data

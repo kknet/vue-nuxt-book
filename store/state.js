@@ -1,6 +1,8 @@
 const state = () => ({
     homeList: {     // 首页
         hot: [], //热门书籍
+        retain:[],  // 留存榜
+        hotSearch: [], // 热搜绑
         potential: [],//潜力榜
         good: [],    //好评
         vip: [], // vip
@@ -16,6 +18,8 @@ const state = () => ({
 
     femaleList: {
         hot: [],
+        retain:[],  // 留存榜
+        hotSearch: [], // 热搜绑
         potential: [],
         good: [],
         vip:  [],
@@ -35,5 +39,6 @@ const state = () => ({
     catalogList:{}, //图书章节
     catBooks:{},    // 图书主分类
     catBooksLv2:{}, // 图书子分类
+    rankCategory:{},    //排行榜所有分类
 })
 export default state

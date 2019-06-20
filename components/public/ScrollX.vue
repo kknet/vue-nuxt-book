@@ -1,7 +1,7 @@
 <template>
     <div class="horizontal-container">
         <div class="scroll-wrapper" ref="scroll">
-            <div class="scroll-content">
+            <div class="scroll-content" :class="{justify:list.length===4}">
                 <slot></slot>
             </div>
         </div>
@@ -11,6 +11,15 @@
 <script>
 import BScroll from "better-scroll";
 export default {
+    props: {
+        list: {
+            type:Array,
+            default() {
+                return []
+            }
+        }
+    },
+    
     mounted() {
         this.$nextTick(() => {
             this.init();
@@ -56,7 +65,10 @@ export default {
     .scroll-content {
         display: inline-block;
     }
-
+    .justify {
+        display: flex;
+        justify-content: space-between;
+    }
     .scroll-item {
         display: inline-block;
     }

@@ -4,7 +4,7 @@
             <svg class="icon" aria-hidden="true">
                 <use :xlink:href="val.icon"></use>
             </svg>
-            <div class="title">分类</div>
+            <div class="title">{{val.title}}</div>
         </li>
     </ul>
 </template>
@@ -20,7 +20,8 @@ export default {
                 },
                 {
                     title: '排行榜',
-                    icon: '#icon-yiwancheng'
+                    icon: '#icon-paihangbang-',
+                    path: '/rank'
                 },
                 {
                     title: '免费',
@@ -28,11 +29,11 @@ export default {
                 },
                 {
                     title: '完本',
-                    icon: '#icon-yiwancheng'
+                    icon: '#icon-shu'
                 },
                 {
                     title: '大神',
-                    icon: '#icon-yiwancheng'
+                    icon: '#icon--huangguan'
                 },
             ]
         }
@@ -40,18 +41,17 @@ export default {
 
     methods: {
         select(path, index) {
-            if (index === 0) {
-                if (this.$route.name === 'index') {
-                    this.$router.push({
-                        path,query:{gender:'male'}
-                    })
-                } else {
-                    this.$router.push({
-                        path,query:{gender:'female'}
-                    })
-                }
+            const query = ['male','female']
+            if (this.$route.name === 'index') {
+                this.$router.push({
+                    path,query:{gender:query[0]}
+                })
+            } else {
+                this.$router.push({
+                    path,query:{gender:query[1]}
+                })
             }
-        }
+        } 
     }
 }
 </script>

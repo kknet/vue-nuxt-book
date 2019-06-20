@@ -8,7 +8,7 @@
             <svg class="icon" aria-hidden="true" @click="left">
                 <use xlink:href="#icon-houtui"></use>
             </svg>
-            <span class="category">分类</span>
+            <span class="category">{{title}}</span>
         </div>
         <div class="center">
             <span :class="{'active':active==index}" @click="select(index)" v-for="(val,index) of nav" :key="val">{{val}}</span>
@@ -46,6 +46,10 @@ export default {
         isSearch: {
             type: Boolean,
             default: false
+        },
+        title: {
+            type:String,
+            default:'分类'
         }
     },
 

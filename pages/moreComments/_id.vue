@@ -63,16 +63,21 @@ export default {
     },
     methods: {
         onClickLeft() {
-            this.$router.push({ name: `book-id`, params: { id:this.$route.params.id } })
+            // this.$router.push({ name: `book-id`, params: { id:this.$route.params.id } })
+            this.$router.go(-1)
         },
 
         async scrollToEnd() {
             const id = this.$route.params.id
-            if (this.comments[id].list.length >= 10) {
+            if (this.comments[id].list.length >= 15) {
                 try {
                     if (this.isLocked()) return // 必须等待上一次请求完成
                     this.locked()//开始请求之前锁住
-                    this.start = this.comments[id].start + 11
+                    this.$toast.loading({
+                        mask: true,
+                        message: '加载中...'
+                    });
+                    this.start = this.comments[id].start + 20
                     const data = await this.$axios.$get(`/api/comment`,{
                         params: {
                             start: this.start,
@@ -81,6 +86,7 @@ export default {
                     })
                     if (data.code == 10000) {
                         this.unLocked() // 解锁
+                        this.$toast.clear()
                         const arr = this.comments[id].list.concat(data.comment.docs)    // 存入vuex
                         this.dataArr = this.dataArr.concat(data.comment.docs)
                         this.setCommentsMap({    // 存入vuex
@@ -90,7 +96,11 @@ export default {
                         })
                     }
                 } catch (error) {
-                     this.unLocked() // 解锁
+                    this.unLocked() // 解锁
+                    this.$toast.clear()
+                    setTimeout(() => {
+                        this.$toast.fail('请求失败');
+                    }, 500);
                 }
             }
         }

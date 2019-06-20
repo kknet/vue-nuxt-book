@@ -1,7 +1,7 @@
 <template>
     <div class="backTop-warpper"  v-show='showFlag' @click="back">
         <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-dingbu"></use>
+            <use xlink:href="#icon-icon-test"></use>
         </svg>
     </div>
 </template>
@@ -36,7 +36,7 @@ export default {
         position: absolute;
         top: 50%;
         left: 50%;
-        font-size: 16px;
+        font-size: 20px;
         transform: translate(-50%, -50%);
     }
 }

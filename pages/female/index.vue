@@ -21,8 +21,8 @@
                         <BookItem align :list="femaleList.newBook.slice(0,3)" />
                     </div>
                     <div class="book-warp">
-                        <Title title="潇湘月票榜" />
-                        <BookItem align :list="femaleList.endBook.slice(0,3)" />
+                        <Title title="畅销完本" />
+                        <BookItem align :list="femaleList.retain.slice(0,3)" />
                     </div>
                     <div class="book-warp">
                         <Title title="分类推荐" desc="频道主编推荐" />

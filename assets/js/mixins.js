@@ -7,7 +7,8 @@ export const mixin = {
             'femaleList',
             'book',
             'comments',
-            'catalogList'
+            'catalogList',
+            'rankCategory'
         ])
     },
 
@@ -19,6 +20,9 @@ export const mixin = {
 
         ...mapActions(['setBook', 'setComments']),
 
+        bookDetails(id) {
+            this.$router.push({ name: `book-id`, params: { id } })
+        }
     }
 
 }
@@ -102,10 +106,12 @@ export const page = {
         // 加锁
         locked() {
             this.loading = true
+            
         },
 
         unLocked() {
             this.loading = false
+            
         }
     }
 }

@@ -2,8 +2,8 @@
     <div>
         <div class="list" v-if="!align">
             <!-- <TabItem :nav='rankTab' class="rank-tab" @change='rankChange' /> -->
-            <ScrollX ref="scroll-y">
-                <div class="book-item" @click="book(val._id)" v-for="val of list" :key="val._id">
+            <ScrollX ref="scroll-y" :list='list'>
+                <div class="book-item" :style="{'margin-right':list.length===4?0:''}" @click="bookDetails(val._id)" v-for="val of list" :key="val._id">
                     <img  :src="val.cover | URL"/>
                     <div class="book-desc">
                         <p>{{val.title}}</p>
@@ -14,7 +14,7 @@
         </div>
         
         <div class="align-list" v-else>
-            <div class="book-item border-bottom" v-for="val of list" :key="val._id" @click="book(val._id)">
+            <div class="book-item border-bottom" v-for="val of list" :key="val._id" @click="bookDetails(val._id)">
                 <img v-lazy="val.cover" />
                 <div class="book-desc">
                     <p class="title">{{val.title}}</p>
@@ -45,7 +45,9 @@
 
 <script>
 import ScrollX from './ScrollX'
+import {mixin} from '@/assets/js/mixins'
 export default {
+    mixins:[mixin],
     components: {
         ScrollX
     },
@@ -83,15 +85,11 @@ export default {
 
         },
 
-        book(id) {
-            this.$router.push({ name: `book-id`, params: { id } })
-        }
+        
     },
 
     watch: {
         list(newV) {
-            console.log(44444);
-            
             this.skeleton = true
             if (!newV.length) {
                 setTimeout(() => {
@@ -114,7 +112,6 @@ export default {
         display: inline-block;
         width: 70px;
         margin-right: 15px;
-
         .book-desc {
             flex: 1;
             display: flex;

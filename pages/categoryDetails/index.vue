@@ -112,29 +112,43 @@ export default {
         },
 
         async getList(type,flag) {
-            if (this.isLocked()) return // 必须等待上一次请求完成
-            this.locked()//开始请求之前锁住
-            const data = await this.$axios.$get(`${BASE_URL2}`, {
-            params: {
-                gender: this.gender,
-                type,
-                start: this.start,
-                limit: 20,
-                major: this.major,
-                minor: this.minor,
-                }
-            })
-            if (data.ok) {
-                this.setTotal(data.total)  // 总条数
-                this.unLocked() // 解锁
+            try {
+                if (this.isLocked()) return // 必须等待上一次请求完成
+                this.locked()//开始请求之前锁住
                 if (flag) {
-                    this.setNewData(data.books)
-                } else {
-                    this.dataArr = data.books
+                    this.$toast.loading({
+                        mask: true,
+                        message: '加载中...'
+                    });
                 }
-                
-                
+                const data = await this.$axios.$get(`${BASE_URL2}`, {
+                params: {
+                        gender: this.gender,
+                        type,
+                        start: this.start,
+                        limit: 20,
+                        major: this.major,
+                        minor: this.minor,
+                    }
+                })
+                if (data.ok) {
+                    this.setTotal(data.total)  // 总条数
+                    this.unLocked() // 解锁
+                    if (flag) {
+                        this.setNewData(data.books)
+                        this.$toast.clear()
+                    } else {
+                        this.dataArr = data.books
+                    }
+                }
+            } catch (error) {
+                this.unLocked() // 解锁
+                this.$toast.clear()
+                setTimeout(() => {
+                    this.$toast.fail('请求失败');
+                }, 500);
             }
+            
         },
 
         // 分页

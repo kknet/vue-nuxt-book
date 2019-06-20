@@ -101,7 +101,6 @@ export default {
         },
 
         tags(item,i) {
-            console.log(item,i);
             this.$router.push({
                 name: 'categoryDetails',query:{
                     gender:this.$route.query.gender,
