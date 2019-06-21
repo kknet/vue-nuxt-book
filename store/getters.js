@@ -6,6 +6,8 @@ export const catalogList = state => state.catalogList
 export const catBooks = state => state.catBooks
 export const catBooksLv2 = state => state.catBooksLv2
 export const rankCategory = state => state.rankCategory
+export const searchWords = state => state.searchWords
+
 
 
 

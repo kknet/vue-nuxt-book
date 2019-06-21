@@ -1,13 +1,21 @@
 <template>
-    <van-search disabled placeholder="请输入搜索关键词" v-model="value" />
+    <van-search disabled :placeholder="title" @click="search"/>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            value: ""
-        };
+
+    props: {
+        title: {
+            type: String,
+            default: '我要当神棍'
+        }
+    },
+
+    methods: {
+        search() {
+            this.$router.push({name:'search'})
+        }
     }
 };
 </script>

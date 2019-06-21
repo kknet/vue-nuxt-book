@@ -5,7 +5,7 @@
             <Scroll class="scroll-warpper-app" :data='homeList.hot'>
                 <div>
                     <Swiper :swiper="swiper" />
-                    <SearchBar />
+                    <SearchBar/>
                     <HomeNav />
                     <div class="book-warp">
                         <Title title='热门小说' desc='起点编辑推荐' />

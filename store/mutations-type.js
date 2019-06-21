@@ -5,6 +5,8 @@ export const COMMENTS = 'COMMENTS'
 export const CATALOG_LIST = 'CATALOG_LIST'
 export const CAT_BOOKS = 'CAT_BOOKS'
 export const RANK_CATEGORY = 'RANK_CATEGORY'
+export const SEARCH_WORDS = 'SEARCH_WORDS'
+
 
 
 

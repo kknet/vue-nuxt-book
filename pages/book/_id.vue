@@ -143,6 +143,9 @@ export default {
 
         // 更多评论
         onShowMore() {
+            if (!this.books.comment.length) {
+                return this.$toast('暂无更多评论~~')
+            }
             this.$router.push({ name: `moreComments-id`, params: { id:this.$route.params.id } })
         },
 

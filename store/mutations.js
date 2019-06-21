@@ -25,5 +25,8 @@ const matutaions = {
     [types.RANK_CATEGORY](state,rankCategory) {
         state.rankCategory = rankCategory
     },
+    [types.SEARCH_WORDS](state,searchWords) {
+        state.searchWords = searchWords
+    },
 }
 export default matutaions

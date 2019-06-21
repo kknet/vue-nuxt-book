@@ -11,6 +11,7 @@
                     <div class="updated">{{ val.updated| TIME}}</div>
                 </div>
         </li>
+        <!-- <div class="nodedata gray">暂无更多评论~~</div> -->
         <div class="more" v-if="showMore" @click="onShowMore">更多书评</div>
     </ul>
 </template>
@@ -96,5 +97,9 @@ ul li:last-child {
     text-align: center;
     color: #4284ed;
     font-size: 14px;
+}
+.nodedata {
+    text-align: center;
+    margin-top: 20px;
 }
 </style>

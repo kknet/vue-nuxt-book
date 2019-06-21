@@ -33,9 +33,9 @@
                             <span class="gray author">{{val.author.split(',')[0]}}</span>
                         </div>
                         <div class="book-meta-r" v-if="!rank">
-                            <span>{{val.majorCate}}</span>
+                            <span>{{val.majorCate || val.cat}}</span>
                             <span>{{val.allowMonthly?'已完结':'连载中'}}</span>
-                            <span>{{val.retentionRatio}}万字</span>
+                            <span>{{val.retentionRatio || 0}}万字</span>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <van-nav-bar :title="dataArr[0].book.title" left-arrow @click-left="onClickLeft" class="border-bottom"></van-nav-bar>
+        <van-nav-bar :title="$store.state.book[$route.params.id].title" left-arrow @click-left="onClickLeft" class="border-bottom"></van-nav-bar>
         <div class="comment">
             <Scroll ref="scroll" :data='dataArr' class="scroll-warpper-app" pullup @scrollToEnd='scrollToEnd' :click='false' @scroll='scroll' listenScroll probeType='3'>
                 <div>
@@ -30,7 +30,7 @@ export default {
         const id = route.params.id
         if (store.state.comments.hasOwnProperty(id)) {  // 如果vuex里面有数据就不去请求接口
             return {
-                dataArr: store.state.comments[id].list
+                dataArr: store.state.comments[id].list,
             }
         }
         const data = await $axios.$get(`/api/comment`,{

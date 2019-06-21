@@ -40,5 +40,6 @@ const state = () => ({
     catBooks:{},    // 图书主分类
     catBooksLv2:{}, // 图书子分类
     rankCategory:{},    //排行榜所有分类
+    searchWords:[] ,    // 搜索关键词
 })
 export default state

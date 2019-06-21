@@ -8,7 +8,8 @@ export const mixin = {
             'book',
             'comments',
             'catalogList',
-            'rankCategory'
+            'rankCategory',
+            'searchWords',
         ])
     },
 
