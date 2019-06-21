@@ -6,21 +6,19 @@
                 <img src="@/assets/img/logo2.svg" v-else/>
         </div>
                 <div class="left" v-else>
-                    <svg class="icon" aria-hidden="true" @click="left">
-                <use xlink:href="#icon-houtui"></use>
-            </svg>
                     <span class="category">{{title}}</span>
                 </div>
                 <div class="center">
                     <span :class="{'active':active==index}" @click="select(index)" v-for="(val,index) of nav" :key="val">{{val}}</span>
                 </div>
                 <div class="right" v-if="!isSearch">
-                    <svg class="icon user" aria-hidden="true" @click="$router.push({name:'myBook'})">
+                    <svg v-if="!userName" class="icon user" aria-hidden="true" @click="$router.push({name:'myBook'})">
                         <use xlink:href="#icon-icon-user"></use>
                     </svg>
+                    <img v-else src="@/assets/img/avatar.jpg" class="avatar" @click="$router.push({name:'myBook'})"/>
                     <svg class="icon book" aria-hidden="true" @click="showPop">
-                <use xlink:href="#icon-mulu"></use>
-            </svg>
+                        <use xlink:href="#icon-mulu"></use>
+                    </svg>
                 </div>
                 <div class="right" v-else>
                     <svg class="icon user search" aria-hidden="true" @click="$router.push({name:'search'})">
@@ -38,7 +36,9 @@
 
 <script>
 import Popup from './Popup'
+import {mixin} from '@/assets/js/mixins'
 export default {
+    mixins:[mixin],
     props: {
         active: {
             type: [String, Number],
@@ -55,12 +55,17 @@ export default {
         title: {
             type: String,
             default: '分类'
+        },
+        nav: {
+            type:Array,
+            default() {
+                return ['男生', '女生']
+            }
         }
     },
 
     data() {
         return {
-            nav: ['男生', '女生'],
             show: false
         }
     },
@@ -125,7 +130,7 @@ header {
 
         span {
             text-align: center;
-            padding: 8px 18px;
+            padding: 8px 12px;
             color: #ed424b;
             border: 1px solid #ed424b;
             margin-right: -1px;
@@ -157,7 +162,12 @@ header {
         .user {
             margin-right: 5px;
         }
-
+        .avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right:5px;
+        }
         .user,
         .book {
             color: #ed424b;

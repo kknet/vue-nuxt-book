@@ -1,7 +1,10 @@
 import * as types from './mutations-type'
 const { BASE_URL, BASE_URL2 } = require('@/assets/js/conf')
 const actions = {
-    async nuxtServerInit({ commit }, { $axios }) {
+    async nuxtServerInit({ commit }, {req, $axios }) {
+        const session = req.ctx.session
+        
+        commit(types.USER_NAME, session && session.userName ? session.userName : '')
         // 首页 男生
         const [rankCategory,retain,hotSearch, hot, potential, good, vip, newBook, endBook, fantasy, knight, urban, history, game, science] = await Promise.all([
             $axios.$get(`${BASE_URL}/gender`), //排行榜所有分类

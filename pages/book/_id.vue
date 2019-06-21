@@ -1,9 +1,6 @@
 <template>
     <div>
-        <van-nav-bar :title="books.title"  left-arrow @click-left="onClickLeft">
-            <van-icon name="search" slot="right" />
-            <van-icon name="qr" slot="right" />
-        </van-nav-bar>
+        <van-nav-bar :title="books.title"  left-arrow @click-left="onClickLeft"></van-nav-bar>
         <img :src="books.cover | URL" class="book-cover-blur-top">
         <div class="book-details-warp">
             <Scroll class="scroll-warpper-app" :data='homeList.comment'>

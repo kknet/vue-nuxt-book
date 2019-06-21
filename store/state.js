@@ -41,5 +41,6 @@ const state = () => ({
     catBooksLv2:{}, // 图书子分类
     rankCategory:{},    //排行榜所有分类
     searchWords:[] ,    // 搜索关键词
+    userName:'',    // 登录的用户名
 })
 export default state

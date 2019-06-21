@@ -28,5 +28,8 @@ const matutaions = {
     [types.SEARCH_WORDS](state,searchWords) {
         state.searchWords = searchWords
     },
+    [types.USER_NAME](state,userName) {
+        state.userName = userName
+    },
 }
 export default matutaions

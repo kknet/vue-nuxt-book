@@ -1,6 +1,6 @@
 <template>
     <div>
-        <NavHeader title='排行榜' @select='select' category class="border-bottom" @left='left' :active='active' isSearch/>
+        <NavHeader title='排行榜' @select='select' category class="border-bottom" :active='active' isSearch/>
         <div class="rank">
             <Scroll class="scroll-warpper-app" ref="scroll">
                 <article>
@@ -40,6 +40,7 @@
                 </article>
             </Scroll>
         </div>
+        <NavFooter active='2'/>
     </div>
 </template>
 
@@ -48,6 +49,7 @@ import NavHeader from "@/components/public/NavHeader";
 import {mixin} from '@/assets/js/mixins'
 import * as types from '@/store/mutations-type'
 import Scroll from "@/components/public/Scroll";
+import NavFooter from "@/components/public/NavFooter";
 export default {
     mixins:[mixin],
     data () {
@@ -77,7 +79,8 @@ export default {
 
     components: {
         NavHeader,
-        Scroll
+        Scroll,
+        NavFooter
     },
     
     computed: {
@@ -105,10 +108,6 @@ export default {
     },
 
     methods: {
-        left() {
-            this.$router.go(-1)
-        },
-
         select(i) {
             this.active = i
             this.$refs.scroll.scrollTo(0,0,0)
@@ -165,7 +164,7 @@ export default {
 <style lang="scss" scoped>
 @import '~@/assets/css/mixin.scss';
 .rank {
-    @include scroll(45px,0,#fff);
+    @include scroll(45px,50px,#fff);
 }
 article {
     background: #fff;

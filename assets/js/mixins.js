@@ -10,13 +10,15 @@ export const mixin = {
             'catalogList',
             'rankCategory',
             'searchWords',
+            'userName',
         ])
     },
 
     methods: {
         ...mapMutations({
             setCommentsMap: 'COMMENTS',
-            setCatBooks: 'CAT_BOOKS'
+            setCatBooks: 'CAT_BOOKS',
+            setUserName:'USER_NAME'
         }),
 
         ...mapActions(['setBook', 'setComments']),

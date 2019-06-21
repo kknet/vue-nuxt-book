@@ -6,7 +6,6 @@
                 <div>
                     <Swiper :swiper="swiper" />
                     <SearchBar/>
-                    <HomeNav />
                     <div class="book-warp">
                         <Title title='热门小说' desc='起点编辑推荐' />
                         <BookItem :list='homeList.hot.slice(0,20)' />
@@ -43,7 +42,6 @@
 import {mixin} from '@/assets/js/mixins'
 import NavHeader from "@/components/public/NavHeader";
 import Swiper from "@/components/layouts/Swiper";
-import HomeNav from "@/components/layouts/Nav";
 import SearchBar from "@/components/layouts/SearchBar";
 import Title from "@/components/public/Title";
 import BookItem from "@/components/public/BookItem";
@@ -55,7 +53,6 @@ export default {
     components: {
         NavHeader,
         Swiper,
-        HomeNav,
         SearchBar,
         Title,
         BookItem,

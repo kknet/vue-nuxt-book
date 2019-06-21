@@ -1,13 +1,5 @@
 <template>
-    <ul v-if="!popup">
-        <li v-for="(val,index) of list.slice(0,-1)" :key="val.title" @click="select(val.path,index)">
-            <svg class="icon" aria-hidden="true">
-                <use :xlink:href="val.icon"></use>
-            </svg>
-            <div class="title">{{val.title}}</div>
-        </li>
-    </ul>
-    <ul v-else class="ul">
+    <ul class="ul">
         <li v-for="(val,index) of list" :class="{nomargin:index<3}" :key="val.title" @click="select(val.path,index)" class="item">
             <svg class="icon" aria-hidden="true">
                 <use :xlink:href="val.icon"></use>
