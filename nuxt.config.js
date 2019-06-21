@@ -2,7 +2,7 @@
 module.exports = {
     mode: 'universal',
     head: {
-        title: process.env.npm_package_name || '',
+        title: '阅读器',
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width,minimum-scale=1.0,maximum-scale=1.0' },
@@ -30,6 +30,7 @@ module.exports = {
         { src: "~/assets/css/iconfont.js", ssr: false },
 
     ],
+
     router: {
         middleware: ["redirect"],
     },
@@ -38,6 +39,7 @@ module.exports = {
         '@nuxtjs/axios',
         '@nuxtjs/proxy'
     ],
+    
     axios: {
         // baseURL: process.env.NODE_ENV == "production" ? "http://101.132.188.203:3001" : "http://192.168.0.104:3001",
         // withCredentials: true,

@@ -1,38 +1,43 @@
 <template>
-    <header>
-        <div class="left" v-if="!category">
-            <img src="@/assets/img/logo.svg" v-if="active==0"/>
-            <img src="@/assets/img/logo2.svg" v-else/>
+    <div>
+        <header>
+            <div class="left" v-if="!category">
+                <img src="@/assets/img/logo.svg" v-if="active==0"/>
+                <img src="@/assets/img/logo2.svg" v-else/>
         </div>
-        <div class="left" v-else>
-            <svg class="icon" aria-hidden="true" @click="left">
+                <div class="left" v-else>
+                    <svg class="icon" aria-hidden="true" @click="left">
                 <use xlink:href="#icon-houtui"></use>
             </svg>
-            <span class="category">{{title}}</span>
-        </div>
-        <div class="center">
-            <span :class="{'active':active==index}" @click="select(index)" v-for="(val,index) of nav" :key="val">{{val}}</span>
-        </div>
-        <div class="right" v-if="!isSearch">
-            <svg class="icon user" aria-hidden="true">
-                <use xlink:href="#icon-icon-user"></use>
-            </svg>
-                <svg class="icon book" aria-hidden="true">
-                <use xlink:href="#icon-books"></use>
-            </svg>
-        </div>
-        <div class="right" v-else>
-            <svg class="icon user search" aria-hidden="true">
-                <use xlink:href="#icon-fenxiang"></use>
-            </svg>
-                <svg class="icon book search" aria-hidden="true">
+                    <span class="category">{{title}}</span>
+                </div>
+                <div class="center">
+                    <span :class="{'active':active==index}" @click="select(index)" v-for="(val,index) of nav" :key="val">{{val}}</span>
+                </div>
+                <div class="right" v-if="!isSearch">
+                    <svg class="icon user" aria-hidden="true" @click="$router.push({name:'myBook'})">
+                        <use xlink:href="#icon-icon-user"></use>
+                    </svg>
+                    <svg class="icon book" aria-hidden="true" @click="showPop">
                 <use xlink:href="#icon-mulu"></use>
             </svg>
-        </div>
-    </header>
+                </div>
+                <div class="right" v-else>
+                    <svg class="icon user search" aria-hidden="true" @click="$router.push({name:'search'})">
+                        <use xlink:href="#icon-fenxiang"></use>
+                    </svg>
+                    <svg class="icon book search" aria-hidden="true" @click="showPop">
+                        <use xlink:href="#icon-mulu"></use>
+                    </svg>
+                </div>
+        </header>
+        <Popup  :show='show' @hide='show=false'/>
+    </div>
+
 </template>
 
 <script>
+import Popup from './Popup'
 export default {
     props: {
         active: {
@@ -48,24 +53,33 @@ export default {
             default: false
         },
         title: {
-            type:String,
-            default:'分类'
+            type: String,
+            default: '分类'
         }
     },
 
     data() {
         return {
-            nav: ['男生', '女生']
+            nav: ['男生', '女生'],
+            show: false
         }
+    },
+
+    components: {
+        Popup
     },
 
     methods: {
         select(i) {
-            this.$emit('select',i)
+            this.$emit('select', i)
         },
 
         left() {
             this.$emit('left')
+        },
+
+        showPop() {
+            this.show = !this.show
         }
     },
 }
@@ -78,7 +92,9 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
+    position: relative;
+    background: #fff;
+    z-index: 3000;
     div {
         height: 100%;
         display: flex;
@@ -90,10 +106,12 @@ header {
         img {
             width: 100%;
         }
+
         .category {
             font-size: 14px;
             margin-left: 5px;
         }
+
         .icon {
             font-size: 16px;
             padding: 10px 10px 10px 0;
@@ -144,6 +162,7 @@ header {
         .book {
             color: #ed424b;
         }
+
         .search {
             color: #333;
         }

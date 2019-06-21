@@ -31,11 +31,11 @@
                         <TabItem :nav='typeTab2' class="rank-tab rank-tab2" @change='rankChange2' />
                         <BookItem :list='typeList2 || homeList.history' />
                     </div>
-                    <NavFooter />
                 
                 </div>
             </Scroll>
         </div>
+        <NavFooter />
     </div>
 </template>
 
@@ -120,7 +120,7 @@ export default {
 <style lang="scss" scoped>
 @import '~@/assets/css/mixin.scss';
 .home-warp {
-    @include scroll(45px,0,#f6f7f9);
+    @include scroll(45px,50px,#f6f7f9);
 }
 
 

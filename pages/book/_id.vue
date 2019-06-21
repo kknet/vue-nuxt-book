@@ -13,7 +13,6 @@
                         <div class="btns border-bottom">
                             <van-button type="danger" size="small">点击阅读</van-button>
                             <van-button size="small">加入书架</van-button>
-                            <van-button size="small">VIP订阅</van-button>
                         </div>
                         <LongIntro :content='books.longIntro'/>
                         <div class="book-directory" @click="goCatalog">
@@ -173,6 +172,7 @@ export default {
     display: flex;
     justify-content: space-between;
     .van-button--small {
+        flex: 0 0 45%;
         padding: 0 20px;
         font-size: 14px;
     }

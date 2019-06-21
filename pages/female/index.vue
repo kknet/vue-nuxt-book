@@ -31,7 +31,7 @@
                         <TabItem :nav="typeTab2" class="rank-tab rank-tab2" @change="rankChange2" />
                         <BookItem :list="typeList2 || femaleList.fantasy" />
                     </div>
-                    <NavFooter />
+                    <!-- <NavFooter /> -->
                 </div>
             </Scroll>
         </div>
