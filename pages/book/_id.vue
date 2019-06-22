@@ -9,7 +9,7 @@
                         <Detail :bookInfo='books'/>
                         <div class="btns border-bottom">
                             <van-button type="danger" size="small">点击阅读</van-button>
-                            <van-button size="small">加入书架</van-button>
+                            <van-button size="small" @click="addBook">加入书架</van-button>
                         </div>
                         <LongIntro :content='books.longIntro'/>
                         <div class="book-directory" @click="goCatalog">
@@ -148,6 +148,29 @@ export default {
         // 目录
         goCatalog() {
             this.$router.push({ name: `catalog-id`, params: { id:this.$route.params.id } })
+        },
+
+        // 加入书架
+        addBook() {
+            if (!this.userName) {
+                this.$dialog.confirm({
+                    title: '提示',
+                    message: '加入书架需要登录噢~~',
+                    confirmButtonText:'去登陆',
+                    cancelButtonText:'算了吧'
+                }).then(() => {
+                    this.$router.push({name:'login',query:{path:location.origin+ this.$route.fullPath}})
+                }).catch(() => {
+                // on cancel
+                });
+            } else {
+
+            }
+        },
+
+        // 加入书架接口
+        addBookPost() {
+
         }
     },
 }

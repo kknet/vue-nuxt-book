@@ -87,6 +87,19 @@ export default {
             this.show = !this.show
         }
     },
+
+    watch: {
+        show(flag) {
+            console.log(flag);
+            if (flag) {
+                document.querySelector('header').style.zIndex = 3000
+            } else {
+                setTimeout(() => {
+                    document.querySelector('header').style.zIndex = 0
+                }, 300);
+            }
+        }
+    },
 }
 </script>
 
@@ -99,7 +112,6 @@ header {
     justify-content: space-between;
     position: relative;
     background: #fff;
-    z-index: 3000;
     div {
         height: 100%;
         display: flex;

@@ -61,13 +61,13 @@ export default {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-
             .book-title {
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 font-weight: 700;
                 font-size: 16px;
+                padding-top: 3px;
             }
 
             .book-author {

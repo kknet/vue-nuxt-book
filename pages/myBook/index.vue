@@ -12,8 +12,8 @@
             <Scroll class="scroll-warpper-app" ref="scroll">
                 <div>
                     <div class="tip border-bottom" @click="edit">编辑</div>
-                    <van-swipe-cell v-for="val of 10" :key="val" :on-close="onClose" :data-index='val'>
-                        <div class="book-item border-bottom">
+                    <van-swipe-cell v-for="(val,index) of 10" :key="val" :on-close="onClose" :data-index='val'>
+                        <div class="book-item" :class="{' border-bottom':index<9}">
                             <img src="http://img.1391.com/api/v1/bookcenter/cover/1/2292476/2292476_5a1035f1343d40a5a7f90494d60a0858.jpg/"/>
                             <div class="book-info">
                                 <div class="book-header">
@@ -83,7 +83,7 @@ export default {
     },
 
     mounted() {
-        document.querySelector('header').style.zIndex = 2000
+        // document.querySelector('header').style.zIndex = 2002
     },
 
     methods: {

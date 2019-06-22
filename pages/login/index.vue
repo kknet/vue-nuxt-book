@@ -40,8 +40,15 @@ export default {
                 if (data.code == 10000) { // 注册成功
                     this.$toast('登录成功~~')
                     this.setUserName(this.username)
+                    
                     setTimeout(() => {
-                        this.$router.push({name:'index'})
+                        if (this.$route.query.path) {
+                            location.href = this.$route.query.path
+                            // this.$router.go(-1)
+                        } else {
+                            this.$router.push({name:'index'})
+                        }
+                        
                     }, 1500);
                 } else if (data.code == -1) { // 用户名已存在
                     this.$toast(data.msg)

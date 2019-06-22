@@ -105,9 +105,7 @@ export default {
 
         // 最终搜索结果
         async onWords(query,flag) {
-            setTimeout(() => {
-                this.value = query
-            }, 20);
+                // this.value = query
             try {
                 if (this.isLocked()) return // 必须等待上一次请求完成
                 this.locked()//开始请求之前锁住
@@ -176,7 +174,7 @@ export default {
                     this.dataArr = []
                     this.start = 0
                 } else {
-                    this.noWords = true
+                    // this.noWords = true
                     this.keywords = []
                     this.onSearch(newV)
                 }
