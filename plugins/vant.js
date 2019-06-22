@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import Vant from 'vant';
-import { Lazyload,Toast  } from 'vant';
+import { Lazyload,Toast,Dialog  } from 'vant';
 import 'vant/lib/index.css';
-Vue.use(Vant).use(Toast)
+Vue.use(Vant)
 Vue.prototype.$toast = Toast
+Vue.prototype.$dialog = Dialog
 Vue.use(Lazyload, {
     preLoad: 1.3,
     loading: require('@/assets/img/loading-img.gif'),

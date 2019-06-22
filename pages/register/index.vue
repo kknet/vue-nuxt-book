@@ -6,6 +6,7 @@
                 <van-field v-model="username" required clearable label="用户名"  placeholder="请输入用户名"  />
                 <van-field v-model="password" type="password" label="密码" placeholder="请输入密码" required />
             </van-cell-group>
+            <div  class="reg" @click="$router.push({name:'login'})">已有账号</div>
             <van-button type="primary" size="normal" block class="btn" :disabled='!username||!password' @click="submit">注册</van-button>
         </div>
         
@@ -62,6 +63,12 @@ export default {
     .btn {
         margin-top: 100px;
     }
+}
+.reg {
+    text-align: right;
+    margin-top:20px;
+    font-size:12px;
+    color:#0091DE !important;
 }
 </style>
 
