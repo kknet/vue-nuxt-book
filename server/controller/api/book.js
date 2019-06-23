@@ -2,11 +2,12 @@ const Router = require('koa-router')
 const router = new Router({ prefix: '/api' }) // 接口前缀、
 const axios = require('axios')
 const path = require('path')
+const Book = require('../../model/book')
 // const conf = require('../../assets/js/conf')
 const { KOA_BASE_URL, KOA_BASE_URL2, KOA_BOOK, KOA_BOOK_COMMENT, KOA_BOOK_CATALOG } = require(path.resolve(__dirname, '../../../assets/js/conf'))
 // 女生书籍分类
 router.get('/femaleBooks', async ctx => {
-    const [hot,hotSearch,retain, potential, good, vip, newBook, romance, immortal, modern, campus, fantasy, science, suspense, woman] = await Promise.all([
+    const [hot, hotSearch, retain, potential, good, vip, newBook, romance, immortal, modern, campus, fantasy, science, suspense, woman] = await Promise.all([
         axios.get(`${KOA_BASE_URL}/54d43437d47d13ff21cad58b`), //热门书籍
         axios.get(`${KOA_BASE_URL}/5a684515fc84c2b8efaa9875`), //热搜榜单
         axios.get(`${KOA_BASE_URL}/5645482405b052fe70aeb1b5`), //留存榜单
@@ -26,8 +27,8 @@ router.get('/femaleBooks', async ctx => {
     if (hot.data.ok == true) {
         const femaleList = {
             hot: hot.data.ranking.books || [],
-            hotSearch:hotSearch.data.ranking.books || [],
-            retain:retain.data.ranking.books || [],
+            hotSearch: hotSearch.data.ranking.books || [],
+            retain: retain.data.ranking.books || [],
             potential: potential.data.ranking.books || [],
             good: good.data.ranking.books || [],
             vip: vip.data.ranking.books || [],
@@ -54,7 +55,7 @@ router.get('/femaleBooks', async ctx => {
 router.get('/book', async ctx => {
     const id = ctx.query.id
     console.log(id);
-    
+
     if (!id) {
         return ctx.body = {
             code: -1,
@@ -113,6 +114,42 @@ router.get('/chapters', async ctx => {
     }
 })
 
-// 
+// 加入书架
+router.post('/addBook', async ctx => {
+    const data = ctx.request.body
+    if (!ctx.session.userName) {
+        return ctx.body = {
+            code: -1,
+            msg: '请先登录'
+        }
+    }
+
+    const book = await Book.findOne({ id: data._id })
+    if (book) {
+        return ctx.body = {
+            code: -1,
+            msg: '已经添加过该书籍了'
+        }
+    }
+    data.id = data._id
+    let newBook = new Book(data)
+    await newBook.save()
+    ctx.body = {
+        code: 10000,
+        msg: '加入成功'
+    }
+})
+
+// 查询我的书架
+router.get('/getBook', async ctx => {
+    const book = await Book.find()
+    ctx.body = {
+        code: 10000,
+        data: {
+            book,
+            msg: '查询成功'
+        }
+    }
+})
 
 module.exports = router

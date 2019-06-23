@@ -19,7 +19,7 @@ const searchHisystory = {
         }
 
         newData.unshift(data)
-        if (newData.length > 15) {  // 最近浏览最多30条缓存
+        if (newData.length > 10) {  // 最近浏览最多10条缓存
             newData.pop()
         }
         storage.set(SEARCH_HISYSTORY,newData)

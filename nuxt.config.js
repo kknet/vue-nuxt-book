@@ -22,6 +22,7 @@ module.exports = {
     css: [
         "@/assets/css/reset.css",
         "@/assets/css/border.css",
+        "@/assets/css/transition.scss",
     ],
    
     plugins: [

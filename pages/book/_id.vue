@@ -15,7 +15,7 @@
                         <div class="book-directory" @click="goCatalog">
                             <span class="left-text" >目录</span>
                             <div class="right-text">
-                                <span >{{day}} · {{books.isSerial?"连载":"完本"}}至{{books.lastChapter}}</span>
+                                <span >{{books.updated | UPDATED}} · {{books.isSerial?"连载":"完本"}}至{{books.lastChapter}}</span>
                                 <svg class="icon" aria-hidden="true">
                                     <use xlink:href="#icon-qianjin"></use>
                                 </svg>
@@ -99,19 +99,6 @@ export default {
     },
     
     computed: {
-        day() {
-            let updateTime = new Date(moment(this.book.updated).format()).getTime()
-            let newTime = +new Date()
-            const t = (newTime - updateTime) / 1000;
-            const dd = parseInt(t / 86400) / 1000;
-            const hh = parseInt((t % 86400) / 3600);
-            const mm = parseInt(((t % 86400) % 3600) / 60);
-            if (dd > 0) return `${dd}天前`;
-            if (hh > 0) return `${hh}小时前`;
-            if (mm > 0) return `${mm}分钟前`;
-            return '1天前'
-        },
-
         // 书籍标签
         tags() {
             let tag = this.books.tags
@@ -159,18 +146,21 @@ export default {
                     confirmButtonText:'去登陆',
                     cancelButtonText:'算了吧'
                 }).then(() => {
-                    this.$router.push({name:'login',query:{path:location.origin+ this.$route.fullPath}})
+                    // this.$router.push({name:'login',query:{path:location.origin+ this.$route.fullPath}})
+                    this.$router.push({name:'login'})
                 }).catch(() => {
                 // on cancel
                 });
             } else {
-
+                this.addBookPost()
             }
         },
 
         // 加入书架接口
-        addBookPost() {
-
+        async addBookPost() {
+            const data =  await this.$axios.$post(`/api/addBook`,this.books)
+            console.log(data);
+            this.$toast(data.msg)
         }
     },
 }

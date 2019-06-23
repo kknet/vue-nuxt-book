@@ -5,21 +5,21 @@
 
     <div v-if="active==0">
         <div v-if="!userName" class="no-data">
-            <van-button round type="danger" block size="normal" @click="$router.push({name:'login'})">登录</van-button>
+            <van-button round type="danger" block size="normal" @click="goLogin">登录</van-button>
             <div>登录后实时同步进度</div>
         </div>
         <div class="my" v-else>
             <Scroll class="scroll-warpper-app" ref="scroll">
                 <div>
                     <div class="tip border-bottom" @click="edit">编辑</div>
-                    <van-swipe-cell v-for="(val,index) of 10" :key="val" :on-close="onClose" :data-index='val'>
+                    <van-swipe-cell v-for="(val,index) of myBookList" :key="val._id" :on-close="onClose" :data-index='val' @click="$router.push({name:'bookRead'})">
                         <div class="book-item" :class="{' border-bottom':index<9}">
-                            <img src="http://img.1391.com/api/v1/bookcenter/cover/1/2292476/2292476_5a1035f1343d40a5a7f90494d60a0858.jpg/"/>
+                            <img :src="val.cover | URL"/>
                             <div class="book-info">
                                 <div class="book-header">
-                                    <span>返回会的手机号{{val}}</span>
+                                    <span>{{val.title}}</span>
                                     <span class="gray">
-                                    继续阅读
+                                    立即阅读
                                 <svg class="icon gray" aria-hidden="true">
                                     <use xlink:href="#icon-qianjin"></use>
                                 </svg>
@@ -30,18 +30,28 @@
                                     <svg class="icon" aria-hidden="true">
                                     <use xlink:href="#icon-yonghu"></use>
                                 </svg>
-                                    <span>趋势</span>
+                                    <span>{{val.author}}</span>
                                     <span class="line">|</span>
-                                    <span>尚未阅读</span>
+                                    <span v-if="!val.readChapter">尚未阅读</span>
+                                    <span v-else>第3章　奇遇连连</span>
                                 </div>
                                 <div class="book-to-new gray">
                                     <span>更新至 正文 第1177章 底蕴无尽</span>
-                                    <span>3天前</span>
+                                    <span>{{val.updated | UPDATED}}</span>
                                 </div>
                             </div>
                         </div>
                         <van-button class="btn" square slot="right" type="danger" text="删除" />
                     </van-swipe-cell>
+                    <div class="lately" v-if="!myBookList.length" >
+                        <div class="null">
+                            <svg class="icon gray" aria-hidden="true">
+                                <use xlink:href="#icon-shu1"></use>
+                            </svg>
+                            <div class="gray">还没有图书哟</div>
+                        </div>
+                    </div>
+                    
                 </div>
             </Scroll>
         </div>
@@ -74,16 +84,21 @@ export default {
         Scroll
     },
 
+    async asyncData({$axios}) {
+        const data = await $axios.$get('/api/getBook')
+        if (data.code == 10000) {
+            return {
+                myBookList:data.data.book
+            }
+        }
+    },
     data() {
         return {
             active: 0,
             nav: ['我的书架', '最近阅读'],
-            latelyList:[]
+            latelyList:[],  // 最近阅读
+            myBookList:[],    // 我的书架
         }
-    },
-
-    mounted() {
-        // document.querySelector('header').style.zIndex = 2002
     },
 
     methods: {
@@ -117,6 +132,10 @@ export default {
             }).then(() => {
             
             });
+        },
+
+        goLogin() {
+            this.$router.push({name:'login',query:{path:location.origin+ this.$route.fullPath}})
         }
     },
 }

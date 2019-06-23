@@ -9,6 +9,7 @@
             <div class="search-title">搜索历史</div>
             <div class="search-tags">
                 <span v-for="val of hisystoryList" :key="val" @click="onWords(val,false,true)">{{val}}</span>
+                <div v-if="!hisystoryList.length" class="nodata gary">暂无搜索历史~~</div>
             </div>
         </div>
         <div v-if="keywords.length&&!dataArr.length&&value">
@@ -105,11 +106,11 @@ export default {
 
         // 最终搜索结果
         async onWords(query,flag,flag2) {
-            
             hisystory.searchHisystory.setHistory(query)
             if (flag2) {
                 this.value = query
             }
+            this.hisystoryList = hisystory.searchHisystory.getHistory()
             try {
                 if (this.isLocked()) return // 必须等待上一次请求完成
                 this.locked()//开始请求之前锁住
@@ -119,6 +120,7 @@ export default {
                         message: '加载中...'
                     });
                 }
+                
                 const data = await this.$axios.$get('/zhuishu/book/fuzzy-search',{
                     params:{
                         query,
@@ -127,6 +129,7 @@ export default {
                     }
                 })
                 if (data.ok) {
+                    
                     this.setTotal(data.total)  // 总条数
                     this.unLocked() // 解锁
                     
@@ -170,9 +173,6 @@ export default {
 
     watch: {
         value(newV) {
-            // setTimeout(() => {
-            //     this.dataArr = []
-            // }, 20);
             if (newV) {
                 if (this.dataArr.length) {
                     this.dataArr = []
