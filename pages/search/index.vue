@@ -8,20 +8,11 @@
             </div>
             <div class="search-title">搜索历史</div>
             <div class="search-tags">
-                <span>超级学神</span>
-                <span>超级学神</span>
-                <span>超级学神</span>
-                <span>超级学神</span>
-                <span>超级学神</span>
-                <span>超级学神</span>
-                <span>超级学神</span>
-                <span>超级学神</span>
-                <span>超级学神</span>
-                <span>超级学神</span>
+                <span v-for="val of hisystoryList" :key="val" @click="onWords(val,false,true)">{{val}}</span>
             </div>
         </div>
-        <div v-if="keywords.length&&!dataArr.length">
-            <div v-for="val of keywords" :key="val" @click="onWords(val)" class="words border-bottom">
+        <div v-if="keywords.length&&!dataArr.length&&value">
+            <div v-for="val of keywords" :key="val" @click="onWords(val,false,false)" class="words border-bottom">
                 <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-fenxiang"></use>
                 </svg>
@@ -44,6 +35,10 @@ import * as types from '@/store/mutations-type'
 import {mixin,page,scrollTop} from '@/assets/js/mixins'
 import BookItem from '@/components/public/BookItem'
 import Scroll from "@/components/public/Scroll"
+let hisystory
+if (process.client) {
+     hisystory = require('@/assets/js/cache') 
+}   
 export default {
     mixins:[mixin,page,scrollTop],
     data () {
@@ -52,6 +47,7 @@ export default {
             keywords:[],    //关键字结果
             start: 0,
             noWords: false, // 没有关键字
+            hisystoryList:[],   // 历史搜索
         }
     },
 
@@ -62,6 +58,10 @@ export default {
             let words = data.searchHotWords.slice(temp, temp + 7);
             store.commit(types.SEARCH_WORDS, words)
         }
+    },
+
+    mounted () {
+        this.hisystoryList = hisystory.searchHisystory.getHistory()
     },
 
     components: {
@@ -104,8 +104,12 @@ export default {
         },
 
         // 最终搜索结果
-        async onWords(query,flag) {
-                // this.value = query
+        async onWords(query,flag,flag2) {
+            
+            hisystory.searchHisystory.setHistory(query)
+            if (flag2) {
+                this.value = query
+            }
             try {
                 if (this.isLocked()) return // 必须等待上一次请求完成
                 this.locked()//开始请求之前锁住

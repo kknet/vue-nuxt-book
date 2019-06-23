@@ -1,23 +1,36 @@
 const storage = require('good-storage').default
+const SEARCH_HISYSTORY = 'SEARCH_HISTORY'
 
-
-// 图书分类
-const book_classification = {
-    setCatBooks(list) {
-        return storage.set('catBooks',list)
+// 搜索历史
+const searchHisystory = {
+    getHistory() {
+        return storage.get(SEARCH_HISYSTORY,[])
     },
 
-    setCatBooksLv2(list) {
-        return storage.set('catBooksLv2',list)
+    setHistory(data) {
+        let newData = this.getHistory()
+        
+        if (newData.length) {
+            newData.forEach((item,index) => {
+                if (item === data) {
+                    newData.splice(index,1)
+                }
+            })
+        }
+
+        newData.unshift(data)
+        if (newData.length > 15) {  // 最近浏览最多30条缓存
+            newData.pop()
+        }
+        storage.set(SEARCH_HISYSTORY,newData)
+        return newData
     },
 
-    getCatBooks() {
-        return storage.get('catBooks',[])
-    },
-
-    getCatBooksLv2() {
-        return storage.get('catBooksLv2',[])
-    },
+    clearHistory() {
+        return storage.set(SEARCH_HISYSTORY,[])
+    }
 }
 
-module.exports = book_classification
+module.exports = {
+    searchHisystory
+}
