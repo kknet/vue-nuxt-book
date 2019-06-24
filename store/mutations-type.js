@@ -7,6 +7,11 @@ export const CAT_BOOKS = 'CAT_BOOKS'
 export const RANK_CATEGORY = 'RANK_CATEGORY'
 export const SEARCH_WORDS = 'SEARCH_WORDS'
 export const USER_NAME = 'USER_NAME'
+export const BOOKREAD = 'BOOKREAD'
+export const MENU_VISIBLE = 'MENU_VISIBLE'
+export const SETTING_VISIBLE = 'SETTING_VISIBLE'
+
+
 
 
 

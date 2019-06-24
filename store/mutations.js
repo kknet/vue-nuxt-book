@@ -31,5 +31,14 @@ const matutaions = {
     [types.USER_NAME](state,userName) {
         state.userName = userName
     },
+    [types.BOOKREAD](state,bookRead) {
+        state.bookRead = bookRead
+    },
+    [types.MENU_VISIBLE](state,menuVisible) {
+        state.menuVisible = menuVisible
+    },
+    [types.SETTING_VISIBLE](state,settingVisible) {
+        state.settingVisible = settingVisible
+    },
 }
 export default matutaions

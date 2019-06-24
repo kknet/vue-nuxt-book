@@ -1,8 +1,8 @@
 <template>
 <van-tabs v-model="active">
     <van-tab title="目录">
-        <div class="catalog-list">
-            <Scroll class="scroll-warpper-app" ref="scroll" @scroll='scroll' listenScroll probeType='3'>
+        <div class="catalog-list" :style="{top:top}">
+            <Scroll class="scroll-warpper-app" ref="scroll" :data='list' @scroll='scroll' listenScroll probeType='3'>
                 <div>
                     <div class="module-header">共{{list.length}}章</div>
                     <div class="chapter-bar">正文目录</div>
@@ -29,6 +29,10 @@ export default {
             default() {
                 return []
             }
+        },
+        top: {
+            type:String,
+            default:'24vw'
         }
     },
 
@@ -40,6 +44,12 @@ export default {
 
     components: {
         Scroll,
+    },
+
+    methods: {
+        read(link) {
+
+        }
     }
 }
 </script>
@@ -47,7 +57,7 @@ export default {
 <style lang="scss" scoped>
 @import '~@/assets/css/mixin.scss';
 .catalog-list {
-    @include scroll(90px,0,#fff);
+    @include scroll(45px,0,#fff);
 }
 .module-header {
     font-size: 14px;

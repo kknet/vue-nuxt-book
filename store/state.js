@@ -42,5 +42,8 @@ const state = () => ({
     rankCategory:{},    //排行榜所有分类
     searchWords:[] ,    // 搜索关键词
     userName:'',    // 登录的用户名
+    bookRead:{},    // 正在阅读的图书详情
+    menuVisible: false, // 是否显示菜单
+    settingVisible: -1, // -1 不显示 0 章节 1 进度 2 主题 3 字体
 })
 export default state

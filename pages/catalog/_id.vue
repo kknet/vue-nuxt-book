@@ -47,9 +47,7 @@ export default {
             this.$router.go(-1)
         },
 
-        read(link) {
-
-        }
+        
     },
 }
 </script>

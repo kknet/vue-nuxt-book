@@ -11,6 +11,9 @@ export const mixin = {
             'rankCategory',
             'searchWords',
             'userName',
+            'bookRead',
+            'menuVisible',
+            'settingVisible'
         ])
     },
 
@@ -18,7 +21,8 @@ export const mixin = {
         ...mapMutations({
             setCommentsMap: 'COMMENTS',
             setCatBooks: 'CAT_BOOKS',
-            setUserName:'USER_NAME'
+            setUserName:'USER_NAME',
+            setSettingVisible:'SETTING_VISIBLE'
         }),
 
         ...mapActions(['setBook', 'setComments']),

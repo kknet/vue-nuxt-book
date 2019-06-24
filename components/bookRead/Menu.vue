@@ -1,22 +1,22 @@
 <template>
 <transition name="slide-up">
     <div class="menu-wrapper">
-        <div class="icon-wrapper">
+        <div class="icon-wrapper" @click="menu(0)">
             <svg class="icon fenlei2" aria-hidden="true">
                 <use xlink:href="#icon-fenlei2"></use>
             </svg>
         </div>
-        <div class="icon-wrapper">
+        <div class="icon-wrapper" @click="menu(1)">
             <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-jindutiao"></use>
             </svg>
         </div>
-        <div class="icon-wrapper">
+        <div class="icon-wrapper" @click="menu(2)">
             <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-taiyang"></use>
             </svg>
         </div>
-        <div class="icon-wrapper">
+        <div class="icon-wrapper" @click="menu(3)">
             <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-A"></use>
             </svg>
@@ -24,16 +24,29 @@
         <!-- <EbookSettingFont />
         <EbookSettingFontPopup />
         <EbookSettingTheme /> -->
+        
     </div>
 </transition>
 </template>
 
 <script>
+import {mixin} from '@/assets/js/mixins'
 export default {
-    methods: {
-        showSetting() {
-
+    mixins:[mixin],
+    data () {
+        return {
+            showSlider:false
         }
+    },
+
+    components: {
+        
+    },
+
+    methods: {
+        menu(i) {
+            this.setSettingVisible(i)
+        },
     },
 }
 </script>

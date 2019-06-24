@@ -12,7 +12,7 @@
             <Scroll class="scroll-warpper-app" ref="scroll">
                 <div>
                     <div class="tip border-bottom" @click="edit">编辑</div>
-                    <van-swipe-cell v-for="(val,index) of myBookList" :key="val._id" :on-close="onClose" :data-index='val' @click="$router.push({name:'bookRead'})">
+                    <van-swipe-cell v-for="(val,index) of myBookList" :key="val._id" :on-close="onClose" :data-index='val' @click="$router.push({name:'bookRead-id',params:{id:val.id}})">
                         <div class="book-item" :class="{' border-bottom':index<9}">
                             <img :src="val.cover | URL"/>
                             <div class="book-info">
