@@ -54,8 +54,6 @@ router.get('/femaleBooks', async ctx => {
 // 图书详情和评论
 router.get('/book', async ctx => {
     const id = ctx.query.id
-    console.log(id);
-
     if (!id) {
         return ctx.body = {
             code: -1,

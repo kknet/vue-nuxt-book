@@ -1,6 +1,5 @@
 <template>
-<transition name="fade">
-    <div class="more">
+    <div class="more" v-show="menuVisible&&showMore">
         <div>
             <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-shuqianbookmark29"></use>
@@ -20,12 +19,12 @@
             <span>返回我的书架</span>
         </div>
     </div>
-</transition>
 </template>
 
 <script>
+import {mixin} from '@/assets/js/mixins'
 export default {
-
+    mixins:[mixin],
 }
 </script>
 
@@ -41,7 +40,7 @@ export default {
     background: #cecece;
     color: #575a5f;
     z-index: 500;
-
+    box-shadow: 0 8px 8px rgba(0, 0, 0, .15);
     div {
         padding: 10px 15px;
 

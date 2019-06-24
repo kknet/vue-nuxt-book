@@ -159,7 +159,6 @@ export default {
         // 加入书架接口
         async addBookPost() {
             const data =  await this.$axios.$post(`/api/addBook`,this.books)
-            console.log(data);
             this.$toast(data.msg)
         }
     },

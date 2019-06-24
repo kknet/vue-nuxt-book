@@ -1,6 +1,6 @@
 <template>
 <transition name="slide-up">
-    <div class="menu-wrapper">
+    <div class="menu-wrapper" v-show="menuVisible">
         <div class="icon-wrapper" @click="menu(0)">
             <svg class="icon fenlei2" aria-hidden="true">
                 <use xlink:href="#icon-fenlei2"></use>

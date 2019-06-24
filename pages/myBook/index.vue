@@ -12,8 +12,8 @@
             <Scroll class="scroll-warpper-app" ref="scroll">
                 <div>
                     <div class="tip border-bottom" @click="edit">编辑</div>
-                    <van-swipe-cell v-for="(val,index) of myBookList" :key="val._id" :on-close="onClose" :data-index='val' @click="$router.push({name:'bookRead-id',params:{id:val.id}})">
-                        <div class="book-item" :class="{' border-bottom':index<9}">
+                    <van-swipe-cell  v-for="(val,index) of myBookList" :key="val._id" :on-close="onClose" :data-index='val'>
+                        <div class="book-item" :class="{' border-bottom':index<9}"  @click="bookReads(val.id)">
                             <img :src="val.cover | URL"/>
                             <div class="book-info">
                                 <div class="book-header">
@@ -113,8 +113,6 @@ export default {
                     break;
                 case 'right':
                     let index = instance.$el.getAttribute('data-index')
-                    console.log(index);
-
                     this.$dialog.confirm({
                         title: '提示',
                         message: '确定删除吗？'
@@ -136,6 +134,10 @@ export default {
 
         goLogin() {
             this.$router.push({name:'login',query:{path:location.origin+ this.$route.fullPath}})
+        },
+
+        bookReads(id) {
+            this.$router.push({name:'bookReads-id',params:{id}})
         }
     },
 }

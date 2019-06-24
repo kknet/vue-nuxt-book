@@ -13,7 +13,9 @@ export const mixin = {
             'userName',
             'bookRead',
             'menuVisible',
-            'settingVisible'
+            'settingVisible',
+            'showMore',
+            'showTopMenu'
         ])
     },
 
@@ -21,8 +23,11 @@ export const mixin = {
         ...mapMutations({
             setCommentsMap: 'COMMENTS',
             setCatBooks: 'CAT_BOOKS',
-            setUserName:'USER_NAME',
-            setSettingVisible:'SETTING_VISIBLE'
+            setUserName: 'USER_NAME',
+            setSettingVisible: 'SETTING_VISIBLE',
+            setMenuVisible: 'MENU_VISIBLE',
+            setShowMore: 'SHOW_MORE',
+            setShowTopMenu:'SHOW_TOP_MENU',
         }),
 
         ...mapActions(['setBook', 'setComments']),
@@ -50,11 +55,11 @@ export const scrollTop = {
         },
 
         backTop() {
-            this.$refs.scroll.scrollTo(0,0,300)
+            this.$refs.scroll.scrollTo(0, 0, 300)
             setTimeout(() => {
                 this.showFlag = false
             }, 300);
-            
+
         }
     }
 }
@@ -73,7 +78,7 @@ export const page = {
         setNewData(newArr) {
             this.dataArr = this.dataArr.concat(newArr)
             // console.log(this.dataArr);
-            
+
         },
 
         // 起始的记录数
@@ -111,12 +116,12 @@ export const page = {
         // 加锁
         locked() {
             this.loading = true
-            
+
         },
 
         unLocked() {
             this.loading = false
-            
+
         }
     }
 }

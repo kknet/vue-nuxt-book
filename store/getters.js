@@ -11,6 +11,10 @@ export const userName = state => state.userName
 export const bookRead = state => state.bookRead
 export const menuVisible = state => state.menuVisible
 export const settingVisible = state => state.settingVisible
+export const showMore = state => state.showMore
+export const showTopMenu = state => state.showTopMenu
+
+
 
 
 

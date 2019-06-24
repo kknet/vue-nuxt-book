@@ -1,7 +1,7 @@
 <template>
 <transition name="slide-down">
-    <div class="title-wrapper" >
-        <div class="left">
+    <div class="title-wrapper" v-show="menuVisible">
+        <div class="left" @click="$router.go(-1)">
             <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-houtui"></use>
             </svg>
@@ -16,12 +16,14 @@
 </template>
 
 <script>
+import {mixin} from '@/assets/js/mixins'
 export default {
+    mixins:[mixin],
     methods: {
         more() {
-            this.$emit('more')
+            this.setShowMore(!this.showMore)
         }
-    }
+    },
 }
 </script>
 

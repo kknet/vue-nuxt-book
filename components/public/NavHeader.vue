@@ -29,7 +29,7 @@
                     </svg>
                 </div>
         </header>
-        <Popup  :show='show' @hide='show=false'/>
+        <Popup />
     </div>
 
 </template>
@@ -66,7 +66,7 @@ export default {
 
     data() {
         return {
-            show: false
+           
         }
     },
 
@@ -84,13 +84,12 @@ export default {
         },
 
         showPop() {
-            this.show = !this.show
+            this.setShowTopMenu(!this.showTopMenu)
         }
     },
 
     watch: {
-        show(flag) {
-            console.log(flag);
+        showTopMenu(flag) {
             if (flag) {
                 document.querySelector('header').style.zIndex = 3000
             } else {

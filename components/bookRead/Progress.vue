@@ -1,6 +1,6 @@
 <template>
         <transition name="slide-up">
-            <div class="setting-wrapper"  v-show="settingVisible==1">
+            <div class="setting-wrapper"  v-show="menuVisible&&settingVisible==1">
                 <div class="setting-progress">
                     <div class="read-time-wrapper">
                         <span class="read-time-text">已阅读10分钟</span>

@@ -31,8 +31,6 @@ router.post('/register', async ctx => {
         }
 
     } catch (error) {
-        console.log(error);
-        
         ctx.body = {
             code: -1,
             msg: '注册失败',

@@ -33,7 +33,7 @@ export default {
     right: 5%;
     bottom: 5vw;
     position: fixed;
-    z-index: 100;
+    z-index: 1000;
     background: #fff;
 
     .icon {

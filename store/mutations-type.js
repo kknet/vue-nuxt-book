@@ -10,6 +10,10 @@ export const USER_NAME = 'USER_NAME'
 export const BOOKREAD = 'BOOKREAD'
 export const MENU_VISIBLE = 'MENU_VISIBLE'
 export const SETTING_VISIBLE = 'SETTING_VISIBLE'
+export const SHOW_MORE = 'SHOW_MORE'
+export const SHOW_TOP_MENU = 'SHOW_TOP_MENU'
+
+
 
 
 

@@ -40,5 +40,11 @@ const matutaions = {
     [types.SETTING_VISIBLE](state,settingVisible) {
         state.settingVisible = settingVisible
     },
+    [types.SHOW_MORE](state,showMore) {
+        state.showMore = showMore
+    },
+    [types.SHOW_TOP_MENU](state,showTopMenu) {
+        state.showTopMenu = showTopMenu
+    },
 }
 export default matutaions
