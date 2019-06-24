@@ -102,11 +102,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/assets/css/mixin.scss';
-.catalog-list {
-    height: 100%;
-    width: 100%;
-    @include scroll(45px,0,#fff);
-}
+
 .read-warp {
     overflow: hidden;
 }
@@ -156,16 +152,24 @@ export default {
     height: 100vh;
     width: 80%;
     z-index: 3000;
+    overflow-x: hidden;
 }
 
 </style>
-<style scoped>
+<style scoped> 
 .slider-left >>> .van-tab__pane {
     width: 100%;
 }
 
 .slider-left >>> .van-tabs__wrap {
     width: 100%;
+}
+
+.slider-left >>> .catalog-list {
+    position: fixed;
+    left: 0;
+    top: 12vw;
+    bottom: 0;
 }
 </style>
 

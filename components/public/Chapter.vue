@@ -1,4 +1,5 @@
 <template>
+<div class="warp">
 <van-tabs v-model="active">
     <van-tab title="目录">
         <div class="catalog-list" :style="{top:top}">
@@ -16,8 +17,10 @@
     </van-tab>
     <van-tab title="书签">内容 4</van-tab>
 </van-tabs>
-</template>
+</div>
 
+</template>
+van-
 <script>
 import Scroll from "@/components/public/Scroll"
 import {scrollTop} from '@/assets/js/mixins'
@@ -58,6 +61,7 @@ export default {
 @import '~@/assets/css/mixin.scss';
 .catalog-list {
     @include scroll(45px,0,#fff);
+    width: 100%;
 }
 .module-header {
     font-size: 14px;
