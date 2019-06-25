@@ -1,6 +1,5 @@
 const Koa = require('koa')
 const consola = require('consola')
-const static = require('koa-static')
 const { Nuxt, Builder } = require('nuxt')
 var cors = require('koa2-cors');
 const app = new Koa()
