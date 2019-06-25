@@ -35,7 +35,7 @@ export const mixin = {
         ...mapActions(['setBook', 'setComments']),
 
         bookDetails(id) {
-            this.$router.push({ name: `book-id`, params: { id } })
+            this.$router.push({ name: `detail-id`, params: { id } })
         }
     }
 

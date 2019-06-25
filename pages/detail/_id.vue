@@ -129,7 +129,7 @@ export default {
             if (!this.books.comment.length) {
                 return this.$toast('暂无更多评论~~')
             }
-            this.$router.push({ name: `moreComments-id`, params: { id:this.$route.params.id } })
+            this.$router.push({ name: `moreComments-id`, params: { id:this.$route.params.id },query:{title:this.books.title} })
         },
 
         // 目录

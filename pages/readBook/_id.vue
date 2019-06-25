@@ -9,7 +9,7 @@
         <!-- 左边侧滑目录 -->
         <Slider @chapter='chapter' :title="title"/>
         <!-- 进度条 -->
-        <Progress/>
+        <Progress :title="title"/>
         <!-- 设置主题 -->
         <Theme/>
         <!-- 设置字体 -->
@@ -105,11 +105,14 @@ export default {
             });
             const data = await this.$axios.$get(`/chapter/`+encodeURIComponent(this.bookRead.catalog[index].link))
             if (data.ok) {
-                
+                this.locked = false
                 this.$toast.clear()
                 this.content = data.chapter.body.split(/\n/)
                 this.title = this.bookRead.catalog[index].title
-                this.postBook(index)
+                if (this.userName) {
+                    this.postBook(index)
+                }
+                
             }
         },
 
@@ -120,9 +123,6 @@ export default {
                 readChapter: this.title,
                 readChapterIndex: index
             })
-            if (data.code == 10000) {
-                this.locked = false
-            }
         },
 
         // 加载下一页

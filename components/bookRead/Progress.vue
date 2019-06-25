@@ -34,9 +34,8 @@
                         </div>
                     </div>
                     <div class="text-wrapper">
-                        <span class="progress-section-text">章节名称</span>
+                        <span class="progress-section-text">{{title}}</span>
                         <!-- <span>({{bookAvailable ? progress + '%' : '加载中...'}})</span> -->
-                        <span>加载中</span>
                     </div>
                 </div>
             </div>
@@ -48,6 +47,13 @@ import {mixin} from '@/assets/js/mixins'
 
 export default {
     mixins:[mixin],
+    props: {
+        title:{
+            type:String,
+            default:'章节名称'
+        }
+    },
+
     methods: {
         onProgressChange(progress) {
             this.setProgress(progress).then(() => {
@@ -136,7 +142,7 @@ export default {
 
     .setting-wrapper {
         position: absolute;
-        bottom: 48px;
+        bottom: 46px;
         left: 0;
         z-index: 201;
         width: 100%;
@@ -157,6 +163,9 @@ export default {
                 height: 40px;
                 font-size: 12px;
                 @include center;
+                .icon {
+                    margin-top: -4px;
+                }
             }
 
             .progress-wrapper {
@@ -201,8 +210,8 @@ export default {
                 font-size: 12px;
                 @include center;
                 padding: 0 15px;
+                line-height: 1.2;
                 box-sizing: border-box;
-
                 .progress-section-text {
                     @include ellipsis;
                 }

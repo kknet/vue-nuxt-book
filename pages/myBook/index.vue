@@ -147,7 +147,7 @@ export default {
         },
 
         bookReads(id) {
-            this.$router.push({name:'bookReads-id',params:{id}})
+            this.$router.push({name:'readBook-id',params:{id}})
         }
     },
 }
@@ -206,7 +206,7 @@ export default {
             .update{
                 flex: 1;
                 @include ellipsis2(1);
-                line-height: 1.1;
+                line-height: 1.2;
             }
             .day {
                 text-align: center;

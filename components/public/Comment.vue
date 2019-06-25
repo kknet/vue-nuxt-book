@@ -12,7 +12,7 @@
                 </div>
         </li>
         <!-- <div class="nodedata gray">暂无更多评论~~</div> -->
-        <div class="more" v-if="showMore" @click="onShowMore">更多书评</div>
+        <div class="mores" v-if="showMore" @click="onShowMore">更多书评</div>
     </ul>
 </template>
 
@@ -91,7 +91,7 @@ ul li:last-child {
     margin:0;
 }
 
-.more {
+.mores {
     height: 40px;
     line-height:40px;
     text-align: center;

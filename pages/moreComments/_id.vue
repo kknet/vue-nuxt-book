@@ -1,6 +1,6 @@
 <template>
     <div>
-        <van-nav-bar :title="$store.state.book[$route.params.id].title" left-arrow @click-left="onClickLeft" class="border-bottom"></van-nav-bar>
+        <van-nav-bar :title="$route.query.title" left-arrow @click-left="onClickLeft" class="border-bottom"></van-nav-bar>
         <div class="comment">
             <Scroll ref="scroll" :data='dataArr' class="scroll-warpper-app" pullup @scrollToEnd='scrollToEnd' :click='false' @scroll='scroll' listenScroll probeType='3'>
                 <div>

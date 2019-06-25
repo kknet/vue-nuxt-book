@@ -60,7 +60,7 @@ export default {
 @import '~@/assets/css/mixin.scss';
 .setting-wrapper {
     position: absolute;
-    bottom: 48px;
+    bottom: 46px;
     left: 0;
     z-index: 300;
     width: 100%;

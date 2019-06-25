@@ -45,7 +45,10 @@
     color: rgba(255,255,255,.8)!important;
 
 }
+.title-top,.progress-section-text {
+    color: rgba(255,255,255,.8)!important;
 
+}
 .setting-wrapper .line {
     border-top: 1px solid rgba(255,255,255,.8)!important;
 }
@@ -54,7 +57,7 @@
 }
 .reader {
     background:#1a1a1a!important;
-    color: rgba(255,255,255,.5)!important;
+    color: rgba(255,255,255,.8)!important;
 
 }
 .reader p {
