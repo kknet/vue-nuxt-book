@@ -140,7 +140,7 @@ router.post('/addBook', async ctx => {
 
 // 查询我的书架
 router.get('/getBook', async ctx => {
-    const book = await Book.find()
+    const book = await Book.find().sort({ _id: 1 })
     ctx.body = {
         code: 10000,
         data: {
@@ -150,4 +150,42 @@ router.get('/getBook', async ctx => {
     }
 })
 
+// 查询我的书架单条数据
+router.get('/getBookOne', async ctx => {
+    const book = await Book.findOne({ id: ctx.query.id })
+    ctx.body = {
+        code: 10000,
+        data: {
+            book,
+            msg: '查询成功'
+        }
+    }
+})
+
+
+// 阅读的章节放到服务器
+router.post('/postBook', async ctx => {
+    const {readChapter,readChapterIndex,id} = ctx.request.body
+    await Book.updateOne({ id }, {
+        $set: {
+            readChapter,
+            readChapterIndex
+        }
+    })
+    ctx.body = {
+        code:10000,
+        msg:'添加成功'
+    }
+})
+
+// 删除我的书架
+router.post('/deleteBook', async ctx => {
+    const {id} = ctx.request.body
+    await Book.deleteOne({ id })
+    ctx.body = {
+        code:10000,
+        msg:'删除成功'
+    }
+})
+// 
 module.exports = router

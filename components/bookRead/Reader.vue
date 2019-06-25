@@ -1,12 +1,15 @@
 <template>
-    <div class="reader" @touchstart='touchstart'  @touchend='touchend'>
+    <div class="reader"  @click="setRead($event)" @touchmove='touchmove'>
         <div class="title-top">
-            <div class="chapter-title">章节</div>
+            <div class="chapter-title">{{title}}</div>
         </div>
-        <div v-for="(items,index) in content" :key="index" class="article">
-            <h4 class="chapter-t" :style="{fontSize:fontSize+0.5+'vw'}">第一张：单鹄寡凫</h4>
-            <p :style="{fontSize:fontSize + 'vw'}" v-for="(item,index) in items" :key="index">{{item}}</p>
+        <div  class="article"  ref="article-warp">
+            <div ref="article" >
+                    <h4 class="chapter-t" :style="{fontSize:fontSize+0.5+'vw'}">{{title}}</h4>
+                <p :style="{fontSize:fontSize + 'vw'}" v-for="(item,index) in content" :key="index">{{item}}</p>
+            </div>
         </div>
+        <!-- <div class="article-page">{{currentPaging + '/' + resultPaging}}</div> -->
     </div>
 </template>
 
@@ -23,50 +26,127 @@ export default {
             default() {
                 return []
             }
+        },
+        title: {
+            type:String,
+            default:''
+        }
+    },
+    
+    computed: {
+        bottom () {
+            // return this.fontSize == 4.8 ? '6vw' : this.fontSize == 5.867 ? '8.2vw' : '5.333vw'
+            if (this.fontSize == 3.733) {
+                return '6.6vw'
+            } else if(this.fontSize == 4.267) {
+                return '8vw'
+            } else if(this.fontSize == 4.8) {
+                return '8.5vw'
+            } else if(this.fontSize == 5.333) {
+                return '7vw'
+            } else if(this.fontSize == 5.867) {
+                 return '11vw'
+            } else{
+                return '8.2vw'
+            }
         }
     },
 
     mixins:[mixin],
     data() {
         return {
-            
+            currentPaging:1,//第一页
+            bookCurrentPage:0,  // 小说的章节
+            resultPaging: 1,
+            margin:15,
+            offsetX:0,
+            clWidth:0,
+            styleObject:{}
         }
     },
 
     mounted () {
         this.setFontSize(font.fontSize.getFontSize())
+        // this.setResultPaging()
+        
     },
 
     methods: {
-        touchstart(e) {
-            this.touchStartX = e.changedTouches[0].clientX // 手指第一次点击的位置坐标
-            this.touchStartTime = e.timeStamp // 点击的时间长度
+
+        // 计算一张分多少页
+        setResultPaging() {
+            this.$nextTick(() => {
+                setTimeout(() => {
+                    let scrollW = this.$refs.article[0].clientHeight
+                    let clientW = this.$refs['article-warp'][0].clientHeight
+                    this.resultPaging = Math.floor(scrollW / clientW)
+                    this.clWidth = document.documentElement.clientWidth || document.body.clientWidth
+                    this.offsetX -= (this.currentPaging - 1) * (this.clWidth - this.margin);
+                    console.log(this.offsetX);
+                    
+                }, 100);
+            })
         },
 
-        touchend(e) {
-            e.stopPropagation(); // 禁止传播
-            const offsetX = e.changedTouches[0].clientX - this.touchStartX // 偏移的距离
-            const time = e.timeStamp - this.touchStartTime // 偏移的时间
-            if (time < 500 && offsetX > 40) {
-                // this.prevPage() // 下一页
-            } else if (time < 500 && offsetX < -40) {
-                // this.nextPage() // 上一页
-            } else {
-                this.showTitleAndMenu()
+        setRead(e) {
+            let clWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            let currentX = e.pageX;
+            let offsetX = clWidth / 3;
+                
+            if (currentX <= offsetX) {//用户点击左侧三分之一
+                this.showTitleAndMenu(false)
+                this.prevPage()
+            }else if (offsetX <= currentX && currentX <= offsetX * 2) {
+                this.showTitleAndMenu(true)
+            }else if (currentX >= offsetX * 2 && currentX <= clWidth) {
+                this.showTitleAndMenu(false)
+                // this.nextPage()
+                this.currentPaging++
+                this.offsetX -= (clWidth - this.margin);
+                this.styleObject = {
+                transform: 'translateX(' + this.offsetX + 'px' + ')',
+                transitionDuration: '0.5s'
+                };
+            }
+        },
+        touchmove() {
+            this.showTitleAndMenu()
+        },
+
+        // 上一页
+        prevPage() {
+            if (this.bookCurrentPage === 0 && this.currentPaging === 1) {
+                this.$toast('已经是第一章了！');
+                return
             }
         },
 
-        showTitleAndMenu() {
-            if (this.menuVisible) {
+        // 下一页
+        nextPage() {
+            this.currentPaging++
+        },
+
+        showTitleAndMenu(flag) {
+            if (flag) {
+                if (this.menuVisible) {
+                    this.setMenuVisible(false)
+                } else {
+                    this.setMenuVisible(true)
+                }
+            } else {
                 this.setMenuVisible(false)
-                // this.setFontFamilyVisible(false)
-            } else {
-                this.setMenuVisible(true)
             }
+            
             this.setSettingVisible(-1)
             this.setShowMore(false)
         },
     },
+
+    watch: {
+        // fontSize() {
+        //     this.setResultPaging()
+        // }
+    }
 }
 </script>
 
@@ -87,7 +167,7 @@ export default {
     position: fixed;
     top: 0;
     z-index: 1;
-    height: 50px;
+    height: 40px;
     width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -98,7 +178,7 @@ export default {
     color: rgba(0, 0, 0, 0.4);
     .chapter-title {
         width: calc(100% - 40px);
-        height: 50px;
+        height: 40px;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
@@ -112,8 +192,11 @@ export default {
     }
 }
 .article {
-    padding: 0 15px 15px 15px;
-    margin-top: 50px;
+    padding: 0 15px 0 15px;
+    position: absolute;
+    top: 40px;
+    bottom: 0;
+    overflow-y: auto;
     h4 {
         font-weight: bold;
     }
@@ -122,6 +205,15 @@ export default {
         margin: 10px 0px 10px 0px;
         line-height: 1.4;
         color: #575a5f;
+        text-align: justify;
     }
 }
+.article-page {
+    color: #585858;
+    font-size: 13px;
+    position: absolute;
+    left: 10px;
+    bottom: 10px
+}
+        
 </style>

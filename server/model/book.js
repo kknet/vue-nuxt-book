@@ -22,6 +22,10 @@ const BookSchema = new Schema({
         type: String,
         default:''
     },
+    readChapterIndex: { // 阅读章节的下标
+        type: Number,
+        default:0
+    },
     lastChapter:{   // 更新到多少章
         type: String,
         required: true

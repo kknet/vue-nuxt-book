@@ -12,7 +12,7 @@
             <Scroll class="scroll-warpper-app" ref="scroll">
                 <div>
                     <div class="tip border-bottom" @click="edit" v-if='myBookList.length'>编辑</div>
-                    <van-swipe-cell  v-for="(val,index) of myBookList" :key="val._id" :on-close="onClose" :data-index='val'>
+                    <van-swipe-cell  v-for="(val,index) of myBookList" :key="val._id" :on-close="onClose" :data-id='val.id' :data-index='index'>
                         <div class="book-item" :class="{' border-bottom':index<9}"  @click="bookReads(val.id)">
                             <img :src="val.cover | URL"/>
                             <div class="book-info">
@@ -33,10 +33,10 @@
                                     <span>{{val.author}}</span>
                                     <span class="line">|</span>
                                     <span v-if="!val.readChapter">尚未阅读</span>
-                                    <span v-else>第3章　奇遇连连</span>
+                                    <span v-else>{{val.readChapter}}</span>
                                 </div>
                                 <div class="book-to-new gray">
-                                    <span>更新至 正文 第1177章 底蕴无尽</span>
+                                    <span>更新至 正文 {{val.lastChapter}}</span>
                                     <span>{{val.updated | UPDATED}}</span>
                                 </div>
                             </div>
@@ -112,14 +112,25 @@ export default {
                     instance.close();
                     break;
                 case 'right':
+                    let id = instance.$el.getAttribute('data-id')
                     let index = instance.$el.getAttribute('data-index')
+                    console.log(id);
+                    
                     this.$dialog.confirm({
                         title: '提示',
                         message: '确定删除吗？'
                     }).then(() => {
                         instance.close();
+                        this.deleteBook(id,index)
                     }).catch(e => {})
                     break;
+            }
+        },
+
+        async deleteBook(id,index) {
+            const data = await this.$axios.$post('/api/deleteBook',{id})
+            if (data.code == 10000) {
+                this.myBookList.splice(index,1)
             }
         },
 

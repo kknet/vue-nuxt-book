@@ -60,7 +60,10 @@
 .reader p {
     color: rgba(255,255,255,.5)!important;
 
-}
+} 
 .setting-theme-item .text {
     color: #cecece!important;
+}
+.article-page {
+    color: rgba(255,255,255,.5)!important;
 }

@@ -8,22 +8,17 @@
                         
                     </div>
                     <div class="catalog-list" v-show="active==0">
-                        <Scroll class="scroll-warpper-app" ref="scroll" :data='bookRead.catalog' @scroll='scroll' listenScroll probeType='3'>
-                            <div>
-                                <div class="module-header">共{{bookRead.catalog.length}}章</div>
-                                <div class="chapter-bar">正文目录</div>
-                                <ul>
-                                    <li class="border-bottom chapter-title" @click="click_chapter_title(index)" v-for="(val,index) of bookRead.catalog" :key="val.link">{{val.title}}</li>
-                                </ul>
-                            </div>
-                        </Scroll>
-                        <ScrollTop :showFlag='showFlag' @backTop='backTop' />
+                        <div class="module-header">共{{bookRead.catalog.length}}章</div>
+                        <div class="chapter-bar">正文目录</div>
+                        <ul>
+                            <li :class="{active:title === val.title}" class="border-bottom chapter-title" @click="click_chapter_title(index)" v-for="(val,index) of bookRead.catalog" :key="val.link">{{val.title}}</li>
+                        </ul>
                     </div>
                     <div v-show="active==1"></div>
                 </div>
             </transition>
             <transition name="fade">
-                <div class="fliter fliter1" v-show="settingVisible==0"  @click="setSettingVisible(-1)"></div>
+                <div class="fliter fliter1" v-show="settingVisible==0"  @click="onClose"></div>
             </transition>
     </div>
 </template>
@@ -35,6 +30,13 @@ export default {
     mixins:[mixin,scrollTop],
     components: {
         Scroll,
+    },
+
+    props: {
+        title: {
+            type:String,
+            default:''
+        }
     },
 
     data () {
@@ -50,9 +52,17 @@ export default {
         },
 
         click_chapter_title(index) {
+            this.setSettingVisible(-1)
+            this.setMenuVisible(false)
             this.$emit('chapter',index)
+        },
+
+        onClose() {
+            this.setSettingVisible(-1)
+            this.setMenuVisible(false)
         }
     },
+
 }
 </script>
 
@@ -72,10 +82,7 @@ export default {
     bottom: 0;
     background: #cecece;
     color: #575a5f;
-    .scroll-warpper-app {
-        height: 100%;
-        overflow: hidden;
-    }
+    overflow-y: auto;
 }
 .module-header {
     font-size: 14px;
@@ -97,6 +104,9 @@ export default {
     height: 45px;
     line-height: 45px;
     color: #575a5f;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .catalog {
     display: flex;
@@ -121,5 +131,9 @@ export default {
     right: 0;
     bottom: 0;
     background: rgba(0,0,0,.4);
+}
+.active {
+    font-weight: bold;
+    font-size: 16px;
 }
 </style>
