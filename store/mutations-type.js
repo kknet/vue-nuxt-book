@@ -12,6 +12,8 @@ export const MENU_VISIBLE = 'MENU_VISIBLE'
 export const SETTING_VISIBLE = 'SETTING_VISIBLE'
 export const SHOW_MORE = 'SHOW_MORE'
 export const SHOW_TOP_MENU = 'SHOW_TOP_MENU'
+export const FONT_SIZE = 'FONT_SIZE'
+
 
 
 

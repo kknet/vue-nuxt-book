@@ -1,0 +1,66 @@
+.title-wrapper {
+    background:#1a1a1a!important;
+    color: rgba(255,255,255,.8)!important;
+}
+.menu-wrapper {
+    background:#1a1a1a!important;
+    color: rgba(255,255,255,.8)!important;
+    
+
+}
+.more {
+    background:#1a1a1a!important;
+    color: rgba(255,255,255,1)!important;
+
+}
+.slider-left .catalog {
+    background:#1a1a1a!important;
+    color: rgba(255,255,255,.8)!important;
+
+}
+.slider-left .chapter-title {
+    color: rgba(255,255,255,.8)!important;
+
+}
+.slider-left .chapter-bar {
+    background: #1a1a1a!important;
+}
+.slider-left .catalog-list {
+    background:#1a1a1a!important;
+    color: rgba(255,255,255,.8)!important;
+
+}
+.setting-wrapper {
+    background:#1a1a1a!important;
+    color: rgba(255,255,255,.8)!important;
+
+}
+
+.setting-wrapper .preview {
+    color: rgba(255,255,255,.8)!important;
+
+}
+
+.setting-wrapper .select-wrapper {
+    color: rgba(255,255,255,.8)!important;
+
+}
+
+.setting-wrapper .line {
+    border-top: 1px solid rgba(255,255,255,.8)!important;
+}
+.setting-wrapper .point-wrapper {
+    border-left: 1px solid rgba(255,255,255,.8)!important;
+}
+.reader {
+    background:#1a1a1a!important;
+    color: rgba(255,255,255,.5)!important;
+
+}
+.reader p {
+    color: rgba(255,255,255,.5)!important;
+
+}
+.setting-theme-item .text {
+    color: #cecece!important;
+}

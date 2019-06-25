@@ -2,19 +2,19 @@
 <transition name="slide-up">
     <div class="setting-wrapper" v-show="menuVisible&&settingVisible == 3">
         <div class="setting-font-size">
-            <div class="preview" :style="{fontSize: fontSizeList[0].fontSize + 'px'}">A</div>
+            <div class="preview" :style="{fontSize: fontSizeList[0].fontSize + 'vw'}">A</div>
             <div class="select">
-                <div class="select-wrapper" v-for="item in fontSizeList" :key="item.fontSize" @click="setFontSize(item.fontSize)">
+                <div class="select-wrapper" v-for="item in fontSizeList" :key="item.fontSize" @click="onSetFontSize(item.fontSize)">
                     <div class="line"></div>
                     <div class="point-wrapper">
-                        <div class="point" v-show="defaultFontSize === item.fontSize">
+                        <div class="point" v-show="fontSize == item.fontSize">
                             <div class="small-point"></div>
                         </div>
                     </div>
                     <div class="line"></div>
                 </div>
             </div>
-            <div class="preview" :style="{fontSize: fontSizeList[fontSizeList.length - 1].fontSize + 'px'}">A</div>
+            <div class="preview" :style="{fontSize: fontSizeList[fontSizeList.length - 1].fontSize + 'vw'}">A</div>
         </div>
         <!-- <div class="setting-font-family">
             <div class="setting-font-family-text-wrapper" @click="showFontFamilyPopup">
@@ -40,18 +40,13 @@ export default {
     data() {
         return {
             fontSizeList: FONT_SIZE_LIST,
-            defaultFontSize:''
         }
     },
 
-    mounted() {
-        this.defaultFontSize = font.fontSize.getFontSize()
-    },
-
     methods: {
-        setFontSize(font) {
-            this.setDefaultFontSize(font)
-            this.currentBook.rendition.themes.fontSize(font + 'px') //设置字体大小
+        onSetFontSize(size) {
+            font.fontSize.setFontSize(size)
+            this.setFontSize(size)
         },
         showFontFamilyPopup() {
             this.setFontFamilyVisible(true)

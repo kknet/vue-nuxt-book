@@ -15,7 +15,8 @@ export const mixin = {
             'menuVisible',
             'settingVisible',
             'showMore',
-            'showTopMenu'
+            'showTopMenu',
+            'fontSize'
         ])
     },
 
@@ -28,6 +29,7 @@ export const mixin = {
             setMenuVisible: 'MENU_VISIBLE',
             setShowMore: 'SHOW_MORE',
             setShowTopMenu:'SHOW_TOP_MENU',
+            setFontSize:'FONT_SIZE'
         }),
 
         ...mapActions(['setBook', 'setComments']),

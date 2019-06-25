@@ -47,5 +47,6 @@ const state = () => ({
     settingVisible: -1, // -1 不显示 0 章节 1 进度 2 主题 3 字体
     menuVisible:false,// 是否显示顶部和底部菜单
     showMore:false,    // 阅读栏更多
+    fontSize:4.267,    // 默认字体大小
 })
 export default state

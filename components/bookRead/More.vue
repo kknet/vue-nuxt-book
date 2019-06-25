@@ -12,11 +12,11 @@
         </svg>
             <span>书籍详情</span>
         </div>
-        <div>
+        <div @click="$router.replace({name:'myBook'})">
             <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-books"></use>
-        </svg>
-            <span>返回我的书架</span>
+                <use xlink:href="#icon-books"></use>
+            </svg>
+                <span>返回我的书架</span>
         </div>
     </div>
 </template>

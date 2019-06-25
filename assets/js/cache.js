@@ -46,7 +46,7 @@ const theme = {
 // 字体大小缓存
 const fontSize = {
     getFontSize() {
-        return storage.get(FONT_SIZE,16)
+        return storage.get(FONT_SIZE,4.267)
     },
 
     setFontSize(font) {

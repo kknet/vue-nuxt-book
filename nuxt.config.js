@@ -13,18 +13,18 @@ module.exports = {
         ]
     },
     server: {
-        host: '0.0.0.0', 
-        port:3001,
+        host: '0.0.0.0',
+        port: 3001,
     },
-    
+
     loading: { color: '#3B8070' },
-    
+
     css: [
         "@/assets/css/reset.css",
         "@/assets/css/border.css",
         "@/assets/css/transition.scss",
     ],
-   
+
     plugins: [
         { src: "~/plugins/vant.js", ssr: true },
         { src: "~/plugins/filter.js", ssr: true },
@@ -35,14 +35,14 @@ module.exports = {
     router: {
         middleware: ["redirect"],
     },
-   
+
     modules: [
         '@nuxtjs/axios',
         '@nuxtjs/proxy'
     ],
-    
+
     axios: {
-        baseURL: process.env.NODE_ENV == "production" ? "http://101.132.188.203:3001" : "http://192.168.0.104:3001",
+        // baseURL: process.env.NODE_ENV == "production" ? "http://101.132.188.203:3001" : "http://192.168.0.104:3001",
         // withCredentials: true,
     },
     proxy: {
@@ -60,6 +60,13 @@ module.exports = {
                 "^/book": ""
             }
         },
+        "/chapter": {
+            target: "http://chapterup.zhuishushenqi.com",
+            changeOrigin: true,
+            pathRewrite: {
+                "^/chapter": "/chapter"
+            }
+        }
     },
     build: {
         extend(config, ctx) {

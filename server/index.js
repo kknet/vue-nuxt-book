@@ -1,25 +1,16 @@
 const Koa = require('koa')
 const consola = require('consola')
+const static = require('koa-static')
 const { Nuxt, Builder } = require('nuxt')
 var cors = require('koa2-cors');
 const app = new Koa()
 let config = require('../nuxt.config.js')
-// const proxy = require('koa2-proxy-middleware');
 config.dev = !(app.env === 'production')
 require('./js/session')(app)    // session
-// const options = {
-//     targets: {
-//         '/user': {
-//             target: 'http://localhost:3000', // target host
-//             changeOrigin: true, // needed for virtual hosted sites
-//         }
-//     }
-// }
+
 async function start() {
     const nuxt = new Nuxt(config)
-
     const { host = process.env.HOST || '127.0.0.1', port = process.env.PORT || 3000 } = nuxt.options.server
-
     if (config.dev) {
         const builder = new Builder(nuxt)
         await builder.build()
@@ -28,6 +19,9 @@ async function start() {
     }
     // 路由
     require('./router')(app)
+    // app.use(static(
+    //     path.join(__dirname, '')
+    // ))
     app.use(cors());
     app.use(ctx => {
         ctx.status = 200

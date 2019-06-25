@@ -46,11 +46,27 @@ export function themeList() {
 }
 
 export const FONT_SIZE_LIST = [
-    { fontSize: 12 },
-    { fontSize: 14 },
-    { fontSize: 16 },
-    { fontSize: 18 },
-    { fontSize: 20 },
-    { fontSize: 22 },
-    { fontSize: 24 }
+    { fontSize: 3.2 },  // 12px
+    { fontSize: 3.733 }, // 14px
+    { fontSize: 4.267 }, // 16px
+    { fontSize: 4.8 },
+    { fontSize: 5.333 },
+    { fontSize: 5.867 },
+    { fontSize: 6.4 }
 ]
+
+export function addCss(src) {
+    const head = document.getElementsByTagName('head')[0]
+
+    let links = Array.from(document.getElementsByTagName('link'))
+    links.forEach(item => {
+        if (item.type === 'text/css') {
+            head.removeChild(item)
+        }
+    })
+    const link = document.createElement('link')
+    link.setAttribute('rel', 'stylesheet')
+    link.setAttribute('href', src)
+    link.setAttribute('type', 'text/css')
+    head.appendChild(link)
+}

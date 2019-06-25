@@ -13,7 +13,7 @@
                                 <div class="module-header">共{{bookRead.catalog.length}}章</div>
                                 <div class="chapter-bar">正文目录</div>
                                 <ul>
-                                    <li class="border-bottom chapter-title" v-for="val of bookRead.catalog" :key="val.link">{{val.title}}</li>
+                                    <li class="border-bottom chapter-title" @click="click_chapter_title(index)" v-for="(val,index) of bookRead.catalog" :key="val.link">{{val.title}}</li>
                                 </ul>
                             </div>
                         </Scroll>
@@ -47,6 +47,10 @@ export default {
     methods: {
         onTab(i) {
             this.active = i
+        },
+
+        click_chapter_title(index) {
+            this.$emit('chapter',index)
         }
     },
 }

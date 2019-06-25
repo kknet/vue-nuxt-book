@@ -7,7 +7,7 @@
         <!-- 更多 -->
         <More/>
         <!-- 左边侧滑目录 -->
-        <Slider/>
+        <Slider @chapter='chapter'/>
         <!-- 进度条 -->
         <Progress/>
         <!-- 设置主题 -->
@@ -15,7 +15,7 @@
         <!-- 设置字体 -->
         <Font/>
         <!-- 文章内容 -->
-        <Reader/>
+        <Reader :content='content'/>
     </div>
 </template>
 
@@ -35,9 +35,10 @@ export default {
     mixins:[mixin],
     async asyncData({$axios,store,params}) {
         const id = params.id
-        const [data,data1] = await Promise.all([
+        const [data,data1,data3] = await Promise.all([
             $axios.$get(`/api/book?id=${id}`),
-            $axios.$get(`/api/chapters?id=${id}`)
+            $axios.$get(`/api/chapters?id=${id}`),
+            // $axios.$get(`/chapter/`+encodeURIComponent(this.chapterList.chapters[this.chapterCount].link))
         ])
         if (data.code == 10000 && data1.code == 10000) {
             let book = data.book
@@ -48,7 +49,8 @@ export default {
 
     data() {
         return {
-
+            chapterCount:0, // 当前章节
+            content: [], // 章节内容
         }
     },
     components: {
@@ -65,6 +67,7 @@ export default {
 
     mounted () {
         // console.log(document.querySelectorAll('link'));
+        this.getBookContent()
     },
 
    
@@ -72,6 +75,21 @@ export default {
         this.setMenuVisible(false)
         this.setSettingVisible(-1)
         next()
+    },
+
+    methods: {
+        chapter(index) {
+            this.chapterCount = index
+        },
+
+        async getBookContent() {
+            const data = await this.$axios.$get(`/chapter/`+encodeURIComponent(this.bookRead.catalog[this.chapterCount].link))
+            if (data.ok) {
+                this.content = this.content.concat([data.chapter.body.split(/\n/)]);
+                console.log(this.content);
+                
+            }
+        }
     }
 
 

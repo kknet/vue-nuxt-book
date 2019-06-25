@@ -13,6 +13,8 @@ export const menuVisible = state => state.menuVisible
 export const settingVisible = state => state.settingVisible
 export const showMore = state => state.showMore
 export const showTopMenu = state => state.showTopMenu
+export const fontSize = state => state.fontSize
+
 
 
 

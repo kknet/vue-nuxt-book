@@ -11,7 +11,7 @@
         <div class="my" v-else>
             <Scroll class="scroll-warpper-app" ref="scroll">
                 <div>
-                    <div class="tip border-bottom" @click="edit">编辑</div>
+                    <div class="tip border-bottom" @click="edit" v-if='myBookList.length'>编辑</div>
                     <van-swipe-cell  v-for="(val,index) of myBookList" :key="val._id" :on-close="onClose" :data-index='val'>
                         <div class="book-item" :class="{' border-bottom':index<9}"  @click="bookReads(val.id)">
                             <img :src="val.cover | URL"/>

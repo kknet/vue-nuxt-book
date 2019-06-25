@@ -46,5 +46,8 @@ const matutaions = {
     [types.SHOW_TOP_MENU](state,showTopMenu) {
         state.showTopMenu = showTopMenu
     },
+    [types.FONT_SIZE](state,fontSize) {
+        state.fontSize = fontSize
+    },
 }
 export default matutaions

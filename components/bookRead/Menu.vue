@@ -46,6 +46,7 @@ export default {
     methods: {
         menu(i) {
             this.setSettingVisible(i)
+            this.setShowMore(false)
         },
     },
 }

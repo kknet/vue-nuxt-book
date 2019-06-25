@@ -13,7 +13,7 @@
 
 <script>
 import {mixin} from '@/assets/js/mixins'
-import {themeList} from '@/assets/js/book'
+import {themeList,addCss} from '@/assets/js/book'
 let thems
 if (process.client) {
      thems = require('@/assets/js/cache') 
@@ -29,13 +29,28 @@ export default {
 
     mounted () {
         this.defaultTheme = thems.theme.getTheme()
+        this.initGlodTheme(this.defaultTheme)
     },
     methods: {
         setTheme(name) {
-            this.setDefaultTheme(name)
-            this.currentBook.rendition.themes.select(this.defaultTheme)
+            thems.theme.setTheme(name)  // 存入缓存
+            this.defaultTheme = name
             this.initGlodTheme()
-        }
+
+        },
+
+        // 设置全局主题
+        initGlodTheme() {
+            if (this.defaultTheme == '默认') {
+                addCss('/default.css')
+            } else if(this.defaultTheme == '雅致') {
+                addCss('/gold.css')
+            } else if(this.defaultTheme == '护眼'){
+                addCss('/eye.css')
+            } else if(this.defaultTheme == '夜间') {
+                addCss('/night.css')
+            }
+        },
 
     }
 };
