@@ -116,6 +116,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@/assets/css/mixin.scss';
 .list {
     display: flex;
 
@@ -136,12 +137,7 @@ export default {
                 white-space: pre-wrap;
                 word-wrap: break-word;
                 word-break: break-all;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                display: -webkit-box;
-                /* autoprefixer: ignore next */
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 2;
+                @include ellipsis2(2);
             }
 
             span {
@@ -198,17 +194,10 @@ export default {
             .book-tags-p {
                 width:230px;
                 font-size: 14px;
-                overflow: hidden;
-                text-overflow:ellipsis;
-                white-space: nowrap;
+                @include ellipsis();
             }
             .desc {
-                overflow: hidden;
-                text-overflow: ellipsis;
-                display: -webkit-box;
-                /* autoprefixer: ignore next */
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 2;
+                @include ellipsis2(2);
                 font-size: 14px;
                 line-height: 1.3;
             }

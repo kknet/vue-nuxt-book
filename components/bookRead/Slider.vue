@@ -2,7 +2,7 @@
     <div>
         <!-- 左边侧滑目录 -->
             <transition name="slide-right">
-                <div class="slider-left" v-show="menuVisible&&settingVisible==0">
+                <div class="slider-left" v-if="menuVisible&&settingVisible==0">
                     <div class="catalog">
                         <span :class="{active:index==active}" v-for="(val,index) of tab" :key="val" @click="onTab(index)">{{val}}</span>
                         
@@ -67,6 +67,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@/assets/css/mixin.scss';
 .slider-left {
     position: relative;
     height: 100vh;
@@ -104,9 +105,7 @@ export default {
     height: 45px;
     line-height: 45px;
     color: #575a5f;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+    @include ellipsis();
 }
 .catalog {
     display: flex;

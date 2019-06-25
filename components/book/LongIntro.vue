@@ -49,6 +49,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@/assets/css/mixin.scss';
 .text,.open {
     color: #333;
     line-height: 1.6;
@@ -58,12 +59,7 @@ export default {
 }
 
 .close {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    /* autoprefixer: ignore next */
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    @include ellipsis2(3)
     
 }
 .text {

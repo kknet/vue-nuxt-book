@@ -5,8 +5,12 @@
         </div>
         <div  class="article"  ref="article-warp">
             <div ref="article" >
-                    <h4 class="chapter-t" :style="{fontSize:fontSize+0.5+'vw'}">{{title}}</h4>
+                <h4 class="chapter-t" :style="{fontSize:fontSize+0.5+'vw'}">{{title}}</h4>
                 <p :style="{fontSize:fontSize + 'vw'}" v-for="(item,index) in content" :key="index">{{item}}</p>
+                <div class="btns">
+                    <van-button class="btn" v-if="content.length&&chapterCount!=0" @click.stop="prev" round type="danger" block size="small">加载上一章</van-button>
+                    <van-button class="btn" v-if="content.length&&chapterCount+1!=bookRead.catalog.length" @click.stop="next" round type="danger" block size="small">加载下一章</van-button>
+                </div>
             </div>
         </div>
         <!-- <div class="article-page">{{currentPaging + '/' + resultPaging}}</div> -->
@@ -30,6 +34,12 @@ export default {
         title: {
             type:String,
             default:''
+        },
+
+        // 当前是第几章。下标
+        chapterCount: {
+            type:Number,
+            default:0
         }
     },
     
@@ -67,12 +77,14 @@ export default {
 
     mounted () {
         this.setFontSize(font.fontSize.getFontSize())
-        // this.setResultPaging()
-        
+        // this.$refs['article-warp'].addEventListener("scroll", this.throttle(this.handleScroll,500,800) );
     },
 
+    // destroyed() {
+    //     window.removeEventListener('scroll',this.handleScroll)
+    // },
+    
     methods: {
-
         // 计算一张分多少页
         setResultPaging() {
             this.$nextTick(() => {
@@ -95,7 +107,7 @@ export default {
                 
             if (currentX <= offsetX) {//用户点击左侧三分之一
                 this.showTitleAndMenu(false)
-                this.prevPage()
+                // this.prevPage()
             }else if (offsetX <= currentX && currentX <= offsetX * 2) {
                 this.showTitleAndMenu(true)
             }else if (currentX >= offsetX * 2 && currentX <= clWidth) {
@@ -140,6 +152,58 @@ export default {
             this.setSettingVisible(-1)
             this.setShowMore(false)
         },
+
+        /**
+         * 函数节流方法
+         * @param Function fn 延时调用函数
+         * @param Number delay 延迟多长时间
+         * @param Number atleast 至少多长时间触发一次
+         * @return Function 延迟执行的方法
+         */
+        // atleast要大于dalay
+        throttle (fn, dalay, atleast = 0) {
+            let timer = null
+            let previous = null
+            return (...args) => {
+                let now = +new Date()	//获取当前时间戳
+                !previous ? now : previous
+                if (atleast && now - previous > atleast) {
+                    fn.apply(this, args)
+                    // 重置上一次开始时间为本次结束时间
+                    previous = now
+                    clearTimeout(timer)
+                } else {
+                    clearTimeout(timer)
+                    timer = setTimeout(() => {
+                        fn.apply(this, args)
+                        previous = null
+                    }, dalay)
+                }
+            }
+        },
+
+        // handleScroll() {
+        //     // 滚动条总高度
+        //     const scrollHight = this.$refs['article-warp'].scrollTop
+        //     // 可视区高度
+        //     const clientHeight = document.documentElement.clientHeight;
+        //     // 当前滚动条高度
+        //     const scrollTop = this.$refs['article'].scrollHeight;
+        //     // 判断是否触底
+        //     if (scrollHight + clientHeight >= scrollTop ) {
+        //         this.$emit('loadMore')
+        //     }
+        // },
+
+        // 下一章
+        next() {
+            this.$emit('loadMore')
+        },
+
+        // 上一章
+        prev() {
+            this.$emit('prev')
+        }
     },
 
     watch: {
@@ -192,13 +256,14 @@ export default {
     }
 }
 .article {
-    padding: 0 15px 0 15px;
+    padding: 0 15px 20px 15px;
     position: absolute;
     top: 40px;
     bottom: 0;
     overflow-y: auto;
     h4 {
         font-weight: bold;
+        line-height: 1.4;
     }
     p {
         text-indent: 25px;
@@ -215,5 +280,12 @@ export default {
     left: 10px;
     bottom: 10px
 }
-        
+.btns {
+    display: flex;
+    justify-content: space-between;
+    .btn {
+        flex: 1;
+        margin: 0 5px;
+    }
+}
 </style>

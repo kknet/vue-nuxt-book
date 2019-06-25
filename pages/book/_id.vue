@@ -223,9 +223,7 @@ export default {
         flex: 1;
         font-size: 12px;
         letter-spacing: 1px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+        @include ellipsis();
         position: relative;
         color: gray;
         .icon {

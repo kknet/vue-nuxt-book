@@ -43,6 +43,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@/assets/css/mixin.scss';
 .book-detail {
     box-sizing: border-box;
 
@@ -62,9 +63,7 @@ export default {
             flex-direction: column;
             justify-content: space-between;
             .book-title {
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
+                @include ellipsis();
                 font-weight: 700;
                 font-size: 16px;
                 padding-top: 3px;

@@ -24,20 +24,19 @@
                                     <use xlink:href="#icon-qianjin"></use>
                                 </svg>
                                 </span>
-
                                 </div>
                                 <div class="book-meta gray">
                                     <svg class="icon" aria-hidden="true">
-                                    <use xlink:href="#icon-yonghu"></use>
-                                </svg>
+                                        <use xlink:href="#icon-yonghu"></use>
+                                    </svg>
                                     <span>{{val.author}}</span>
                                     <span class="line">|</span>
                                     <span v-if="!val.readChapter">尚未阅读</span>
-                                    <span v-else>{{val.readChapter}}</span>
+                                    <span v-else class="read-chapter">{{val.readChapter}}</span>
                                 </div>
                                 <div class="book-to-new gray">
-                                    <span>更新至 正文 {{val.lastChapter}}</span>
-                                    <span>{{val.updated | UPDATED}}</span>
+                                    <span class="update">更新至 {{val.lastChapter}}</span>
+                                    <span class="day">{{val.updated | UPDATED}}</span>
                                 </div>
                             </div>
                         </div>
@@ -168,13 +167,14 @@ export default {
 
 .book-item {
     display: flex;
-    padding: 15px;
+    padding: 15px 0;
 
     img {
         width: 50px;
         height: 70px;
         box-shadow: 0 1px 0.8vw rgba(0, 0, 0, .3);
         margin-right: 2.667vw;
+        margin-left: 15px;
     }
 
     .book-info {
@@ -182,14 +182,16 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        box-sizing: border-box;
         font-size: 14px;
         padding: 3px 0;
-
+        box-sizing: border-box;
+        margin-right: 15px;
+        width: 100%;
         .book-header {
             display: flex;
             justify-content: space-between;
-
+            width: 100%;
+            overflow: hidden;
             span:first-child {
                 font-size: 14px;
                 font-weight: bold;
@@ -200,6 +202,15 @@ export default {
             display: flex;
             justify-content: space-between;
             font-size: 12px;
+            width: 100%;
+            .update{
+                flex: 1;
+                @include ellipsis2(1);
+                line-height: 1.1;
+            }
+            .day {
+                text-align: center;
+            }
         }
 
         .book-meta {
@@ -213,6 +224,11 @@ export default {
 
             .line {
                 margin: 0 5px;
+            }
+            .read-chapter {
+                flex: 1;
+                @include ellipsis2(1);
+                line-height: 1.1;
             }
         }
     }

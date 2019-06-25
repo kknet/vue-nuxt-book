@@ -172,9 +172,14 @@ router.post('/postBook', async ctx => {
             readChapterIndex
         }
     })
+    
+    const data = await Book.findOne({id})
     ctx.body = {
         code:10000,
-        msg:'添加成功'
+        data: {
+            book: data,
+            msg:'添加成功',
+        }
     }
 })
 
