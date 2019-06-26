@@ -14,7 +14,7 @@
 
 ## 项目说明
 
-项目运行需要安装 **<abbr title="Hyper Text Markup Language">Mongodb</abbr>**数据库，注册登录会用到，
+项目运行需要安装 **<abbr title="Hyper Text Markup Language">Mongodb</abbr>** 数据库，注册登录会用到，
 项目中用 **<abbr title="Hyper Text Markup Language">vuex</abbr>** 做了大量数据缓存，提升页面加载速度
 项目过程中采了不少坑,如有疑问，尽可留言交流
 
