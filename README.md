@@ -53,6 +53,7 @@
 - [ ] 书签
 - [ ] 阅读历史本地缓存
 - [ ] 书籍左右翻页
+- [ ] 阅读进度条
 
 ## 项目截图
 ![home.png](./images/home.png)
@@ -64,7 +65,7 @@
 ![read.png](./images/read.png)
 ![read2.png](./images/read2.png)
 ![fenlei.png](./images/fenlei.png)
-![my.png](./images/my.png.png)
+![my.png](./images/my.png)
 
 
 ### 关于请求接口跨域问题，
