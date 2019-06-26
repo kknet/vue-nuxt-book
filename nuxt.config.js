@@ -42,7 +42,7 @@ module.exports = {
     ],
 
     axios: {
-        baseURL: process.env.NODE_ENV == "production" ? "http://101.132.188.203:3001" : "http://localhost:3001",
+        baseURL: process.env.NODE_ENV == "production" ? "http://101.132.188.203:6666" : "http://localhost:3001",
         // withCredentials: true,
     },
     proxy: {

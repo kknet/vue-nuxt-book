@@ -20,12 +20,13 @@
               max="100"
               min="0"
               step="1"
-              @change="onProgressChange($event.target.value)"
-              @input="onProgressInput($event.target.value)"
+             
               value="10"
              
               ref="progress"
             >
+             <!-- @change="onProgressChange($event.target.value)" -->
+              <!-- @input="onProgressInput($event.target.value)" -->
              <!-- :disabled="!bookAvailable" -->
                         <div class="progress-icon-wrapper" @click="nextSection()">
                             <svg class="icon" aria-hidden="true">
