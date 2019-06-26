@@ -8,8 +8,9 @@
                     <div class="content">
                         <Detail :bookInfo='books'/>
                         <div class="btns border-bottom">
-                            <van-button type="danger" size="small">点击阅读</van-button>
-                            <van-button size="small" @click="addBook">加入书架</van-button>
+                            <van-button type="danger" size="small" @click="readBook">点击阅读</van-button>
+                            <van-button size="small" @click="addBook" v-if="!books.isCollection">加入书架</van-button>
+                            <van-button size="small"  v-else>已加入书架</van-button>
                         </div>
                         <LongIntro :content='books.longIntro'/>
                         <div class="book-directory" @click="goCatalog">
@@ -69,16 +70,17 @@ export default {
         const id = route.params.id
         if (store.state.book.hasOwnProperty(id)) {  // 如果vuex里面有数据就不去请求接口
             return {
-                books:store.state.book[id]
+                books:JSON.parse(JSON.stringify(store.state.book[id]))
             }
         }
         
         const data = await $axios.$get(`/api/book?id=${id}`)
         if (data.code == 10000) {
             data.book.comment = data.comment    // 评论
+            data.book.isCollection = data.isCollection 
             store.dispatch('setBook', {id,data:data.book})
             return {
-                books:data.book
+                books:data.book,
             }
         }
     },
@@ -160,6 +162,18 @@ export default {
         async addBookPost() {
             const data =  await this.$axios.$post(`/api/addBook`,this.books)
             this.$toast(data.msg)
+            let books = JSON.parse(JSON.stringify(this.books))
+            books.isCollection = true
+            this.books = books
+            this.setBook({
+                id:this.$route.params.id,
+                data:books
+            })
+        },
+
+        // 点击阅读
+        readBook() {
+            this.$router.push({name:'readBook-id',params:{id:this.books._id}})
         }
     },
 }

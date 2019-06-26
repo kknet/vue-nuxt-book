@@ -68,10 +68,14 @@ router.get('/book', async ctx => {
         axios.get(`${KOA_BOOK_COMMENT}?book=${id}&sortType=newest&limit=5`)
     ])
 
+    // 查询本书籍是否有加入书架
+    const isCollection = await Book.findOne({ id })
+
     ctx.body = {
         code: 10000,
         book: data.data,
-        comment: comment.data.docs
+        comment: comment.data.docs,
+        isCollection:isCollection?true:false
     }
 })
 

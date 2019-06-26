@@ -7,6 +7,7 @@
             </svg>
             <div class="title">{{val.title}}</div>
         </li>
+        <van-button class="btn" v-if="userName" @click="loginOut" round type="danger" block size="small">退出登录</van-button>
     </ul>
     </van-popup>
 </template>
@@ -75,6 +76,16 @@ export default {
                 query:val.query
             })
         },
+
+        loginOut() {
+            this.$axios.$post('/api/loginOut').then(res => {
+                if (res.code == 10000) {
+                    this.$toast('退出登录成功')
+                    this.setUserName('')
+                    this.setShowTopMenu(false)
+                }
+            })
+        }
     }
 }
 </script>
@@ -117,6 +128,10 @@ ul {
 .ul {
     flex-wrap: wrap;
     margin-top: 0;
-    padding: 25px 0;
+    padding: 25px 0 15px 0;
+}
+.btn {
+    width: 80%;
+    margin: 25px auto 0;
 }
 </style>

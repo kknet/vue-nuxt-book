@@ -71,9 +71,11 @@ const actions = {
 }
 
 function setData(state, type, key, data) {
-    let newData = state[type]
+    let newData = JSON.parse(JSON.stringify(state[type]))
     if (!newData[key]) {
         newData[key] = data
+    } else{
+        newData[key].isCollection != newData[key].isCollection
     }
     return newData
 }

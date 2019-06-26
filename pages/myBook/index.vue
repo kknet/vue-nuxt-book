@@ -117,7 +117,7 @@ export default {
                     
                     this.$dialog.confirm({
                         title: '提示',
-                        message: '确定删除吗？'
+                        message: '删除后阅读历史将清空？'
                     }).then(() => {
                         instance.close();
                         this.deleteBook(id,index)
@@ -130,6 +130,14 @@ export default {
             const data = await this.$axios.$post('/api/deleteBook',{id})
             if (data.code == 10000) {
                 this.myBookList.splice(index,1)
+                // 更新vuex数据
+                const book = this.book[id]
+                if (this.book[id]) {
+                    let book = JSON.parse(JSON.stringify(this.book[id])) 
+                    book.isCollection = false
+                    this.setBook({id,data:book})
+                    // store.dispatch('setBook', {id,data:data.book})
+                }
             }
         },
 
