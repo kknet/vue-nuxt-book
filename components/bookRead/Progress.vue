@@ -15,16 +15,16 @@
                             </svg>
                         </div>
                         <input
-              class="progress"
-              type="range"
-              max="100"
-              min="0"
-              step="1"
-             
-              value="10"
-             
-              ref="progress"
-            >
+                            class="progress"
+                            type="range"
+                            :max="bookRead.catalog.length-1"
+                            min="0"
+                            step="1"
+                            @change="onProgressChange($event.target.value)"
+                            :value="chapterCount"
+                            
+                            ref="progress"
+                        />
              <!-- @change="onProgressChange($event.target.value)" -->
               <!-- @input="onProgressInput($event.target.value)" -->
              <!-- :disabled="!bookAvailable" -->
@@ -52,60 +52,27 @@ export default {
         title:{
             type:String,
             default:'章节名称'
+        },
+
+        chapterCount: {
+            type:Number,
+            default: 0
         }
     },
 
     methods: {
-        onProgressChange(progress) {
-            this.setProgress(progress).then(() => {
-                this.displayProgress();
-                this.updataProgressBg();
-            });
+        onProgressChange(e) {
+            this.$emit('change',e)
         },
-        onProgressInput(progress) {
-            this.setProgress(progress).then(() => {
-                this.displayProgress();
-                this.updataProgressBg();
-            });
-        },
-        displayProgress() {
-            const cfi = this.currentBook.locations.cfiFromPercentage(
-                this.progress / 100
-            );
-            this.display(cfi);
-        },
-        updataProgressBg() {
-            this.$refs.progress.style.cssText = `background-size:${
-        this.progress
-      }% 100% !important;`;
-        },
+     
         prevSection() {
-            if (this.section > 0 && this.bookAvailable) {
-                this.setSection(this.section - 1).then(() => {
-                    this.displaySection();
-                });
-            }
+            this.$emit('prev')
         },
         nextSection() {
-            if (
-                this.section < this.currentBook.spine.length - 1 &&
-                this.bookAvailable
-            ) {
-                this.setSection(this.section + 1).then(() => {
-                    this.displaySection();
-                });
-            }
+            this.$emit('next')
         },
-        displaySection() {
-            const sectionInfo = this.currentBook.section(this.section);
-            if (sectionInfo && sectionInfo.href) {
-                this.display(sectionInfo.href);
-            }
-        }
+        
     },
-    updated() {
-        this.updataProgressBg();
-    }
 };
 </script>
 
@@ -185,7 +152,7 @@ export default {
                     -webkit-appearance: none;
                     height: 2px;
                     margin: 0 10px;
-
+                    background: rgba(0, 0, 0, 0.15);
                     &:focus {
                         outline: none;
                     }
@@ -195,9 +162,9 @@ export default {
                         height: 20px;
                         width: 20px;
                         border-radius: 50%;
-                        background: white;
+                        background: #cecece;
                         box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.15);
-                        border: 1px solid #ddd;
+                        border: 1px solid #cecece;
                     }
                 }
             }

@@ -9,7 +9,7 @@
         <!-- 左边侧滑目录 -->
         <Slider @chapter='chapter' :title="title"/>
         <!-- 进度条 -->
-        <Progress :title="title"/>
+        <Progress :title="title" @change='change' :chapterCount='chapterCount' @prev='prev' @next='loadMore'/>
         <!-- 设置主题 -->
         <Theme/>
         <!-- 设置字体 -->
@@ -90,7 +90,6 @@ export default {
             this.getBookContent(index)
         },
         async getBookContent(index=this.chapterCount) {
-            
             // 默认获取第一章节的内容
             if (this.locked) {
                 return
@@ -141,6 +140,11 @@ export default {
             }
             this.chapterCount -= 1
             this.getBookContent(this.chapterCount)
+        },
+
+        change(e) {
+            this.chapterCount = Number(e)
+            this.getBookContent(e)
         }
         
     }
