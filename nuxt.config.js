@@ -5,7 +5,14 @@ module.exports = {
         title: '阅读器',
         meta: [
             { charset: 'utf-8' },
-            { name: 'viewport', content: 'width=device-width,minimum-scale=1.0,maximum-scale=1.0' },
+            { name: 'apple-mobile-web-app-capable', content:'yes' },
+            { name: 'apple-mobile-web-app-status-bar-style', content:'default' },
+            { name: 'msapplication-navbutton-color', content:'#4CAF50' },
+            { name: 'x5-page-mode', content:'app' },
+            { name: 'browsermode', content:'application' },
+            { name: 'renderer', content:'webkit' },
+            { name: 'apple-touch-fullscreen', content:'yes' },
+            { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui,viewport-fit=cover' },
             { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
         ],
         link: [
