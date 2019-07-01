@@ -49,7 +49,7 @@ module.exports = {
     ],
 
     axios: {
-        baseURL: process.env.NODE_ENV == "production" ? `${process.env.HOST}/${process.env.PORT}` : "http://localhost:3001",
+        baseURL: process.env.NODE_ENV == "production" ? `${process.env.HOST}/3001` : "http://localhost:3001",
         // withCredentials: true,
     },
     proxy: {
