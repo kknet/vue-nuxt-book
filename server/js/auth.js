@@ -1,6 +1,6 @@
 const User = require('../model/user')
 const axios = require('axios')
-
+const { client_id, client_secret } = require('@/assets/js/github')
 module.exports = app => {
     app.use(async (ctx, next) => {
         if (ctx.path !== '/myBook') {
@@ -12,15 +12,12 @@ module.exports = app => {
             await next()
             return
         }
-        const env = process.env.NODE_ENV === "production"
-        console.log(env);
-        
         const data = await axios({
             method: 'POST',
             url: 'https://github.com/login/oauth/access_token',
             data: {
-                client_id: env ? '26bc05886ab7acf7753a' : 'cc6571de853ab8c8f717',
-                client_secret: env ? '362a7336c5181fd58a4923a8d70706f39d68a196' : '954a51ad022cea5f2db05823390893adf65083da',
+                client_id,
+                client_secret,
                 code,
             },
             headers: {

@@ -75,6 +75,7 @@ import Scroll from "@/components/public/Scroll";
 import {
     mixin
 } from '@/assets/js/mixins'
+const {client_id} = require('@/assets/js/github')
 export default {
     mixins: [mixin],
     components: {
@@ -149,8 +150,7 @@ export default {
         },
 
         goLogin() {
-            console.log();
-            window.location.href = `https://github.com/login/oauth/authorize?client_id=${process.env.client_id}`
+            window.location.href = `https://github.com/login/oauth/authorize?client_id=${client_id}`
             // this.$router.push({name:'login',query:{path:location.origin+ this.$route.fullPath}})
         },
 

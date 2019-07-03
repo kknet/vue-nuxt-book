@@ -23,10 +23,10 @@ module.exports = {
         host: '0.0.0.0',
         port: 3001,
     },
-    env: {
-        client_id: 'cc6571de853ab8c8f717',
-        client_secret: '4108ebda0ab1944b81217719a275e54d052f4e27',
-    },
+    // env: {
+    //     client_id: 'cc6571de853ab8c8f717',
+    //     client_secret: '4108ebda0ab1944b81217719a275e54d052f4e27',
+    // },
 
     loading: { color: '#3B8070' },
 
