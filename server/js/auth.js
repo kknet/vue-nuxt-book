@@ -1,6 +1,6 @@
 const User = require('../model/user')
 const axios = require('axios')
-const { client_id, client_secret } = require('@/assets/js/github')
+const { client_id, client_secret } = require('../../assets/js/github')
 module.exports = app => {
     app.use(async (ctx, next) => {
         if (ctx.path !== '/myBook') {
