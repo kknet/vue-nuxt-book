@@ -1,7 +1,7 @@
 const state = () => ({
     homeList: {     // 首页
         hot: [], //热门书籍
-        retain:[],  // 留存榜
+        retain: [],  // 留存榜
         hotSearch: [], // 热搜绑
         potential: [],//潜力榜
         good: [],    //好评
@@ -18,35 +18,38 @@ const state = () => ({
 
     femaleList: {
         hot: [],
-        retain:[],  // 留存榜
+        retain: [],  // 留存榜
         hotSearch: [], // 热搜绑
         potential: [],
         good: [],
-        vip:  [],
-        newBook:  [],
-        endBook:  [],
-        romance:  [],
+        vip: [],
+        newBook: [],
+        endBook: [],
+        romance: [],
         immortal: [],
-        modern:  [],
-        campus:  [],
-        fantasy:  [],
+        modern: [],
+        campus: [],
+        fantasy: [],
         science: [],
-        suspense:  [],
+        suspense: [],
         woman: []
     },  // 女生
-    book:{},    //图书详情
-    comments:{},    // 评论
-    catalogList:{}, //图书章节
-    catBooks:{},    // 图书主分类
-    catBooksLv2:{}, // 图书子分类
-    rankCategory:{},    //排行榜所有分类
-    searchWords:[] ,    // 搜索关键词
+    book: {},    //图书详情
+    comments: {},    // 评论
+    catalogList: {}, //图书章节
+    catBooks: {},    // 图书主分类
+    catBooksLv2: {}, // 图书子分类
+    rankCategory: {},    //排行榜所有分类
+    searchWords: [],    // 搜索关键词
     showTopMenu: false, // 顶部菜单栏
-    userName:'',    // 登录的用户名
-    bookRead:{},    // 正在阅读的图书详情
+    userInfo: {         // 登录的用户信息
+        avatar: '@/assets/img/avatar.jpg',
+        userName: null
+    },    
+    bookRead: {},    // 正在阅读的图书详情
     settingVisible: -1, // -1 不显示 0 章节 1 进度 2 主题 3 字体
-    menuVisible:false,// 是否显示顶部和底部菜单
-    showMore:false,    // 阅读栏更多
-    fontSize:4.267,    // 默认字体大小
+    menuVisible: false,// 是否显示顶部和底部菜单
+    showMore: false,    // 阅读栏更多
+    fontSize: 4.267,    // 默认字体大小
 })
 export default state

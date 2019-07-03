@@ -4,9 +4,9 @@
     <NavFooter active='3' />
 
     <div v-if="active==0">
-        <div v-if="!userName" class="no-data">
+        <div v-if="!userInfo.userName" class="no-data">
             <van-button round type="danger" block size="normal" @click="goLogin">登录</van-button>
-            <div>登录后实时同步进度</div>
+            <div>登录后实时同步进度 {{userInfo.userName}}</div>
         </div>
         <div class="my" v-else>
             <Scroll class="scroll-warpper-app" ref="scroll">
@@ -113,8 +113,6 @@ export default {
                 case 'right':
                     let id = instance.$el.getAttribute('data-id')
                     let index = instance.$el.getAttribute('data-index')
-                    console.log(id);
-                    
                     this.$dialog.confirm({
                         title: '提示',
                         message: '删除后阅读历史将清空？'
@@ -151,7 +149,9 @@ export default {
         },
 
         goLogin() {
-            this.$router.push({name:'login',query:{path:location.origin+ this.$route.fullPath}})
+            console.log();
+            window.location.href = `https://github.com/login/oauth/authorize?client_id=${process.env.client_id}`
+            // this.$router.push({name:'login',query:{path:location.origin+ this.$route.fullPath}})
         },
 
         bookReads(id) {

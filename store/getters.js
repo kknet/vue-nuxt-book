@@ -7,7 +7,7 @@ export const catBooks = state => state.catBooks
 export const catBooksLv2 = state => state.catBooksLv2
 export const rankCategory = state => state.rankCategory
 export const searchWords = state => state.searchWords
-export const userName = state => state.userName
+export const userInfo = state => state.userInfo
 export const bookRead = state => state.bookRead
 export const menuVisible = state => state.menuVisible
 export const settingVisible = state => state.settingVisible

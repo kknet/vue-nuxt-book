@@ -1,12 +1,13 @@
 import * as types from './mutations-type'
 const { BASE_URL, BASE_URL2 } = require('@/assets/js/conf')
 const actions = {
-    async nuxtServerInit({ commit }, {req, $axios }) {
+    async nuxtServerInit({ commit }, { req, $axios }) {
         const session = req.ctx.session
-        
-        commit(types.USER_NAME, session && session.userName ? session.userName : '')
+        if (session && session.userInfo) {
+            commit(types.USER_INFO, session.userInfo)
+        }
         // 首页 男生
-        const [rankCategory,retain,hotSearch, hot, potential, good, vip, newBook, endBook, fantasy, knight, urban, history, game, science] = await Promise.all([
+        const [rankCategory, retain, hotSearch, hot, potential, good, vip, newBook, endBook, fantasy, knight, urban, history, game, science] = await Promise.all([
             $axios.$get(`${BASE_URL}/gender`), //排行榜所有分类
             $axios.$get(`${BASE_URL}/564547c694f1c6a144ec979b`),// 留存榜
             $axios.$get(`${BASE_URL}/5a684515fc84c2b8efaa9875`),// 热搜榜
@@ -74,7 +75,7 @@ function setData(state, type, key, data) {
     let newData = JSON.parse(JSON.stringify(state[type]))
     if (!newData[key]) {
         newData[key] = data
-    } else{
+    } else {
         newData[key].isCollection != newData[key].isCollection
     }
     return newData

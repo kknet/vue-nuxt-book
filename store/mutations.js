@@ -28,8 +28,8 @@ const matutaions = {
     [types.SEARCH_WORDS](state,searchWords) {
         state.searchWords = searchWords
     },
-    [types.USER_NAME](state,userName) {
-        state.userName = userName
+    [types.USER_INFO](state,userInfo) {
+        state.userInfo = userInfo
     },
     [types.BOOKREAD](state,bookRead) {
         state.bookRead = bookRead

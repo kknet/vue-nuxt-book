@@ -94,8 +94,6 @@ export default {
                     this.resultPaging = Math.floor(scrollW / clientW)
                     this.clWidth = document.documentElement.clientWidth || document.body.clientWidth
                     this.offsetX -= (this.currentPaging - 1) * (this.clWidth - this.margin);
-                    console.log(this.offsetX);
-                    
                 }, 100);
             })
         },

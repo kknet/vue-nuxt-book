@@ -7,10 +7,16 @@ const UserSchema = new Schema({
         unique: true,
         required: true
     },
-    password: {
+    id: {
         type: String,
+        unique: true,
         required: true
     },
+    avatar: {
+        type: String,
+        unique: true,
+        required: true
+    }
 })
 
 

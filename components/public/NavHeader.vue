@@ -12,10 +12,10 @@
                     <span :class="{'active':active==index}" @click="select(index)" v-for="(val,index) of nav" :key="val">{{val}}</span>
                 </div>
                 <div class="right" v-if="!isSearch">
-                    <svg v-if="!userName" class="icon user" aria-hidden="true" @click="$router.push({name:'myBook'})">
+                    <svg v-if="!userInfo.userName" class="icon user" aria-hidden="true" @click="$router.push({name:'myBook'})">
                         <use xlink:href="#icon-icon-user"></use>
                     </svg>
-                    <img v-else src="@/assets/img/avatar.jpg" class="avatar" @click="$router.push({name:'myBook'})"/>
+                    <img v-else :src="userInfo.avatar" class="avatar" @click="$router.push({name:'myBook'})"/>
                     <svg class="icon book" aria-hidden="true" @click="showPop">
                         <use xlink:href="#icon-mulu"></use>
                     </svg>

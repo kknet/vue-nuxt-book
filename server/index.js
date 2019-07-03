@@ -9,7 +9,8 @@ require('./js/session')(app)    // session
 
 async function start() {
     const nuxt = new Nuxt(config)
-    const { host = process.env.HOST || '127.0.0.1', port = process.env.PORT || 3000 } = nuxt.options.server
+    const { host = process.env.HOST || '127.0.0.1', port = process.env.PORT || 3001 } = nuxt.options.server
+
     if (config.dev) {
         const builder = new Builder(nuxt)
         await builder.build()
@@ -18,10 +19,12 @@ async function start() {
     }
     // 路由
     require('./router')(app)
-    // app.use(static(
-    //     path.join(__dirname, '')
-    // ))
-    app.use(cors());
+    require('./js/auth')(app)
+    app.use(cors({
+        origin: 'http://localhost:3001',
+        credentials: true,
+        maxAge: '1728000'
+    }));
     app.use(ctx => {
         ctx.status = 200
         ctx.respond = false // Bypass Koa's built-in response handling

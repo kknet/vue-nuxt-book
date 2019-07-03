@@ -141,7 +141,7 @@ export default {
 
         // 加入书架
         addBook() {
-            if (!this.userName) {
+            if (!this.userInfo.userName) {
                 this.$dialog.confirm({
                     title: '提示',
                     message: '加入书架需要登录噢~~',

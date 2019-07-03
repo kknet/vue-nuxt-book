@@ -7,7 +7,7 @@
             </svg>
             <div class="title">{{val.title}}</div>
         </li>
-        <van-button class="btn" v-if="userName" @click="loginOut" round type="danger" block size="small">退出登录</van-button>
+        <van-button class="btn" v-if="userInfo.userName" @click="loginOut" round type="danger" block size="small">退出登录</van-button>
     </ul>
     </van-popup>
 </template>
@@ -81,7 +81,7 @@ export default {
             this.$axios.$post('/api/loginOut').then(res => {
                 if (res.code == 10000) {
                     this.$toast('退出登录成功')
-                    this.setUserName('')
+                    this.setUserName({})
                     this.setShowTopMenu(false)
                 }
             })

@@ -5,13 +5,13 @@ module.exports = {
         title: '阅读器',
         meta: [
             { charset: 'utf-8' },
-            { name: 'apple-mobile-web-app-capable', content:'yes' },
-            { name: 'apple-mobile-web-app-status-bar-style', content:'default' },
-            { name: 'msapplication-navbutton-color', content:'#4CAF50' },
-            { name: 'x5-page-mode', content:'app' },
-            { name: 'browsermode', content:'application' },
-            { name: 'renderer', content:'webkit' },
-            { name: 'apple-touch-fullscreen', content:'yes' },
+            { name: 'apple-mobile-web-app-capable', content: 'yes' },
+            { name: 'apple-mobile-web-app-status-bar-style', content: 'default' },
+            { name: 'msapplication-navbutton-color', content: '#4CAF50' },
+            { name: 'x5-page-mode', content: 'app' },
+            { name: 'browsermode', content: 'application' },
+            { name: 'renderer', content: 'webkit' },
+            { name: 'apple-touch-fullscreen', content: 'yes' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui,viewport-fit=cover' },
             { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
         ],
@@ -22,6 +22,10 @@ module.exports = {
     server: {
         host: '0.0.0.0',
         port: 3001,
+    },
+    env: {
+        client_id: 'cc6571de853ab8c8f717',
+        client_secret: '4108ebda0ab1944b81217719a275e54d052f4e27',
     },
 
     loading: { color: '#3B8070' },
@@ -49,6 +53,7 @@ module.exports = {
     ],
 
     axios: {
+        withCredentials: true,
         baseURL: process.env.NODE_ENV == "production" ? "http://101.132.188.203:3001" : "http://localhost:3001",
         // withCredentials: true,
     },

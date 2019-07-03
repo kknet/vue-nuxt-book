@@ -10,7 +10,7 @@ export const mixin = {
             'catalogList',
             'rankCategory',
             'searchWords',
-            'userName',
+            'userInfo',
             'bookRead',
             'menuVisible',
             'settingVisible',
@@ -24,7 +24,7 @@ export const mixin = {
         ...mapMutations({
             setCommentsMap: 'COMMENTS',
             setCatBooks: 'CAT_BOOKS',
-            setUserName: 'USER_NAME',
+            setUserName: 'USER_INFO',
             setSettingVisible: 'SETTING_VISIBLE',
             setMenuVisible: 'MENU_VISIBLE',
             setShowMore: 'SHOW_MORE',
@@ -79,7 +79,6 @@ export const page = {
         // newArr, 第二页请求到的数据
         setNewData(newArr) {
             this.dataArr = this.dataArr.concat(newArr)
-            // console.log(this.dataArr);
 
         },
 

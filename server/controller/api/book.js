@@ -119,7 +119,7 @@ router.get('/chapters', async ctx => {
 // 加入书架
 router.post('/addBook', async ctx => {
     const data = ctx.request.body
-    if (!ctx.session.userName) {
+    if (!ctx.session.userInfo.userName) {
         return ctx.body = {
             code: -1,
             msg: '请先登录'
@@ -157,6 +157,7 @@ router.get('/getBook', async ctx => {
 // 查询我的书架单条数据
 router.get('/getBookOne', async ctx => {
     const book = await Book.findOne({ id: ctx.query.id })
+    
     ctx.body = {
         code: 10000,
         data: {
