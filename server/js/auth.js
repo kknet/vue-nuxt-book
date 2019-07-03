@@ -12,12 +12,13 @@ module.exports = app => {
             await next()
             return
         }
+        const env = process.env.NODE_ENV === "production"
         const data = await axios({
             method: 'POST',
             url: 'https://github.com/login/oauth/access_token',
             data: {
-                client_id: 'cc6571de853ab8c8f717',
-                client_secret: '954a51ad022cea5f2db05823390893adf65083da',
+                client_id: env ? 'd206e28818669ecf8e6c' : 'cc6571de853ab8c8f717',
+                client_secret: env ? '5c0ac02771adc39bc83c0b04dedc9546547e77b6' : '954a51ad022cea5f2db05823390893adf65083da',
                 code,
             },
             headers: {
