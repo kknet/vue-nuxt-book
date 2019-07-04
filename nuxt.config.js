@@ -81,6 +81,10 @@ module.exports = {
         }
     },
     build: {
+        babel: {
+            "plugins": ["@babel/plugin-transform-modules-commonjs"]
+        },
+
         extend(config, ctx) {
         },
         postcss: {

@@ -90,7 +90,7 @@ export default {
             return {
                 myBookList:data.data.book
             }
-        }
+        } 
     },
     data() {
         return {

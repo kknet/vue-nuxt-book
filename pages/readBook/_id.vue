@@ -107,7 +107,7 @@ export default {
                 this.$toast.clear()
                 this.content = data.chapter.body.split(/\n/)
                 this.title = this.bookRead.catalog[index].title
-                if (this.userName&&this.isCollection) {
+                if (this.userInfo.userName&&this.isCollection) {
                     this.postBook(index)
                 }
                 

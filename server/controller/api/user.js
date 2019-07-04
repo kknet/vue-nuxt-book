@@ -5,15 +5,15 @@ const User = require('../../model/user')
 const axios = require('axios')
 router.post('/register', async ctx => {
     try {
-        let { username, password } = ctx.request.body
-        if (!username || !password) {
+        let { userName, password } = ctx.request.body
+        if (!userName || !password) {
             return ctx.body = {
                 code: -1,
                 msg: '请填写正确的用户名和密码'
             }
         }
         password = CryptoJS.MD5(password).toString()
-        const user = await User.findOne({ username })
+        const user = await User.findOne({ userName })
         if (user) {
             return ctx.body = {
                 code: -1,
@@ -21,16 +21,20 @@ router.post('/register', async ctx => {
             }
         }
         let nuser = new User({
+            userName,
             password,
-            username
         })
         await nuser.save()
-        ctx.session.userInfo = {
-            username
-        }
+        const user2 = await User.findOne({ userName })
+        ctx.session.userInfo = user2
+        
         ctx.body = {
             code: 10000,
             msg: '注册成功',
+            userInfo: {
+                avatar: user2.avatar,
+                userName
+            }
         }
     } catch (error) {
         ctx.body = {
@@ -45,14 +49,14 @@ router.post('/register', async ctx => {
 // 登录
 router.post('/login', async ctx => {
     try {
-        const { username, password } = ctx.request.body
-        if (!username || !password) {
+        const { userName, password } = ctx.request.body
+        if (!userName || !password) {
             return ctx.body = {
                 code: -1,
                 msg: '请输入用户名和密码'
             }
         }
-        const res = await User.findOne({ username })
+        const res = await User.findOne({ userName })
         if (!res) {
             return ctx.body = {
                 code: -1,
@@ -66,16 +70,21 @@ router.post('/login', async ctx => {
                 msg: '密码错误'
             }
         }
-        const user = await User.findOne({ username: res.username })
-        ctx.session.userName = user.username
+        const user = await User.findOne({ userName: res.userName })
+        ctx.session.userInfo = user
         ctx.body = {
             code: 10000,
             msg: '登录成功',
+            userInfo: {
+                avatar: user.avatar,
+                userName
+            }
         }
     } catch (error) {
         return ctx.body = {
             code: -1,
-            msg: '登录失败'
+            msg: '登录失败',
+            userInfo:{}
         }
     }
 })
@@ -111,7 +120,7 @@ router.get('/users', async ctx => {
         url: 'https://github.com/login/oauth/access_token',
         data: {
             client_id: 'cc6571de853ab8c8f717',
-            client_secret: '954a51ad022cea5f2db05823390893adf65083da',  
+            client_secret: '954a51ad022cea5f2db05823390893adf65083da',
             code,
         },
         headers: {
@@ -120,7 +129,7 @@ router.get('/users', async ctx => {
     })
     if (data.status == 200 && (data.data && !data.error)) {
         const userInfo = await axios.get(`https://api.github.com/user?access_token=${data.data.access_token}`)
-        
+
         const user = await User.findOne({ id: userInfo.data.id })
         if (!user) {    // 用户不存在
             let nuser = new User({
@@ -131,8 +140,8 @@ router.get('/users', async ctx => {
             await nuser.save()
             ctx.session.userName = userInfo.data.login
             console.log(ctx.session.userName);
-            
-            
+
+
             ctx.body = {
                 code: 10000,
                 msg: '登录成功',

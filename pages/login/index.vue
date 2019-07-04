@@ -3,11 +3,11 @@
         <van-nav-bar title="登录" left-arrow @click-left="onClickLeft" class="border-bottom"></van-nav-bar>
         <div class="warp">
             <van-cell-group>
-                <van-field v-model="username" required clearable label="用户名"  placeholder="请输入用户名"  />
+                <van-field v-model="userName" required clearable label="用户名"  placeholder="请输入用户名"  />
                 <van-field v-model="password" type="password" label="密码" placeholder="请输入密码" required />
             </van-cell-group>
             <div  class="reg" @click="$router.push({name:'register'})">用户注册</div>
-            <van-button type="primary" size="normal" block class="btn" :disabled='!username||!password' @click="submit">登录</van-button>
+            <van-button type="primary" size="normal" block class="btn" :disabled='!userName||!password' @click="submit">登录</van-button>
         </div>
         
     </div>
@@ -20,7 +20,7 @@ export default {
     mixins:[mixin],
     data() {
         return {
-            username: '',
+            userName: '',
             password: '',
             disabled: true
         }
@@ -34,12 +34,12 @@ export default {
         async submit() {
             try {
                 const data = await this.$axios.$post('/api/login',{
-                    username: this.username,
+                    userName: this.userName,
                     password: this.password
                 })
                 if (data.code == 10000) { // 注册成功
                     this.$toast('登录成功~~')
-                    this.setUserName(this.username)
+                    this.setUserName(data.userInfo)
                     
                     setTimeout(() => {
                         if (this.$route.query.path) {

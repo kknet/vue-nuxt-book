@@ -1,4 +1,4 @@
-const User = require('../model/user')
+const GithubUserSchema = require('../model/github_user')
 const axios = require('axios')
 const { client_id, client_secret } = require('../../assets/js/github')
 module.exports = app => {
@@ -25,34 +25,27 @@ module.exports = app => {
             },
         })
         if (data.status == 200 && (data.data && !data.error)) {
+            
             const userInfo = await axios.get(`https://api.github.com/user?access_token=${data.data.access_token}`)
-            const user = await User.findOne({ id: userInfo.data.id })
+            const user = await GithubUserSchema.findOne({ userName: userInfo.data.login })
             if (!user) {    // 用户不存在
-                let nuser = new User({
-                    username: userInfo.data.login,
-                    id: userInfo.data.id,
+                let nuser = new GithubUserSchema({
+                    userName: userInfo.data.login,
                     avatar: userInfo.data.avatar_url
                 })
                 await nuser.save()
-                ctx.session.userInfo = {
-                    userName: userInfo.data.login,
-                    avatar: userInfo.data.avatar_url,
-                    id: userInfo.data.id,
-                }
+                const user2 = await GithubUserSchema.findOne({ userName: userInfo.data.login })
+                ctx.session.userInfo = user2
+                console.log(ctx.session.userInfo);
+                
                 ctx.redirect('/myBook')
             } else {// 用户已存在
-                ctx.session.userInfo = {
-                    userName: user.username,
-                    avatar: user.avatar,
-                    id: user.id,
-                }
+                ctx.session.userInfo = user
                 ctx.redirect('/myBook')
             }
         } else {
             console.log('github client_id错误');
-
         }
-
     })
 
 }

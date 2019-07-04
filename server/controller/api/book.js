@@ -67,15 +67,33 @@ router.get('/book', async ctx => {
         axios.get(`${KOA_BOOK}/${id}`),
         axios.get(`${KOA_BOOK_COMMENT}?book=${id}&sortType=newest&limit=5`)
     ])
-
-    // 查询本书籍是否有加入书架
-    const isCollection = await Book.findOne({ id })
-
     ctx.body = {
         code: 10000,
         book: data.data,
         comment: comment.data.docs,
-        isCollection:isCollection?true:false
+    }
+})
+
+// 查询书籍是否已收藏
+router.get('/isCollection', async ctx => {
+    const id = ctx.query.id
+    if (!id) {
+        return ctx.body = {
+            code: -1,
+            msg: '请输入书籍id',
+            isCollection: false
+        }
+    }
+
+    let isCollection = null
+    const user_id = ctx.session.userInfo
+    if (user_id) {
+        isCollection = await Book.findOne({ id, user_id })
+    }
+    // 查询本书籍是否有加入书架
+    ctx.body = {
+        code: 10000,
+        isCollection:isCollection ? true: false
     }
 })
 
@@ -119,14 +137,15 @@ router.get('/chapters', async ctx => {
 // 加入书架
 router.post('/addBook', async ctx => {
     const data = ctx.request.body
-    if (!ctx.session.userInfo.userName) {
+    const { _id, userName } = ctx.session.userInfo
+    if (!userName) {
         return ctx.body = {
             code: -1,
             msg: '请先登录'
         }
     }
 
-    const book = await Book.findOne({ id: data._id })
+    const book = await Book.findOne({ id: data._id, _id })
     if (book) {
         return ctx.body = {
             code: -1,
@@ -134,6 +153,8 @@ router.post('/addBook', async ctx => {
         }
     }
     data.id = data._id
+    data.user_id = _id
+    delete data._id
     let newBook = new Book(data)
     await newBook.save()
     ctx.body = {
@@ -144,7 +165,13 @@ router.post('/addBook', async ctx => {
 
 // 查询我的书架
 router.get('/getBook', async ctx => {
-    const book = await Book.find().sort({ _id: 1 })
+    const user_id = ctx.session.userInfo && ctx.session.userInfo._id
+    if (!user_id) {
+        return ctx.body = {
+            code: -1
+        }
+    }
+    const book = await Book.find({ user_id }).sort({ _id: 1 })
     ctx.body = {
         code: 10000,
         data: {
@@ -156,8 +183,8 @@ router.get('/getBook', async ctx => {
 
 // 查询我的书架单条数据
 router.get('/getBookOne', async ctx => {
-    const book = await Book.findOne({ id: ctx.query.id })
-    
+    const book = await Book.findOne({ id: ctx.query.id, user_id: ctx.session.userInfo._id })
+
     ctx.body = {
         code: 10000,
         data: {
@@ -170,31 +197,33 @@ router.get('/getBookOne', async ctx => {
 
 // 阅读的章节放到服务器
 router.post('/postBook', async ctx => {
-    const {readChapter,readChapterIndex,id} = ctx.request.body
-    await Book.updateOne({ id }, {
+    const user_id = ctx.session.userInfo._id
+    const { readChapter, readChapterIndex, id } = ctx.request.body
+    await Book.updateOne({ id, user_id }, {
         $set: {
             readChapter,
             readChapterIndex
         }
     })
-    
-    const data = await Book.findOne({id})
+
+    const data = await Book.findOne({ id, user_id })
     ctx.body = {
-        code:10000,
+        code: 10000,
         data: {
             book: data,
-            msg:'添加成功',
+            msg: '添加成功',
         }
     }
 })
 
 // 删除我的书架
 router.post('/deleteBook', async ctx => {
-    const {id} = ctx.request.body
-    await Book.deleteOne({ id })
+    const { id } = ctx.request.body
+    const user_id = ctx.session.userInfo._id
+    await Book.deleteOne({ id, user_id })
     ctx.body = {
-        code:10000,
-        msg:'删除成功'
+        code: 10000,
+        msg: '删除成功'
     }
 })
 // 

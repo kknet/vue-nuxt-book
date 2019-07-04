@@ -2,20 +2,18 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const db = require('../js/init.js') 
 const UserSchema = new Schema({
-    username: {
+    userName: {
         type: String,
         unique: true,
         required: true
     },
-    id: {
+    password: {
         type: String,
-        unique: true,
         required: true
     },
     avatar: {
         type: String,
-        unique: true,
-        required: true
+        default:'http://img1.imgtn.bdimg.com/it/u=1471800268,3373504429&fm=26&gp=0.jpg'
     }
 })
 

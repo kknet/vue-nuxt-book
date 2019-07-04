@@ -2,10 +2,15 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const db = require('../js/init.js') 
 const BookSchema = new Schema({
-    id: {
+    id: {   // 书籍的id
         type: String,
         required: true
     },
+    user_id: {  // 用户的id
+        type: String,
+        required: true
+    },
+
     cover: {
         type: String,
         required: true

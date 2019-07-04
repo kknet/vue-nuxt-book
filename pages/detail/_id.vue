@@ -9,7 +9,7 @@
                         <Detail :bookInfo='books'/>
                         <div class="btns border-bottom">
                             <van-button type="danger" size="small" @click="readBook">点击阅读</van-button>
-                            <van-button size="small" @click="addBook" v-if="!books.isCollection">加入书架</van-button>
+                            <van-button size="small" @click="addBook" v-if="!isCollection">加入书架</van-button>
                             <van-button size="small"  v-else>已加入书架</van-button>
                         </div>
                         <LongIntro :content='books.longIntro'/>
@@ -68,19 +68,21 @@ export default {
     },
     async asyncData({$axios,route,store}) {
         const id = route.params.id
+        const isCollection = await $axios.$get(`/api/isCollection?id=${id}`)
         if (store.state.book.hasOwnProperty(id)) {  // 如果vuex里面有数据就不去请求接口
             return {
-                books:JSON.parse(JSON.stringify(store.state.book[id]))
+                books:JSON.parse(JSON.stringify(store.state.book[id])),
+                isCollection: isCollection.isCollection
             }
         }
         
         const data = await $axios.$get(`/api/book?id=${id}`)
         if (data.code == 10000) {
             data.book.comment = data.comment    // 评论
-            data.book.isCollection = data.isCollection 
             store.dispatch('setBook', {id,data:data.book})
             return {
                 books:data.book,
+                isCollection: isCollection.isCollection
             }
         }
     },
@@ -88,6 +90,7 @@ export default {
     data() {
         return {
             books:{},
+            isCollection: false,
             tag:['','primary','success','danger','','primary','success','danger']
         }
     },
@@ -162,13 +165,7 @@ export default {
         async addBookPost() {
             const data =  await this.$axios.$post(`/api/addBook`,this.books)
             this.$toast(data.msg)
-            let books = JSON.parse(JSON.stringify(this.books))
-            books.isCollection = true
-            this.books = books
-            this.setBook({
-                id:this.$route.params.id,
-                data:books
-            })
+            this.isCollection = true
         },
 
         // 点击阅读
