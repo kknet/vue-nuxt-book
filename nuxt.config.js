@@ -42,7 +42,6 @@ module.exports = {
         { src: "~/assets/css/iconfont.js", ssr: false },
 
     ],
-
     router: {
         middleware: ["redirect"],
     },

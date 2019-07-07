@@ -1,6 +1,18 @@
 
-export default async function ({ router,route, redirect, store, $axios }) {
+export default async function ({ app,route, redirect, store, $axios }) {
+    // 错误页面处理
+    // const routers = app.router.options.routes.map(item => item.name)
+    // console.log(routers);
+    // console.log(route);
 
+    // if (!route.name) {
+    //     return redirect('/index')
+    // }
+    // if (route.name.includes('id') && !route.params.id) {
+    //     return redirect('/index')
+    // }
+
+    
     if (route.fullPath == '/') {
         return redirect('/index')
     }
@@ -11,13 +23,4 @@ export default async function ({ router,route, redirect, store, $axios }) {
         }
     }
 
-    // github登录
-    if (route.name === 'myBook') {
-        if (route.query.code) {
-            // const data = await $axios.$get('/api/users', { params: { code: route.query.code } })
-            // if (data.code == 10000 ) {
-            //     // return redirect('/myBook')
-            // }
-        }
-    }
 }
