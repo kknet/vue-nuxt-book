@@ -30,7 +30,14 @@ Vue.filter('UPDATED', updated => {
     const updatedt = [d, hh, mm];
     if (updatedt.length <= 0) return
     const [dd, h, m] = updatedt;
-    if (dd > 0) return `${d}天前`;
+    if (dd > 0) {
+        if (dd > 365) {
+            return `1年前`;
+        } else if (dd >= 182 && dd <= 365) {
+            return `半年前`;
+        }
+        return `${d}天前`;
+    }
     if (h > 0) return `${h}小时前`;
     if (m > 0) return `${m}分钟前`;
 })

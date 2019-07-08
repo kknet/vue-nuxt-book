@@ -28,8 +28,7 @@ module.exports = {
     //     client_secret: '4108ebda0ab1944b81217719a275e54d052f4e27',
     // },
 
-    loading: { color: '#3B8070' },
-
+    loading: '@/components/public/Loading.vue',
     css: [
         "@/assets/css/reset.css",
         "@/assets/css/border.css",

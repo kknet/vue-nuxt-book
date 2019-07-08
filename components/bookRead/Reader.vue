@@ -272,7 +272,6 @@ export default {
         line-height: 1.4;
     }
     p {
-        text-indent: 25px;
         margin: 10px 0px 10px 0px;
         line-height: 1.4;
         color: #575a5f;
