@@ -22,7 +22,10 @@ export default {
                 list: store.state.catalogList[id]
             }
         }
-        const data = await $axios.$get(`/api/chapters?id=${id}`)
+        const bookAtoc = await $axios.$get(`/zhuishu/atoc?view=summary&book=${id}`)     // 这个是书籍源
+        const book_id = bookAtoc[0]._id
+
+        const data = await $axios.$get(`/api/chapters?id=${book_id}`)
         if (data.code == 10000) {
             store.dispatch('setCatalog', {id,list:data.data})
             return {

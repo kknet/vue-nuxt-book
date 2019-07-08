@@ -6,7 +6,12 @@
         <div  class="article"  ref="article-warp">
             <div ref="article" >
                 <h4 class="chapter-t" :style="{fontSize:fontSize+0.5+'vw'}">{{title}}</h4>
-                <p :style="{fontSize:fontSize + 'vw'}" v-for="(item,index) in content" :key="index">{{item}}</p>
+                <div v-if="Array.isArray(content)">
+                    <p :style="{fontSize:fontSize + 'vw'}" v-for="(item,index) in content" :key="index">{{item}}</p>
+                </div>
+                <div v-else>
+                    <p :style="{fontSize:fontSize + 'vw'}">{{content}}</p>
+                </div>
                 <div class="btns">
                     <van-button class="btn" v-if="content.length&&chapterCount!=0" @click.stop="prev" round type="danger" block size="small">加载上一章</van-button>
                     <van-button class="btn" v-if="content.length&&chapterCount+1!=bookRead.catalog.length" @click.stop="next" round type="danger" block size="small">加载下一章</van-button>
@@ -26,7 +31,7 @@ if (process.client) {
 export default {
     props: {
         content: {
-            type:Array,
+            type:[Array,String],
             default() {
                 return []
             }
@@ -254,11 +259,14 @@ export default {
     }
 }
 .article {
-    padding: 0 15px 20px 15px;
+    padding: 0 0 20px 0;
     position: absolute;
     top: 40px;
     bottom: 0;
     overflow-y: auto;
+    width: 92%;
+    left: 50%;
+    transform: translateX(-50%);
     h4 {
         font-weight: bold;
         line-height: 1.4;

@@ -71,7 +71,7 @@ module.exports = {
             }
         },
         "/chapter": {
-            target: "http://chapterup.zhuishushenqi.com",
+            target: "http://chapterup2.zhuishushenqi.com",
             changeOrigin: true,
             pathRewrite: {
                 "^/chapter": "/chapter"

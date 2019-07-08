@@ -76,7 +76,7 @@ router.get('/book', async ctx => {
 
 // 查询书籍是否已收藏
 router.get('/isCollection', async ctx => {
-    
+
     const id = ctx.query.id
     if (!id) {
         return ctx.body = {
@@ -127,12 +127,10 @@ router.get('/chapters', async ctx => {
             comment: []
         }
     }
-    const { data } = await axios.get(`${KOA_BOOK_CATALOG}/${id}?view=chapters`)
-    if (data.ok) {
-        ctx.body = {
-            code: 10000,
-            data: data.mixToc.chapters
-        }
+    const { data } = await axios.get(`${KOA_BOOK_CATALOG}/${id}?view=chapters&channel=mweb`)
+    ctx.body = {
+        code: 10000,
+        data: data.chapters
     }
 })
 

@@ -35,9 +35,11 @@ export default {
     mixins:[mixin],
     async asyncData({$axios,store,params}) {
         const id = params.id
+        const bookAtoc = await $axios.$get(`/zhuishu/atoc?view=summary&book=${id}`)     // 这个是书籍源
+        const book_id = bookAtoc[0]._id
         const [data,data1,data2] = await Promise.all([
             $axios.$get(`/api/book?id=${id}`),
-            $axios.$get(`/api/chapters?id=${id}`),
+            $axios.$get(`/api/chapters?id=${book_id}`),
             $axios.$get(`/api/getBookOne?id=${id}`),
         ])
         if (data.code == 10000 && data1.code == 10000 && data2.code == 10000) {
@@ -105,7 +107,11 @@ export default {
             if (data.ok) {
                 this.locked = false
                 this.$toast.clear()
-                this.content = data.chapter.body.split(/\n/)
+                if (data.chapter.isVip) {   // VIP章节,暂未处理
+                    this.content = 'vip章节，暂未找到合适的源'
+                } else {
+                    this.content = data.chapter.cpContent.split(/\n/)
+                }
                 this.title = this.bookRead.catalog[index].title
                 if (this.userInfo.userName&&this.isCollection) {
                     this.postBook(index)
