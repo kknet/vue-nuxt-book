@@ -86,15 +86,15 @@ router.get('/isCollection', async ctx => {
     }
 
     let isCollection = null
-    const user_id = ctx.session.userInfo._id
-    
+    const user_id = ctx.session.userInfo && ctx.session.userInfo._id
+
     if (user_id) {
         isCollection = await Book.findOne({ id, user_id })
     }
     // 查询本书籍是否有加入书架
     ctx.body = {
         code: 10000,
-        isCollection:isCollection ? true: false
+        isCollection: isCollection ? true : false
     }
 })
 
