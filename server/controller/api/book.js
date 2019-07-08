@@ -86,7 +86,8 @@ router.get('/isCollection', async ctx => {
     }
 
     let isCollection = null
-    const user_id = ctx.session.userInfo
+    const user_id = ctx.session.userInfo._id
+    
     if (user_id) {
         isCollection = await Book.findOne({ id, user_id })
     }
@@ -183,7 +184,11 @@ router.get('/getBook', async ctx => {
 
 // 查询我的书架单条数据
 router.get('/getBookOne', async ctx => {
-    const book = await Book.findOne({ id: ctx.query.id, user_id: ctx.session.userInfo._id })
+    const user_id = ctx.session.userInfo._id
+    let book = null
+    if (user_id) {
+        book = await Book.findOne({ id: ctx.query.id, user_id })
+    }
 
     ctx.body = {
         code: 10000,

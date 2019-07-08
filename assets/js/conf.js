@@ -13,4 +13,4 @@ module.exports = {
     KOA_BOOK_COMMENT: `${BOOK_URL}/book/short-reviews`,  // 评论
     KOA_BOOK_CATALOG: `${BASE_URL}/mix-atoc`,    // 章节目录
     
-}
+} 
