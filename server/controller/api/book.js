@@ -184,7 +184,7 @@ router.get('/getBook', async ctx => {
 
 // 查询我的书架单条数据
 router.get('/getBookOne', async ctx => {
-    const user_id = ctx.session.userInfo._id
+    const user_id = ctx.session.userInfo && ctx.session.userInfo._id
     let book = null
     if (user_id) {
         book = await Book.findOne({ id: ctx.query.id, user_id })
@@ -202,7 +202,7 @@ router.get('/getBookOne', async ctx => {
 
 // 阅读的章节放到服务器
 router.post('/postBook', async ctx => {
-    const user_id = ctx.session.userInfo._id
+    const user_id = ctx.session.userInfo && ctx.session.userInfo._id
     const { readChapter, readChapterIndex, id } = ctx.request.body
     await Book.updateOne({ id, user_id }, {
         $set: {
