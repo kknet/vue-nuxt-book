@@ -76,6 +76,7 @@ router.get('/book', async ctx => {
 
 // 查询书籍是否已收藏
 router.get('/isCollection', async ctx => {
+    
     const id = ctx.query.id
     if (!id) {
         return ctx.body = {

@@ -45,7 +45,6 @@ module.exports = {
     router: {
         middleware: ["redirect"],
     },
-
     modules: [
         '@nuxtjs/axios',
         '@nuxtjs/proxy'

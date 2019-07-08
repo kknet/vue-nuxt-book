@@ -17,6 +17,7 @@ async function start() {
     } else {
         await nuxt.ready()
     }
+    
     // 路由
     require('./router')(app)
     require('./js/auth')(app)
@@ -31,6 +32,11 @@ async function start() {
         ctx.req.ctx = ctx // This might be useful later on, e.g. in nuxtServerInit or with nuxt-stash
         nuxt.render(ctx.req, ctx.res)
     })
+    // app.on("error",(err,ctx)=>{//捕获异常记录错误日志
+    //     console.log(new Date(),":",err);
+    //     console.log(ctx);
+    //     ctx.body = 5555555555
+    //  });
     app.listen(port, host)
     consola.ready({
         message: `Server listening on http://${host}:${port}`,
