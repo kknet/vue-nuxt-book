@@ -7,7 +7,7 @@
             <div ref="article" >
                 <h4 class="chapter-t" :style="{fontSize:fontSize+0.5+'vw'}">{{title}}</h4>
                 <div v-if="Array.isArray(content)">
-                    <p :style="{fontSize:fontSize + 'vw'}" v-for="(item,index) in content" :key="index">{{item}}</p>
+                    <p :style="{fontSize:fontSize + 'vw'}" v-for="(item,index) in content" :key="index">{{item.trim()}}</p>
                 </div>
                 <div v-else>
                     <p :style="{fontSize:fontSize + 'vw'}">{{content}}</p>
@@ -272,6 +272,7 @@ export default {
         line-height: 1.4;
     }
     p {
+        text-indent: 2em;
         margin: 10px 0px 10px 0px;
         line-height: 1.4;
         color: #575a5f;
