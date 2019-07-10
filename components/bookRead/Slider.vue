@@ -1,52 +1,71 @@
 <template>
     <div>
         <!-- 左边侧滑目录 -->
-            <transition name="slide-right">
-                <div class="slider-left" v-if="menuVisible&&settingVisible==0">
-                    <div class="catalog">
-                        <span :class="{active:index==active}" v-for="(val,index) of tab" :key="val" @click="onTab(index)">{{val}}</span>
-                    </div>
-                    <div class="catalog-list" v-show="active==0">
-                        <div class="module-header">共{{bookRead.catalog.length}}章</div>
-                        <div class="chapter-bar">正文目录</div>
-                        <ul>
-                            <li :class="{active:title === val.title}" class="border-bottom chapter-title" @click="click_chapter_title(index)" v-for="(val,index) of list" :key="val.link">{{val.title}}</li>
-                        </ul>
-                        <div class="no-data" v-if="!list.length">加载中~~</div>
-                    </div>
-                    <div v-show="active==1"></div>
+        <transition name="slide-right">
+            <div class="slider-left" v-show="menuVisible&&settingVisible==0">
+                <div class="catalog">
+                    <span :class="{active:index==active}" v-for="(val,index) of tab" :key="val" @click="onTab(index)">
+                        <font>{{val}}</font> <i v-if="index==0">(共{{bookRead.catalog.length}}章)</i><i v-if="index==1">(0个书签)</i>
+                    </span>
                 </div>
-            </transition>
-            <transition name="fade">
-                <div class="fliter fliter1" v-show="settingVisible==0"  @click="onClose"></div>
-            </transition>
+                <div class="catalog-list" v-show="active==0">
+                    <DynamicScroller :items="bookRead.catalog" :min-item-size="54" class="scroller">
+                        <template v-slot="{ item, index, active }">
+                            <DynamicScrollerItem 
+                                :item="item" 
+                                :active="active" 
+                                :size-dependencies="[item.link]" 
+                                :data-index="index" 
+                                :data-active="active" 
+                                :title="item.title" :class="[title === item.title?'active':'',item.isVip?'vip':'']" class="border-bottom chapter-title" @click.native="click_chapter_title(index)">
+                            <span>{{item.title}}</span>
+                            <svg v-if="item.isVip" class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-suo"></use>
+                            </svg>
+                            </DynamicScrollerItem>
+                        </template>
+                    </DynamicScroller>
+                </div>
+                <div v-show="active==1"></div>
+            </div>
+        </transition>
+        <transition name="fade">
+            <div class="fliter fliter1" v-show="settingVisible==0" @click="onClose"></div>
+        </transition>
     </div>
 </template>
 
 <script>
-import {mixin,scrollTop} from '@/assets/js/mixins'
-import Scroll from "@/components/public/Scroll"
+import {
+    mixin,
+    scrollTop
+} from '@/assets/js/mixins'
+import {
+    DynamicScroller,
+    DynamicScrollerItem
+} from 'vue-virtual-scroller'
 export default {
-    mixins:[mixin,scrollTop],
+    mixins: [mixin, scrollTop],
     components: {
-        Scroll,
+        DynamicScroller,
+        DynamicScrollerItem
     },
 
     props: {
         title: {
-            type:String,
-            default:''
+            type: String,
+            default: ''
         },
 
     },
 
-    data () {
+    data() {
         return {
-            active:0,
-            tab:['目录','书签'],
+            active: 0,
+            tab: [`目录`, '书签'],
             index: 0,
-            list:[],
-            newArr:[]
+            list: [],
+            newArr: []
         }
     },
 
@@ -58,66 +77,15 @@ export default {
         click_chapter_title(index) {
             this.setSettingVisible(-1)
             this.setMenuVisible(false)
-            this.$emit('chapter',index)
+            this.$emit('chapter', index)
         },
 
         onClose() {
             this.setSettingVisible(-1)
             this.setMenuVisible(false)
         },
-
-        addEvent() {
-            if (this.index == 0) {
-                setTimeout(() => {
-                    this.list = this.bookRead.catalog2[0]
-                }, 500);
-            }
-            this.$nextTick(() => {
-                let ele = document.querySelector('.catalog-list')
-                const that = this
-                ele.addEventListener('scroll',function () {
-                    if (this.scrollHeight-Math.floor(this.scrollTop) === this.clientHeight) {
-                        if (that.bookRead.catalog2[that.index].length < 20) {
-                            return
-                        }
-                        that.index++
-                        that.list = that.list.concat(that.bookRead.catalog2[that.index])
-                        if (that.list.length > 100) {
-                            // that.list = that.list.slice(0,100)
-                            // arr.slice(0,100)
-                            console.log(this.scrollTop);
-                            let chapterTitle = document.querySelectorAll('.chapter-title')[0].clientHeight
-                            console.log(chapterTitle);
-                            
-                            this.scrollTo(0,this.scrollTop/2-chapterTitle*6)
-                            that.newArr.push(that.list.splice(0,50))
-                            console.log(that.newArr);
-                        } 
-                    }                    
-                }) 
-            })
-        },
-
-        removeEvent() {
-            this.list = []
-            this.index=0
-            let ele = document.querySelector('.catalog-list')
-            if (ele) {
-                ele.removeEventListener('scroll',() =>{})
-            }
-        }
     },
 
-    watch: {
-        settingVisible(v) {
-            if (v == 0) {
-                this.addEvent()
-            } else {
-                this.removeEvent()
-            }
-            
-        }
-    }
 }
 </script>
 
@@ -130,6 +98,7 @@ export default {
     z-index: 3000;
     overflow-x: hidden;
 }
+
 .catalog-list {
     position: absolute;
     left: 0;
@@ -138,30 +107,20 @@ export default {
     bottom: 0;
     background: #cecece;
     color: #575a5f;
-    overflow-y: auto;
+    overflow: hidden;
 }
-.module-header {
-    font-size: 14px;
-    font-weight: bold;
-    height: 50px;
-    line-height: 50px;
-    padding: 0 20px;
-}
-.chapter-bar {
-    font-size: 14px;
-    color: #969ba3;
-    background: #f6f7f9;
-    padding: 0 20px;
-    height: 50px;
-    line-height: 50px;
-}
+
 .chapter-title {
     padding: 0 20px;
     height: 45px;
     line-height: 45px;
     color: #575a5f;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     @include ellipsis();
 }
+
 .catalog {
     display: flex;
     align-items: center;
@@ -169,14 +128,22 @@ export default {
     background: #cecece;
     span {
         flex: 1;
+        display: flex;
         height: 45px;
         line-height: 45px;
-        text-align: center;
+        align-items: center;
+        justify-content: center;
     }
+
     .active {
         border-bottom: 2px solid #f44;
     }
+    i {
+        font-size: 12px;
+        margin-left: 5px;
+    }
 }
+
 .fliter1 {
     position: fixed;
     z-index: 300;
@@ -184,15 +151,22 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0,0,0,.4);
+    background: rgba(0, 0, 0, .4);
 }
+
 .active {
     font-weight: bold;
     font-size: 16px;
+}
+.vip {
+    color: #999;
 }
 .no-data {
     text-align: center;
     margin-top: 30px;
     padding-top: 15px;
+}
+.scroller {
+  height: 100%;
 }
 </style>

@@ -1,7 +1,9 @@
+
 .title-wrapper {
     background:#1a1a1a!important;
     color: rgba(255,255,255,.8)!important;
 }
+
 .menu-wrapper {
     background:#1a1a1a!important;
     color: rgba(255,255,255,.8)!important;
@@ -18,9 +20,13 @@
     color: rgba(255,255,255,.8)!important;
 
 }
+
 .slider-left .chapter-title {
     color: rgba(255,255,255,.8)!important;
 
+}
+.slider-left .vip{
+    color: rgba(255,255,255,.4)!important;
 }
 .slider-left .chapter-bar {
     background: #1a1a1a!important;
