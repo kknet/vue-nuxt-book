@@ -53,7 +53,7 @@ export default {
         if (data.code == 10000 && data1.code == 10000 && data2.code == 10000) {
             let book = data.book
             book.catalog = data1.data   // 章节目录
-            book.catalog2 = chunk(data1.data,30 ) // 章节目录
+            book.catalog2 = chunk(data1.data,50 ) // 章节目录
             
             store.commit(types.BOOKREAD, book)
             return {

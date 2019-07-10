@@ -22,9 +22,8 @@
 .popup-slide-up-leave-active,
 .fade-slide-right-enter-active,
 .fade-slide-right-leave-active {
-    transition: all .2s linear;
+    transition:.2s linear;
 }
-
 .slide-up-enter,
 .slide-up-leave-to {
     transform: translate3d(0, 138px, 0)

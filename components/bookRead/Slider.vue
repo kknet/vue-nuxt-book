@@ -45,7 +45,8 @@ export default {
             active:0,
             tab:['目录','书签'],
             index: 0,
-            list:[]
+            list:[],
+            newArr:[]
         }
     },
 
@@ -81,13 +82,25 @@ export default {
                         }
                         that.index++
                         that.list = that.list.concat(that.bookRead.catalog2[that.index])
-                        
+                        if (that.list.length > 100) {
+                            // that.list = that.list.slice(0,100)
+                            // arr.slice(0,100)
+                            console.log(this.scrollTop);
+                            let chapterTitle = document.querySelectorAll('.chapter-title')[0].clientHeight
+                            console.log(chapterTitle);
+                            
+                            this.scrollTo(0,this.scrollTop/2-chapterTitle*6)
+                            that.newArr.push(that.list.splice(0,50))
+                            console.log(that.newArr);
+                        } 
                     }                    
                 }) 
             })
         },
 
         removeEvent() {
+            this.list = []
+            this.index=0
             let ele = document.querySelector('.catalog-list')
             if (ele) {
                 ele.removeEventListener('scroll',() =>{})
