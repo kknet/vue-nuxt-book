@@ -34,6 +34,13 @@ import {mixin} from '@/assets/js/mixins'
 export default {
     mixins:[mixin],
     async asyncData({$axios,store,params}) {
+        // 数组分块，前端分页
+        const chunk =(arr, size) =>{
+            return Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
+                arr.slice(i * size, i * size + size)
+            )
+        }
+
         const id = params.id
         const bookAtoc = await $axios.$get(`/zhuishu/atoc?view=summary&book=${id}`)     // 这个是书籍源
         const book_id = bookAtoc[0]._id
@@ -42,9 +49,12 @@ export default {
             $axios.$get(`/api/chapters?id=${book_id}`),
             $axios.$get(`/api/getBookOne?id=${id}`),
         ])
+
         if (data.code == 10000 && data1.code == 10000 && data2.code == 10000) {
             let book = data.book
-            book.catalog = data1.data
+            book.catalog = data1.data   // 章节目录
+            book.catalog2 = chunk(data1.data,30 ) // 章节目录
+            
             store.commit(types.BOOKREAD, book)
             return {
                 title: data2.data.book&&data2.data.book.readChapter || data1.data[0].title,
@@ -151,7 +161,8 @@ export default {
         change(e) {
             this.chapterCount = Number(e)
             this.getBookContent(e)
-        }
+        },
+
         
     }
 
@@ -159,8 +170,5 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
 
 

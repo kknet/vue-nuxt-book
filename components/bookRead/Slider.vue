@@ -5,14 +5,14 @@
                 <div class="slider-left" v-if="menuVisible&&settingVisible==0">
                     <div class="catalog">
                         <span :class="{active:index==active}" v-for="(val,index) of tab" :key="val" @click="onTab(index)">{{val}}</span>
-                        
                     </div>
                     <div class="catalog-list" v-show="active==0">
                         <div class="module-header">共{{bookRead.catalog.length}}章</div>
                         <div class="chapter-bar">正文目录</div>
                         <ul>
-                            <li :class="{active:title === val.title}" class="border-bottom chapter-title" @click="click_chapter_title(index)" v-for="(val,index) of bookRead.catalog" :key="val.link">{{val.title}}</li>
+                            <li :class="{active:title === val.title}" class="border-bottom chapter-title" @click="click_chapter_title(index)" v-for="(val,index) of list" :key="val.link">{{val.title}}</li>
                         </ul>
+                        <div class="no-data" v-if="!list.length">加载中~~</div>
                     </div>
                     <div v-show="active==1"></div>
                 </div>
@@ -36,13 +36,16 @@ export default {
         title: {
             type:String,
             default:''
-        }
+        },
+
     },
 
     data () {
         return {
             active:0,
-            tab:['目录','书签']
+            tab:['目录','书签'],
+            index: 0,
+            list:[]
         }
     },
 
@@ -60,9 +63,48 @@ export default {
         onClose() {
             this.setSettingVisible(-1)
             this.setMenuVisible(false)
+        },
+
+        addEvent() {
+            if (this.index == 0) {
+                setTimeout(() => {
+                    this.list = this.bookRead.catalog2[0]
+                }, 500);
+            }
+            this.$nextTick(() => {
+                let ele = document.querySelector('.catalog-list')
+                const that = this
+                ele.addEventListener('scroll',function () {
+                    if (this.scrollHeight-Math.floor(this.scrollTop) === this.clientHeight) {
+                        if (that.bookRead.catalog2[that.index].length < 20) {
+                            return
+                        }
+                        that.index++
+                        that.list = that.list.concat(that.bookRead.catalog2[that.index])
+                        
+                    }                    
+                }) 
+            })
+        },
+
+        removeEvent() {
+            let ele = document.querySelector('.catalog-list')
+            if (ele) {
+                ele.removeEventListener('scroll',() =>{})
+            }
         }
     },
 
+    watch: {
+        settingVisible(v) {
+            if (v == 0) {
+                this.addEvent()
+            } else {
+                this.removeEvent()
+            }
+            
+        }
+    }
 }
 </script>
 
@@ -134,5 +176,10 @@ export default {
 .active {
     font-weight: bold;
     font-size: 16px;
+}
+.no-data {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 15px;
 }
 </style>
