@@ -2,7 +2,7 @@
     <div class="home">
         <NavHeader @select='select'/>
         <div class="home-warp">
-            <Scroll class="scroll-warpper-app" :data='homeList.hot'>
+            <Scroll class="scroll-warpper-app" :data='homeList.hot' pullup @scrollToEnd='scrollToEnd' ref="scroll">
                 <div>
                     <Swiper :swiper="swiper" />
                     <SearchBar/>
@@ -15,7 +15,7 @@
                         <TabItem :nav='rankTab' class="rank-tab" @change='rankChange' />
                         <BookItem :list='rankList || homeList.hot.slice(20,40)'/>
                     </div>
-                    <div class="book-warp">
+                    <div class="book-warp" v-if="homeList.newBook.length">
                         <Title title='新书抢先' desc='24小时热销新书' />
                         <BookItem align :list='homeList.newBook.slice(0,3)' />
                     </div>
@@ -109,6 +109,10 @@ export default {
                     name: 'female'
                 })
             }
+        },
+
+        scrollToEnd() {
+            this.$refs.scroll.refresh()
         }
     }
 };

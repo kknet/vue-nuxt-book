@@ -5,7 +5,7 @@
             v-for="(val,index) of tabArr"
             :key="val.id"
             :icon="val.icon"
-            :class="{'active':active==index}"
+            :class="{'actives':active==index}"
         >{{val.title}}</van-tabbar-item>
     </van-tabbar>
 </template>
@@ -39,9 +39,7 @@ export default {
     font-family: sans-serif;
     padding: 20px 0 20px 0;
 }
-.active {
-    color: #ed424b!important;
-}
+
 .van-tabbar-item--active {
     color:#7d7e80;
 }

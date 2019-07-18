@@ -10,12 +10,12 @@
                         <Title title="热门小说" desc="起点编辑推荐" />
                         <BookItem :list="femaleList.hot.slice(0,20)" />
                     </div>
-                    <div class="book-warp">
+                    <!-- <div class="book-warp">
                         <Title title="排行榜" />
                         <TabItem :nav="rankTab" class="rank-tab" @change="rankChange" />
-                        <BookItem :list="rankList || femaleList.hot.slice(20,40)" />
-                    </div>
-                    <div class="book-warp">
+                        <BookItem :list="rankList || femaleList.hot.slice(0,20)" />
+                    </div> -->
+                    <div class="book-warp" v-if="femaleList.newBook.length">
                         <Title title="新书抢先" desc="24小时热销新书" />
                         <BookItem align :list="femaleList.newBook.slice(0,3)" />
                     </div>
@@ -73,10 +73,7 @@ export default {
     },
     data() {
         return {
-            rankTab: [{
-                    name: '热销榜',
-                    ros: 'hot'
-                },
+            rankTab: [
                 {
                     name: '潜力榜',
                     ros: 'potential'
