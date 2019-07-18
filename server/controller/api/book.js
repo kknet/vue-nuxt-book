@@ -62,15 +62,14 @@ router.get('/book', async ctx => {
             comment: []
         }
     }
-    // const limit = ctx.query.limit || 5  // 返回几条
-    const [data] = await Promise.all([
+    const [data, comment] = await Promise.all([
         axios.get(`${KOA_BOOK}/${id}`),
-        // axios.get(`${KOA_BOOK_COMMENT}?book=${id}&sortType=newest&limit=5`)
+        axios.get(`${KOA_BOOK_COMMENT}?book=${id}&sortType=newest&limit=5`)
     ])
     ctx.body = {
         code: 10000,
         book: data.data,
-        comment: [],
+        comment: comment.data.docs,
     }
 })
 

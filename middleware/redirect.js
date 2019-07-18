@@ -1,18 +1,14 @@
 
-export default async function ({ app,route, redirect, store, $axios }) {
+export default async function ({ app, route, redirect, store, $axios }) {
     // 错误页面处理
-    // const routers = app.router.options.routes.map(item => item.name)
-    // console.log(routers);
-    // console.log(route);
+    $axios.onError(error => {
+        let err = error.response.status
+        if (err && err === 404 ) {
+            return redirect('/error')
+        }
+    })
 
-    // if (!route.name) {
-    //     return redirect('/index')
-    // }
-    // if (route.name.includes('id') && !route.params.id) {
-    //     return redirect('/index')
-    // }
 
-    
     if (route.fullPath == '/') {
         return redirect('/index')
     }

@@ -45,8 +45,10 @@ export default {
                 list:data.comment.docs,
                 start:0
             })
+            
             return {
                 dataArr: data.comment.docs,
+                list: data.comment.docs,
             }
         }
     },
@@ -60,17 +62,17 @@ export default {
         return {
             start: 0,
             probeType:3,
+            list:[]
         }
     },
     methods: {
         onClickLeft() {
-            // this.$router.push({ name: `book-id`, params: { id:this.$route.params.id } })
             this.$router.go(-1)
         },
 
         async scrollToEnd() {
             const id = this.$route.params.id
-            if (this.comments[id].list.length >= 15) {
+            if (this.comments[id].list.length >= 15 && this.list.length) {
                 try {
                     if (this.isLocked()) return // 必须等待上一次请求完成
                     this.locked()//开始请求之前锁住
@@ -95,6 +97,7 @@ export default {
                             list:arr,
                             start:this.start
                         })
+                        this.list = data.comment.docs.length ? data.comment.docs : []
                     }
                 } catch (error) {
                     this.unLocked() // 解锁
@@ -110,7 +113,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/assets/css/vant.scss';
+@import '~@/assets/css/glob.scss';
 @import '~@/assets/css/mixin.scss';
 .comment{
     @include scroll(45px,0,#fff);

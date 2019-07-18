@@ -178,7 +178,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/assets/css/mixin.scss';
-@import '~@/assets/css/vant.scss';
+@import '~@/assets/css/glob.scss';
 
 .book-details-warp {
     @include scroll(45px,0,#f6f7f9);

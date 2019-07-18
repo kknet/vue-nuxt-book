@@ -143,7 +143,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/assets/css/vant.scss';
+@import '~@/assets/css/glob.scss';
 @import '~@/assets/css/mixin.scss';
 
 .rank-details {

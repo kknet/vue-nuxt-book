@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const BLOG = 'book'     //数据库名字
-const URL = process.env.NODE_ENV == "production" ? `mongodb://101.132.188.203:27017/${BLOG}` : `mongodb://127.0.0.1:27017/${BLOG}`
+const URL = `mongodb://127.0.0.1:27017/${BLOG}`
 // 创建数据库连接
 const db = mongoose.createConnection(URL, {
     // useNewUrlParser: false

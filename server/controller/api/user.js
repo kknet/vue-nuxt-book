@@ -93,7 +93,9 @@ router.post('/login', async ctx => {
 router.post('/loginOut', async ctx => {
     try {
         if (ctx.session && ctx.session.userInfo) {
-            ctx.session.userInfo = null
+            ctx.session = null
+            console.log(ctx.session);
+            
             ctx.body = {
                 code: 10000,
                 msg: '退出登录成功'

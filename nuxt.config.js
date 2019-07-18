@@ -33,6 +33,7 @@ module.exports = {
         "@/assets/css/reset.css",
         "@/assets/css/border.css",
         "@/assets/css/transition.scss",
+        "@/assets/css/glob.scss",
         'vue-virtual-scroller/dist/vue-virtual-scroller.css'
     ],
 
@@ -52,7 +53,7 @@ module.exports = {
 
     axios: {
         withCredentials: true,
-        baseURL: process.env.NODE_ENV == "production" ? "http://101.132.188.203:3001" : "http://192.168.0.107:3001",
+        baseURL: "http://localhost:3001",
         // withCredentials: true,
     },
     proxy: {
