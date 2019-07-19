@@ -54,7 +54,7 @@ module.exports = {
 
     axios: {
         withCredentials: true,
-        baseURL: `${process.env.HOST}:3001`,
+        baseURL: `http://${process.env.HOST}:3001`,
         // withCredentials: true,
     },
     proxy: {
