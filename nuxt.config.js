@@ -1,5 +1,3 @@
-console.log();
-
 module.exports = {
     mode: 'universal',
     head: {
@@ -54,7 +52,7 @@ module.exports = {
 
     axios: {
         withCredentials: true,
-        baseURL: `http://${process.env.HOST}:3001`,
+        baseURL: `http://0.0.0.0:3001`,
         // withCredentials: true,
     },
     proxy: {
