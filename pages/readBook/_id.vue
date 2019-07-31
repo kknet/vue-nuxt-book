@@ -20,14 +20,14 @@
 </template>
 
 <script>
-import Title from '@/components/bookRead/Title'
-import Menu from '@/components/bookRead/Menu'
-import Theme from '@/components/bookRead/Theme'
-import Font from '@/components/bookRead/Font'
-import Reader from '@/components/bookRead/Reader'
-import More from '@/components/bookRead/More'
-import Progress from '@/components/bookRead/Progress'
-import Slider from '@/components/bookRead/Slider'
+import Title from '@/components/readBook/Title'
+import Menu from '@/components/readBook/Menu'
+import Theme from '@/components/readBook/Theme'
+import Font from '@/components/readBook/Font'
+import Reader from '@/components/readBook/Reader'
+import More from '@/components/readBook/More'
+import Progress from '@/components/readBook/Progress'
+import Slider from '@/components/readBook/Slider'
 import * as types from '@/store/mutations-type'
 import Chapter from "@/components/public/Chapter"
 import {mixin} from '@/assets/js/mixins'

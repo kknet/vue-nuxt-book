@@ -18,7 +18,7 @@
                                 :data-index="index" 
                                 :data-active="active" 
                                 :title="item.title" :class="[title === item.title?'active':'',item.isVip?'vip':'']" class="border-bottom chapter-title" @click.native="click_chapter_title(index)">
-                            <span>{{item.title}}</span>
+                            <span class="title">{{item.title}}</span>
                             <svg v-if="item.isVip" class="icon" aria-hidden="true">
                                 <use xlink:href="#icon-suo"></use>
                             </svg>
@@ -168,5 +168,9 @@ export default {
 }
 .scroller {
   height: 100%;
+}
+.title {
+    width: 100%;
+    @include ellipsis();
 }
 </style>
