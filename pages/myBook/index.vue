@@ -150,8 +150,7 @@ export default {
         },
 
         goLogin() {
-            this.$router.push({name:'login'})
-            
+            this.$router.push({name:'login',query:{redirect:{routerName:'myBook'}}})
             // this.$router.push({name:'login',query:{path:location.origin+ this.$route.fullPath}})
         },
 

@@ -151,8 +151,7 @@ export default {
                     confirmButtonText:'去登陆',
                     cancelButtonText:'算了吧'
                 }).then(() => {
-                    // this.$router.push({name:'login',query:{path:location.origin+ this.$route.fullPath}})
-                    this.$router.push({name:'login'})
+                    this.$router.push({name:'login',query:{redirect:{routerName:'detail-id',id: this.$route.params.id}}})
                 }).catch(() => {
                 // on cancel
                 });

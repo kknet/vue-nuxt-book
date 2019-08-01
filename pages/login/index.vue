@@ -60,7 +60,7 @@ export default {
     },
 
     created () {
-        this.route = this.$route.query.c || ''
+        this.redirect = this.$route.query.redirect || ''
     },
 
     methods: {
@@ -93,11 +93,9 @@ export default {
                     // 注册成功
                     this.$toast("登录成功~~");
                     this.setUserName(data.userInfo);
-
                     setTimeout(() => {
-                        if (this.$route.query.path) {
-                            location.href = this.$route.query.path;
-                            // this.$router.go(-1)
+                        if (this.redirect) {
+                            this.$router.push({ name: `${this.redirect.routerName}`, params: { id:this.redirect.id } })
                         } else {
                             this.$router.push({
                                 name: "index"
@@ -121,9 +119,13 @@ export default {
                     this.$toast('注册成功~~')
                     this.setUserName(data.userInfo)
                     setTimeout(() => {
-                        this.$router.push({
-                            name: 'index'
-                        })
+                        if (this.redirect) {
+                            this.$router.push({ name: `${this.redirect.routerName}`, params: { id:this.redirect.id } })
+                        } else {
+                            this.$router.push({
+                                name: "index"
+                            });
+                        }
                     }, 1500);
                 } else if (data.code == -1) { // 用户名已存在
                     this.$toast(data.msg)
