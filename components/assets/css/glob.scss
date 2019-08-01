@@ -1,0 +1,66 @@
+.van-icon {
+    font-size: 20px;
+    color: #333;
+}
+
+.van-nav-bar {
+    background: rgba(0, 0, 0, 0)
+}
+
+.van-hairline--bottom:after {
+    border: 0;
+}
+
+.van-nav-bar__text {
+    color: #333;
+}
+
+.van-icon-search {
+    margin-right: 16px;
+}
+
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+
+@font-face {
+    font-family: FZZCYSK;
+    font-style: normal;
+    font-weight: 400;
+    src: url('/FZZCYSK2.a0828.woff2') format('woff2')
+}
+
+.FZZCYSK {
+    display: inline-block;
+    font: normal normal normal 14px/1 FZZCYSK;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-stroke-width: .1px
+}
+
+.gray {
+    color: gray;
+}
+
+.book-warp {
+    padding: 0 15px 20px;
+    background: #fff;
+    margin-top: 10px;
+}
+
+
+
+.nodata {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+.actives, .actives .van-icon{
+    color: #ed424b!important;
+}

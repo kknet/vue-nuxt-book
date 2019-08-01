@@ -2,7 +2,7 @@ const GithubUserSchema = require('../model/github_user')
 const axios = require('axios')
 const { client_id, client_secret } = require('../../assets/js/github')
 module.exports = async (ctx, next) => {
-    if (ctx.path !== '/myBook') {
+    if (ctx.path !== '/login') {
         await next()
         return
     }
@@ -35,12 +35,12 @@ module.exports = async (ctx, next) => {
             await nuser.save()
             const user2 = await GithubUserSchema.findOne({ userName: userInfo.data.login })
             ctx.session.userInfo = user2
-            ctx.redirect('/myBook')
+            ctx.redirect('/')
         } else {// 用户已存在
             ctx.session.userInfo = user
-            ctx.redirect('/myBook')
+            ctx.redirect('/')
         }
     } else {
         console.log('github client_id错误');
     }
-}
+} 

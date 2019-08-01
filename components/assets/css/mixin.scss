@@ -1,0 +1,34 @@
+@mixin scroll($top, $bottom, $bg) {
+    position: fixed !important;
+    top: $top;
+    left: 0;
+    right: 0;
+    bottom: $bottom;
+    background: $bg;
+
+    .scroll-warpper-app {
+        height: 100%;
+        overflow: hidden;
+    }
+}
+
+@mixin center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+@mixin ellipsis2($a) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    /* autoprefixer: ignore next */
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $a;
+}
