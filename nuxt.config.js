@@ -83,7 +83,7 @@ module.exports = {
         babel: {
             "plugins": ["@babel/plugin-transform-modules-commonjs"]
         },
-
+        extractCss: { allChunks: true },   // css单独提取到link中
         extend(config, ctx) {
         },
         postcss: {
