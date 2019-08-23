@@ -2,32 +2,32 @@
     <div>
         <header>
             <div class="left" v-if="!category">
-                <img src="@/assets/img/logo.svg" v-if="active==0"/>
-                <img src="@/assets/img/logo2.svg" v-else/>
-        </div>
-                <div class="left" v-else>
-                    <span class="category">{{title}}</span>
-                </div>
-                <div class="center">
-                    <span :class="{'active':active==index}" @click="select(index)" v-for="(val,index) of nav" :key="val">{{val}}</span>
-                </div>
-                <div class="right" v-if="!isSearch">
-                    <svg v-if="!userInfo.userName" class="icon user" aria-hidden="true" @click="$router.push({name:'myBook'})">
-                        <use xlink:href="#icon-icon-user"></use>
-                    </svg>
-                    <img v-else :src="userInfo.avatar" class="avatar" @click="$router.push({name:'myBook'})"/>
-                    <svg class="icon book" aria-hidden="true" @click="showPop">
-                        <use xlink:href="#icon-mulu"></use>
-                    </svg>
-                </div>
-                <div class="right" v-else>
-                    <svg class="icon user search" aria-hidden="true" @click="$router.push({name:'search'})">
-                        <use xlink:href="#icon-fenxiang"></use>
-                    </svg>
-                    <svg class="icon book search" aria-hidden="true" @click="showPop">
-                        <use xlink:href="#icon-mulu"></use>
-                    </svg>
-                </div>
+                <img src="@/assets/img/logo.svg" v-if="active==0" />
+                <img src="@/assets/img/logo2.svg" v-else />
+            </div>
+            <div class="left" v-else>
+                <span class="category">{{title}}</span>
+            </div>
+            <div class="center">
+                <span :class="{'active':active==index}" @click="select(index)" v-for="(val,index) of nav" :key="val">{{val}}</span>
+            </div>
+            <div class="right" v-if="!isSearch">
+                <svg v-if="!userInfo.userName" class="icon user" aria-hidden="true" @click="$router.push({name:'myBook'})">
+                    <use xlink:href="#icon-icon-user"></use>
+                </svg>
+                <img v-else :src="userInfo.avatar" class="avatar" @click="$router.push({name:'myBook'})" />
+                <svg class="icon book" aria-hidden="true" @click="showPop">
+                    <use xlink:href="#icon-mulu"></use>
+                </svg>
+            </div>
+            <div class="right" v-else>
+                <svg class="icon user search" aria-hidden="true" @click="$router.push({name:'search'})">
+                    <use xlink:href="#icon-fenxiang"></use>
+                </svg>
+                <svg class="icon book search" aria-hidden="true" @click="showPop">
+                    <use xlink:href="#icon-mulu"></use>
+                </svg>
+            </div>
         </header>
         <Popup />
     </div>
@@ -36,9 +36,11 @@
 
 <script>
 import Popup from './Popup'
-import {mixin} from '@/assets/js/mixins'
+import {
+    mixin
+} from '@/assets/js/mixins'
 export default {
-    mixins:[mixin],
+    mixins: [mixin],
     props: {
         active: {
             type: [String, Number],
@@ -57,8 +59,8 @@ export default {
             default: '分类'
         },
         nav: {
-            type:Array,
-            default() {
+            type: Array,
+            default () {
                 return ['男生', '女生']
             }
         }
@@ -66,7 +68,7 @@ export default {
 
     data() {
         return {
-           
+            showPopFlag: false
         }
     },
 
@@ -84,7 +86,16 @@ export default {
         },
 
         showPop() {
+            // 防止快速点击
+            if (this.showPopFlag) {
+                return
+            }
+            this.showPopFlag = true
+            setTimeout(() => {
+                this.showPopFlag = false
+            }, 300);
             this.setShowTopMenu(!this.showTopMenu)
+
         }
     },
 
@@ -111,6 +122,7 @@ header {
     justify-content: space-between;
     position: relative;
     background: #fff;
+
     div {
         height: 100%;
         display: flex;
@@ -173,12 +185,14 @@ header {
         .user {
             margin-right: 5px;
         }
+
         .avatar {
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            margin-right:5px;
+            margin-right: 5px;
         }
+
         .user,
         .book {
             color: #ed424b;
